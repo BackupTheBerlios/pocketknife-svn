@@ -32,6 +32,7 @@ namespace TestApp
             this.button2 = new System.Windows.Forms.Button();
             this.loggingBox1 = new de.christianleberfinger.dotnet.controls.LogBox();
             this.serialPort1 = new de.christianleberfinger.dotnet.IO.SerialPort();
+            this.serialPortControl1 = new de.christianleberfinger.dotnet.controls.SerialPortControl();
             this.SuspendLayout();
             // 
             // button1
@@ -68,14 +69,21 @@ namespace TestApp
             // 
             // serialPort1
             // 
-            this.serialPort1.PortName = "COM5";
-            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived);
+            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
+            // 
+            // serialPortControl1
+            // 
+            this.serialPortControl1.Location = new System.Drawing.Point(196, 155);
+            this.serialPortControl1.Name = "serialPortControl1";
+            this.serialPortControl1.Size = new System.Drawing.Size(324, 150);
+            this.serialPortControl1.TabIndex = 3;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(454, 264);
+            this.Controls.Add(this.serialPortControl1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.loggingBox1);
@@ -88,10 +96,11 @@ namespace TestApp
 
         #endregion
 
-        private de.christianleberfinger.dotnet.IO.SerialPort serialPort1;
         private de.christianleberfinger.dotnet.controls.LogBox loggingBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
+        private de.christianleberfinger.dotnet.IO.SerialPort serialPort1;
+        private de.christianleberfinger.dotnet.controls.SerialPortControl serialPortControl1;
     }
 }
 

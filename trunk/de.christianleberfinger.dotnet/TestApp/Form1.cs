@@ -15,11 +15,6 @@ namespace TestApp
             InitializeComponent();
         }
 
-        private void serialPort1_OnByteReceived(byte receivedByte)
-        {
-            loggingBox1.log("Message received: " + receivedByte.ToString());
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             for (int i = 0; i < 20; i++)
@@ -34,6 +29,11 @@ namespace TestApp
         private void button2_Click(object sender, EventArgs e)
         {
             serialPort1.Close();
+        }
+
+        private void serialPort1_OnByteReceived_1(byte receivedByte)
+        {
+            loggingBox1.log("Message received: " + receivedByte.ToString());
         }
 
     }

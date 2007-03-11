@@ -27,6 +27,7 @@ using System.Text;
 using System.Reflection;
 using System.Threading;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace de.christianleberfinger.dotnet.IO
 {
@@ -83,7 +84,7 @@ namespace de.christianleberfinger.dotnet.IO
                     data = ReadByte();
 
                     if (data != null)
-                        handleReceivedByte((byte)data);
+                        fireByteReceived(OnByteReceived, (byte)data);
                 }
             }
             catch
@@ -93,13 +94,17 @@ namespace de.christianleberfinger.dotnet.IO
             }
         }
 
-        private void handleReceivedByte(byte receivedByte)
+        /// <summary>
+        /// Fires the ByteReceived-Event. JIT-inlining is forbidden in order to prevent race conditions.
+        /// </summary>
+        /// <param name="handler"></param>
+        /// <param name="receivedByte"></param>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void fireByteReceived(ByteReceivedHandler handler, byte receivedByte)
         {
-            // Copy handler in order to prevent race conditions
-            ByteReceivedHandler handler = OnByteReceived;
-
             if (handler != null)
                 handler(receivedByte);
         }
+
     }
 }

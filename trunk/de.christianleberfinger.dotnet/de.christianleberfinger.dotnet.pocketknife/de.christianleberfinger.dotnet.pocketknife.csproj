@@ -41,6 +41,12 @@
     <Compile Include="controls\LogBox.Designer.cs">
       <DependentUpon>LogBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="controls\SerialPortControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\SerialPortControl.Designer.cs">
+      <DependentUpon>SerialPortControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\SerialPort.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -56,6 +62,10 @@
     <EmbeddedResource Include="controls\LogBox.resx">
       <SubType>Designer</SubType>
       <DependentUpon>LogBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="controls\SerialPortControl.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>SerialPortControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="images\edit-clear.png" />
     <EmbeddedResource Include="images\edit-copy.png" />
