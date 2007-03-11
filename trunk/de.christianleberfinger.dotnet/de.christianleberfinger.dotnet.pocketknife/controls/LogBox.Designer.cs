@@ -35,7 +35,8 @@ namespace de.christianleberfinger.dotnet.controls
             // 
             // listBox1
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
             this.listBox1.Location = new System.Drawing.Point(0, 0);
@@ -70,14 +71,14 @@ namespace de.christianleberfinger.dotnet.controls
             this.btClear.UseVisualStyleBackColor = true;
             this.btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
-            // LoggingBox
+            // LogBox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btCopyClipboard);
             this.Controls.Add(this.btClear);
             this.Controls.Add(this.listBox1);
-            this.Name = "LoggingBox";
+            this.Name = "LogBox";
             this.Size = new System.Drawing.Size(275, 108);
             this.ResumeLayout(false);
 

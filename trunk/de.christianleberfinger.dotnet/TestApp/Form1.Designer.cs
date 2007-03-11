@@ -28,25 +28,11 @@ namespace TestApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.serialPort1 = new de.christianleberfinger.dotnet.IO.SerialPort();
-            this.loggingBox1 = new de.christianleberfinger.dotnet.controls.LogBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.loggingBox1 = new de.christianleberfinger.dotnet.controls.LogBox();
+            this.serialPort1 = new de.christianleberfinger.dotnet.IO.SerialPort();
             this.SuspendLayout();
-            // 
-            // serialPort1
-            // 
-            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived);
-            // 
-            // loggingBox1
-            // 
-            this.loggingBox1.AutoSelectLastEntry = true;
-            this.loggingBox1.ClearButton = true;
-            this.loggingBox1.Location = new System.Drawing.Point(12, 12);
-            this.loggingBox1.MaxEntryCount = 500;
-            this.loggingBox1.Name = "loggingBox1";
-            this.loggingBox1.Size = new System.Drawing.Size(415, 150);
-            this.loggingBox1.TabIndex = 0;
             // 
             // button1
             // 
@@ -67,6 +53,23 @@ namespace TestApp
             this.button2.Text = "Stop";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // loggingBox1
+            // 
+            this.loggingBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.loggingBox1.AutoSelectLastEntry = true;
+            this.loggingBox1.ClearButton = true;
+            this.loggingBox1.Location = new System.Drawing.Point(12, 12);
+            this.loggingBox1.MaxEntryCount = 500;
+            this.loggingBox1.Name = "loggingBox1";
+            this.loggingBox1.Size = new System.Drawing.Size(430, 121);
+            this.loggingBox1.TabIndex = 0;
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.PortName = "COM5";
+            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived);
             // 
             // Form1
             // 
