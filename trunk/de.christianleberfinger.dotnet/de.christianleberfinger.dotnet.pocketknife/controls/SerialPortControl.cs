@@ -34,7 +34,12 @@ namespace de.christianleberfinger.dotnet.controls
 {
     public partial class SerialPortControl : UserControl
     {
-        SerialPort serialPort = new SerialPort();
+        SerialPort port = new SerialPort();
+
+        public SerialPort Port
+        {
+            get { return port; }
+        }
 
         public SerialPortControl()
         {
@@ -44,22 +49,40 @@ namespace de.christianleberfinger.dotnet.controls
 
         private void SerialPortControl_Load(object sender, EventArgs e)
         {
-            
+
         }
 
         delegate void VoidHandler();
+        delegate void StringHandler(string s);
 
         private void initPortNames()
         {
             if (cbPortName.InvokeRequired)
                 cbPortName.Invoke(new VoidHandler(initPortNames));
             else
-            cbPortName.Items.AddRange(SerialPort.GetPortNames());
+                cbPortName.Items.AddRange(SerialPort.GetPortNames());
         }
 
         private void btConnect_Click(object sender, EventArgs e)
         {
-            
+            port.Open();
+
+            updateConnectButton();
+        }
+
+        private void updateConnectButton()
+        {
+            if (btConnect.InvokeRequired)
+            {
+                btConnect.Invoke(new VoidHandler(updateConnectButton));
+            }
+            else
+            {
+                if (port.IsOpen)
+                    btConnect.Text = "Disconnect";
+                else
+                    btConnect.Text = "Connect";
+            }
         }
     }
 }

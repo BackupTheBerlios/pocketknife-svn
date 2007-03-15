@@ -69,6 +69,14 @@ namespace de.christianleberfinger.dotnet.IO
             readThread = null;
         }
 
+        public new bool IsOpen
+        {
+            get
+            {
+                return base.IsOpen && reading;
+            }
+        }
+
         /// <summary>
         /// Threadstart-method for receiving data from the serial port.
         /// </summary>
