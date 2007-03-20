@@ -72,7 +72,7 @@ namespace de.christianleberfinger.dotnet.controls
             this.btCopyClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btCopyClipboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCopyClipboard.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btCopyClipboard.Image = global::de.christianleberfinger.dotnet.Properties.Resources.edit_copy;
+            this.btCopyClipboard.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_copy;
             this.btCopyClipboard.Location = new System.Drawing.Point(204, 0);
             this.btCopyClipboard.Name = "btCopyClipboard";
             this.btCopyClipboard.Size = new System.Drawing.Size(25, 25);
@@ -85,7 +85,7 @@ namespace de.christianleberfinger.dotnet.controls
             this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClear.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btClear.Image = global::de.christianleberfinger.dotnet.Properties.Resources.edit_clear;
+            this.btClear.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_clear;
             this.btClear.Location = new System.Drawing.Point(230, 0);
             this.btClear.Name = "btClear";
             this.btClear.Size = new System.Drawing.Size(25, 25);

@@ -7,8 +7,8 @@
     <ProjectGuid>{FA5642EA-EF04-4FB1-ADB1-1742042F775F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>de.christianleberfinger.dotnet</RootNamespace>
-    <AssemblyName>de.christianleberfinger.dotnet</AssemblyName>
+    <RootNamespace>de.christianleberfinger.dotnet.pocketknife</RootNamespace>
+    <AssemblyName>de.christianleberfinger.dotnet.pocketknife</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
