@@ -44,6 +44,7 @@ namespace de.christianleberfinger.dotnet.controls
         {
             InitializeComponent();
             this.Resize += new EventHandler(LogBox_Resize);
+            
             updateClearButton();
 
             initToolTips();
@@ -61,7 +62,6 @@ namespace de.christianleberfinger.dotnet.controls
 
         void LogBox_Resize(object sender, EventArgs e)
         {
-            updateClearButton();
         }
 
         /// <summary>
@@ -173,7 +173,6 @@ namespace de.christianleberfinger.dotnet.controls
                 btClear.Invoke(new VoidHandler(updateClearButton));
             else
             {
-                //btClear.Location = new Point(this.Width - (btClear.Width + 2), -2);
                 btClear.Visible = clearButton;
             }
         }
