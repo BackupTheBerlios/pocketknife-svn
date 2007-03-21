@@ -45,6 +45,15 @@ namespace de.christianleberfinger.dotnet.controls
             InitializeComponent();
             this.Resize += new EventHandler(LogBox_Resize);
             updateClearButton();
+
+            initToolTips();
+        }
+
+        private void initToolTips()
+        {
+            toolTip1.SetToolTip(btSave, "Save contents of logbook to file.");
+            toolTip1.SetToolTip(btClear, "Clear contents of logbook.");
+            toolTip1.SetToolTip(btCopyClipboard, "Copy contents of logbook to clipboard.");
         }
 
         void LogBox_Resize(object sender, EventArgs e)
@@ -76,7 +85,9 @@ namespace de.christianleberfinger.dotnet.controls
         public bool ClearButton
         {
             get { return clearButton; }
-            set { clearButton = value;
+            set
+            {
+                clearButton = value;
                 updateClearButton();
             }
         }
@@ -178,6 +189,25 @@ namespace de.christianleberfinger.dotnet.controls
                 sb.AppendLine();
             }
             Clipboard.SetText(sb.ToString(), TextDataFormat.Text);
+        }
+
+        private void LogBox_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btSave_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                List<string> content = new List<string>();
+                foreach (object o in listBox1.Items)
+                {
+                    content.Add(o.ToString());
+                }
+                string[] logContent = content.ToArray();
+                System.IO.File.WriteAllLines(saveFileDialog1.FileName, logContent);
+            }
         }
 
     }

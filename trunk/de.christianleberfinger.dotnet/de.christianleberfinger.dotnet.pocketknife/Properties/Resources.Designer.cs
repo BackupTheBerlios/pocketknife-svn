@@ -73,5 +73,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Bitmap media_floppy {
+            get {
+                object obj = ResourceManager.GetObject("media_floppy", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
