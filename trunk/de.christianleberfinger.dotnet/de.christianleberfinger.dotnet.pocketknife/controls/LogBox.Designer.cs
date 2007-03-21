@@ -66,10 +66,10 @@ namespace de.christianleberfinger.dotnet.controls
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(0, 25);
+            this.listBox1.Location = new System.Drawing.Point(-1, 25);
             this.listBox1.Name = "listBox1";
             this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(273, 95);
+            this.listBox1.Size = new System.Drawing.Size(274, 95);
             this.listBox1.TabIndex = 0;
             // 
             // btSave
@@ -78,7 +78,7 @@ namespace de.christianleberfinger.dotnet.controls
             this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btSave.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             this.btSave.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.media_floppy;
-            this.btSave.Location = new System.Drawing.Point(185, 3);
+            this.btSave.Location = new System.Drawing.Point(183, 3);
             this.btSave.Name = "btSave";
             this.btSave.Size = new System.Drawing.Size(25, 25);
             this.btSave.TabIndex = 3;
@@ -91,7 +91,7 @@ namespace de.christianleberfinger.dotnet.controls
             this.btCopyClipboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btCopyClipboard.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             this.btCopyClipboard.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_copy;
-            this.btCopyClipboard.Location = new System.Drawing.Point(216, 3);
+            this.btCopyClipboard.Location = new System.Drawing.Point(214, 3);
             this.btCopyClipboard.Name = "btCopyClipboard";
             this.btCopyClipboard.Size = new System.Drawing.Size(25, 25);
             this.btCopyClipboard.TabIndex = 2;
@@ -104,12 +104,17 @@ namespace de.christianleberfinger.dotnet.controls
             this.btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btClear.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             this.btClear.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_clear;
-            this.btClear.Location = new System.Drawing.Point(247, 3);
+            this.btClear.Location = new System.Drawing.Point(245, 3);
             this.btClear.Name = "btClear";
             this.btClear.Size = new System.Drawing.Size(25, 25);
             this.btClear.TabIndex = 1;
             this.btClear.UseVisualStyleBackColor = true;
             this.btClear.Click += new System.EventHandler(this.btClear_Click);
+            // 
+            // saveFileDialog1
+            // 
+            this.saveFileDialog1.DefaultExt = "txt";
+            this.saveFileDialog1.Filter = "text file (.txt)|*.txt|All Files (*.*)|*.*";
             // 
             // label1
             // 

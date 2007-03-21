@@ -49,7 +49,10 @@ namespace de.christianleberfinger.dotnet.controls
             initToolTips();
         }
 
-        private void initToolTips()
+        /// <summary>
+        /// Initializes the tooltips for the subcomponents of this logbox.
+        /// </summary>
+        protected void initToolTips()
         {
             toolTip1.SetToolTip(btSave, "Save contents of logbook to file.");
             toolTip1.SetToolTip(btClear, "Clear contents of logbook.");
@@ -156,7 +159,7 @@ namespace de.christianleberfinger.dotnet.controls
             this.Invoke(new VoidHandler(listBox1.Items.Clear));
         }
 
-        void selectLastEntry()
+        protected void selectLastEntry()
         {
             if (listBox1.InvokeRequired)
                 listBox1.Invoke(new VoidHandler(selectLastEntry));
@@ -200,14 +203,31 @@ namespace de.christianleberfinger.dotnet.controls
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                List<string> content = new List<string>();
-                foreach (object o in listBox1.Items)
-                {
-                    content.Add(o.ToString());
-                }
-                string[] logContent = content.ToArray();
-                System.IO.File.WriteAllLines(saveFileDialog1.FileName, logContent);
+                saveContentToFile(saveFileDialog1.FileName);
             }
+        }
+
+        /// <summary>
+        /// Copies the entries of this LogBox to an array of strings.
+        /// </summary>
+        /// <returns>Log entries as strings.</returns>
+        public string[] toArray()
+        {
+            List<string> content = new List<string>();
+            foreach (object o in listBox1.Items)
+            {
+                content.Add(o.ToString());
+            }
+            return content.ToArray();
+        }
+
+        /// <summary>
+        /// Saves the entries of this LogBox in a text file.
+        /// </summary>
+        /// <param name="file"></param>
+        public void saveContentToFile(string file)
+        {
+            System.IO.File.WriteAllLines(file, this.toArray());
         }
 
     }
