@@ -51,80 +51,75 @@ namespace de.christianleberfinger.dotnet.controls
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.listBox1 = new System.Windows.Forms.ListBox();
-            this.btSave = new System.Windows.Forms.Button();
-            this.btCopyClipboard = new System.Windows.Forms.Button();
-            this.btClear = new System.Windows.Forms.Button();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.label1 = new System.Windows.Forms.Label();
+            this._listBox = new System.Windows.Forms.ListBox();
+            this._btSave = new System.Windows.Forms.Button();
+            this._btCopyClipboard = new System.Windows.Forms.Button();
+            this._btClear = new System.Windows.Forms.Button();
+            this._toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this._saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this._lblHeader = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // listBox1
+            // _listBox
             // 
-            this.listBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this._listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(-1, 25);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.ScrollAlwaysVisible = true;
-            this.listBox1.Size = new System.Drawing.Size(274, 95);
-            this.listBox1.TabIndex = 0;
+            this._listBox.FormattingEnabled = true;
+            this._listBox.Location = new System.Drawing.Point(-1, 25);
+            this._listBox.Name = "_listBox";
+            this._listBox.ScrollAlwaysVisible = true;
+            this._listBox.Size = new System.Drawing.Size(274, 95);
+            this._listBox.TabIndex = 0;
             // 
             // btSave
             // 
-            this.btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btSave.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btSave.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.media_floppy;
-            this.btSave.Location = new System.Drawing.Point(183, 3);
-            this.btSave.Name = "btSave";
-            this.btSave.Size = new System.Drawing.Size(25, 25);
-            this.btSave.TabIndex = 3;
-            this.btSave.UseVisualStyleBackColor = true;
-            this.btSave.Click += new System.EventHandler(this.btSave_Click);
+            this._btSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._btSave.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this._btSave.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.media_floppy;
+            this._btSave.Location = new System.Drawing.Point(183, 1);
+            this._btSave.Name = "btSave";
+            this._btSave.Size = new System.Drawing.Size(25, 25);
+            this._btSave.TabIndex = 3;
+            this._btSave.UseVisualStyleBackColor = true;
+            this._btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
             // btCopyClipboard
             // 
-            this.btCopyClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btCopyClipboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btCopyClipboard.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btCopyClipboard.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_copy;
-            this.btCopyClipboard.Location = new System.Drawing.Point(214, 3);
-            this.btCopyClipboard.Name = "btCopyClipboard";
-            this.btCopyClipboard.Size = new System.Drawing.Size(25, 25);
-            this.btCopyClipboard.TabIndex = 2;
-            this.btCopyClipboard.UseVisualStyleBackColor = true;
-            this.btCopyClipboard.Click += new System.EventHandler(this.btCopyClipboard_Click);
+            this._btCopyClipboard.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btCopyClipboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._btCopyClipboard.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this._btCopyClipboard.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_copy;
+            this._btCopyClipboard.Location = new System.Drawing.Point(214, 1);
+            this._btCopyClipboard.Name = "btCopyClipboard";
+            this._btCopyClipboard.Size = new System.Drawing.Size(25, 25);
+            this._btCopyClipboard.TabIndex = 2;
+            this._btCopyClipboard.UseVisualStyleBackColor = true;
+            this._btCopyClipboard.Click += new System.EventHandler(this.btCopyClipboard_Click);
             // 
             // btClear
             // 
-            this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btClear.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.btClear.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_clear;
-            this.btClear.Location = new System.Drawing.Point(245, 3);
-            this.btClear.Name = "btClear";
-            this.btClear.Size = new System.Drawing.Size(25, 25);
-            this.btClear.TabIndex = 1;
-            this.btClear.UseVisualStyleBackColor = true;
-            this.btClear.Click += new System.EventHandler(this.btClear_Click);
-            // 
-            // saveFileDialog1
-            // 
-            this.saveFileDialog1.DefaultExt = "txt";
-            this.saveFileDialog1.Filter = "text file (.txt)|*.txt|All Files (*.*)|*.*";
+            this._btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this._btClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._btClear.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this._btClear.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.edit_clear;
+            this._btClear.Location = new System.Drawing.Point(245, 1);
+            this._btClear.Name = "btClear";
+            this._btClear.Size = new System.Drawing.Size(25, 25);
+            this._btClear.TabIndex = 1;
+            this._btClear.UseVisualStyleBackColor = true;
+            this._btClear.Click += new System.EventHandler(this.btClear_Click);
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(2, 6);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 13);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Logbook";
+            this._lblHeader.AutoSize = true;
+            this._lblHeader.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this._lblHeader.Location = new System.Drawing.Point(2, 6);
+            this._lblHeader.Name = "label1";
+            this._lblHeader.Size = new System.Drawing.Size(56, 13);
+            this._lblHeader.TabIndex = 4;
+            this._lblHeader.Text = "Logbook";
             // 
             // LogBox
             // 
@@ -132,11 +127,11 @@ namespace de.christianleberfinger.dotnet.controls
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.listBox1);
-            this.Controls.Add(this.btSave);
-            this.Controls.Add(this.btCopyClipboard);
-            this.Controls.Add(this.btClear);
+            this.Controls.Add(this._lblHeader);
+            this.Controls.Add(this._listBox);
+            this.Controls.Add(this._btSave);
+            this.Controls.Add(this._btCopyClipboard);
+            this.Controls.Add(this._btClear);
             this.Name = "LogBox";
             this.Size = new System.Drawing.Size(273, 121);
             this.Load += new System.EventHandler(this.LogBox_Load);
@@ -147,12 +142,12 @@ namespace de.christianleberfinger.dotnet.controls
 
         #endregion
 
-        private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button btClear;
-        private System.Windows.Forms.Button btCopyClipboard;
-        private System.Windows.Forms.Button btSave;
-        private System.Windows.Forms.ToolTip toolTip1;
-        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox _listBox;
+        private System.Windows.Forms.Button _btClear;
+        private System.Windows.Forms.Button _btCopyClipboard;
+        private System.Windows.Forms.Button _btSave;
+        private System.Windows.Forms.ToolTip _toolTip;
+        private System.Windows.Forms.SaveFileDialog _saveFileDialog;
+        private System.Windows.Forms.Label _lblHeader;
     }
 }

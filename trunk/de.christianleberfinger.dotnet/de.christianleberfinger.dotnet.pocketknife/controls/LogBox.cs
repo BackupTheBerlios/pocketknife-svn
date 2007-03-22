@@ -30,16 +30,25 @@ using System.Windows.Forms;
 
 namespace de.christianleberfinger.dotnet.controls
 {
+    /// <summary>
+    /// LogBox adds some extra functionality to the ListBox control of the .NET-framework
+    /// that makes it an ideal component for the purpose of logging.
+    /// Problems with cross-threaded access are avoided internally. That means, you only
+    /// have to drag&drop LogBox into your GUI and can use it with just calling the log() method.
+    /// </summary>
     public partial class LogBox : UserControl
     {
-        bool autoSelectLastEntry = true;
-        int maxEntryCount = 500;
-        bool clearButton = true;
+        bool _autoSelectLastEntry = true;
+        int _maxEntryCount = 500;
+        bool _clearButton = true;
 
         delegate void StringHandler(string s);
         delegate void StringArrayHandler(string[] strings);
         delegate void VoidHandler();
 
+        /// <summary>
+        /// Creates a new LogBox.
+        /// </summary>
         public LogBox()
         {
             InitializeComponent();
@@ -55,9 +64,9 @@ namespace de.christianleberfinger.dotnet.controls
         /// </summary>
         protected void initToolTips()
         {
-            toolTip1.SetToolTip(btSave, "Save contents of logbook to file.");
-            toolTip1.SetToolTip(btClear, "Clear contents of logbook.");
-            toolTip1.SetToolTip(btCopyClipboard, "Copy contents of logbook to clipboard.");
+            _toolTip.SetToolTip(_btSave, "Save contents of logbook to file.");
+            _toolTip.SetToolTip(_btClear, "Clear contents of logbook.");
+            _toolTip.SetToolTip(_btCopyClipboard, "Copy contents of logbook to clipboard.");
         }
 
         void LogBox_Resize(object sender, EventArgs e)
@@ -71,10 +80,10 @@ namespace de.christianleberfinger.dotnet.controls
          CategoryAttribute("LogBox")]
         public bool AutoSelectLastEntry
         {
-            get { return autoSelectLastEntry; }
+            get { return _autoSelectLastEntry; }
             set
             {
-                autoSelectLastEntry = value;
+                _autoSelectLastEntry = value;
                 if (value)
                     selectLastEntry();
             }
@@ -87,10 +96,10 @@ namespace de.christianleberfinger.dotnet.controls
          CategoryAttribute("LogBox")]
         public bool ClearButton
         {
-            get { return clearButton; }
+            get { return _clearButton; }
             set
             {
-                clearButton = value;
+                _clearButton = value;
                 updateClearButton();
             }
         }
@@ -102,24 +111,24 @@ namespace de.christianleberfinger.dotnet.controls
          CategoryAttribute("LogBox")]
         public int MaxEntryCount
         {
-            get { return maxEntryCount; }
-            set { maxEntryCount = value; }
+            get { return _maxEntryCount; }
+            set { _maxEntryCount = value; }
         }
 
         /// <summary>
         /// Adds a new message to this LogBox. You can call this method without using Invoke().
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">The message you want to log.</param>
         public void log(string message)
         {
             if (InvokeRequired)
                 this.Invoke(new StringHandler(log), new object[] { message });
             else
             {
-                if (listBox1.Items.Count > maxEntryCount)
-                    listBox1.Items.RemoveAt(0);
+                if (_listBox.Items.Count > _maxEntryCount)
+                    _listBox.Items.RemoveAt(0);
 
-                listBox1.Items.Add(message);
+                _listBox.Items.Add(message);
                 selectLastEntry();
             }
         }
@@ -127,8 +136,8 @@ namespace de.christianleberfinger.dotnet.controls
         /// <summary>
         /// Adds a new message to this LogBox. You can call this method without using Invoke().
         /// </summary>
-        /// <param name="format"></param>
-        /// <param name="args"></param>
+        /// <param name="format">A string that can contain zero or more format items, like e.g. {0}.</param>
+        /// <param name="args">An array of objects that will be used to fill the format item's gaps.</param>
         public void log(string format, params object[] args)
         {
             log(string.Format(format, args));
@@ -137,17 +146,17 @@ namespace de.christianleberfinger.dotnet.controls
         /// <summary>
         /// Adds new messages to this LogBox. You can call this method without using Invoke().
         /// </summary>
-        /// <param name="messages"></param>
+        /// <param name="messages">The messages you want to log.</param>
         public void log(string[] messages)
         {
             if (InvokeRequired)
                 this.Invoke(new StringArrayHandler(log), new object[] { messages });
             else
             {
-                listBox1.BeginUpdate();
-                listBox1.Items.AddRange(messages);
+                _listBox.BeginUpdate();
+                _listBox.Items.AddRange(messages);
                 selectLastEntry();
-                listBox1.EndUpdate();
+                _listBox.EndUpdate();
             }
         }
 
@@ -156,24 +165,24 @@ namespace de.christianleberfinger.dotnet.controls
         /// </summary>
         public void clear()
         {
-            this.Invoke(new VoidHandler(listBox1.Items.Clear));
+            this.Invoke(new VoidHandler(_listBox.Items.Clear));
         }
 
         protected void selectLastEntry()
         {
-            if (listBox1.InvokeRequired)
-                listBox1.Invoke(new VoidHandler(selectLastEntry));
+            if (_listBox.InvokeRequired)
+                _listBox.Invoke(new VoidHandler(selectLastEntry));
             else
-                listBox1.SelectedIndex = listBox1.Items.Count - 1;
+                _listBox.SelectedIndex = _listBox.Items.Count - 1;
         }
 
         void updateClearButton()
         {
-            if (btClear.InvokeRequired)
-                btClear.Invoke(new VoidHandler(updateClearButton));
+            if (_btClear.InvokeRequired)
+                _btClear.Invoke(new VoidHandler(updateClearButton));
             else
             {
-                btClear.Visible = clearButton;
+                _btClear.Visible = _clearButton;
             }
         }
 
@@ -185,7 +194,7 @@ namespace de.christianleberfinger.dotnet.controls
         private void btCopyClipboard_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
-            foreach (object o in listBox1.Items)
+            foreach (object o in _listBox.Items)
             {
                 sb.Append(o.ToString());
                 sb.AppendLine();
@@ -200,9 +209,9 @@ namespace de.christianleberfinger.dotnet.controls
 
         private void btSave_Click(object sender, EventArgs e)
         {
-            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            if (_saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                saveContentToFile(saveFileDialog1.FileName);
+                saveContentToFile(_saveFileDialog.FileName);
             }
         }
 
@@ -213,7 +222,7 @@ namespace de.christianleberfinger.dotnet.controls
         public string[] toArray()
         {
             List<string> content = new List<string>();
-            foreach (object o in listBox1.Items)
+            foreach (object o in _listBox.Items)
             {
                 content.Add(o.ToString());
             }

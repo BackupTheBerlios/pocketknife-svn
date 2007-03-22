@@ -29,6 +29,11 @@ using System.Windows.Forms;
 
 namespace de.christianleberfinger.dotnet.controls
 {
+    /// <summary>
+    /// DoubleBufferedPanel adds double buffering to .NET's Panel class.
+    /// In order to create double buffered Panels, just derive from this class and override
+    /// the method OnPaint(PaintEventArgs e).
+    /// </summary>
     public partial class DoubleBufferedPanel : Panel
     {
         public DoubleBufferedPanel()
