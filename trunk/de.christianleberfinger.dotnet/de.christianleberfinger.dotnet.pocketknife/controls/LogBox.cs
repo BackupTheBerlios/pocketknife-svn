@@ -40,7 +40,9 @@ namespace de.christianleberfinger.dotnet.controls
     {
         bool _autoSelectLastEntry = true;
         int _maxEntryCount = 500;
-        bool _clearButton = true;
+        bool _clearButtonVisible = true;
+        bool _copyButtonVisible = true;
+        bool _saveButtonVisible = true;
 
         delegate void StringHandler(string s);
         delegate void StringArrayHandler(string[] strings);
@@ -53,9 +55,8 @@ namespace de.christianleberfinger.dotnet.controls
         {
             InitializeComponent();
             this.Resize += new EventHandler(LogBox_Resize);
-            
-            updateClearButton();
 
+            updateButtons();
             initToolTips();
         }
 
@@ -96,11 +97,36 @@ namespace de.christianleberfinger.dotnet.controls
          CategoryAttribute("LogBox")]
         public bool ClearButton
         {
-            get { return _clearButton; }
+            get { return _clearButtonVisible; }
             set
             {
-                _clearButton = value;
-                updateClearButton();
+                _clearButtonVisible = value;
+                updateButtons();
+            }
+        }
+
+        public bool SaveButtonVisible
+        {
+            get { return _saveButtonVisible; }
+            set
+            {
+                _saveButtonVisible = value;
+                updateButtons();
+            }
+        }
+
+        /// <summary>
+        /// Sets or gets a value that indicates whether a button is visible that allows the user to copy the entries of the LogBox to the clipboard.
+        /// </summary>
+        [Description("Sets or gets a value that indicates whether a button is visible that allows the user to copy the entries of the LogBox to the clipboard."),
+         CategoryAttribute("LogBox")]
+        public bool CopyButton
+        {
+            get { return _copyButtonVisible; }
+            set
+            {
+                _copyButtonVisible = value;
+                updateButtons();
             }
         }
 
@@ -176,13 +202,15 @@ namespace de.christianleberfinger.dotnet.controls
                 _listBox.SelectedIndex = _listBox.Items.Count - 1;
         }
 
-        void updateClearButton()
+        void updateButtons()
         {
-            if (_btClear.InvokeRequired)
-                _btClear.Invoke(new VoidHandler(updateClearButton));
+            if (this.InvokeRequired)
+                this.Invoke(new VoidHandler(updateButtons));
             else
             {
-                _btClear.Visible = _clearButton;
+                _btClear.Visible = _clearButtonVisible;
+                _btCopyClipboard.Visible = _copyButtonVisible;
+                _btSave.Visible = _saveButtonVisible;
             }
         }
 

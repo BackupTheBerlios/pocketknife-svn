@@ -30,9 +30,9 @@ namespace TestApp
         {
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.serialPortControl1 = new de.christianleberfinger.dotnet.controls.SerialPortControl();
             this.loggingBox1 = new de.christianleberfinger.dotnet.controls.LogBox();
             this.serialPort1 = new de.christianleberfinger.dotnet.IO.SerialPort();
-            this.serialPortControl1 = new de.christianleberfinger.dotnet.controls.SerialPortControl();
             this.SuspendLayout();
             // 
             // button1
@@ -55,28 +55,32 @@ namespace TestApp
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // loggingBox1
-            // 
-            this.loggingBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.loggingBox1.AutoSelectLastEntry = true;
-            this.loggingBox1.ClearButton = true;
-            this.loggingBox1.Location = new System.Drawing.Point(12, 12);
-            this.loggingBox1.MaxEntryCount = 500;
-            this.loggingBox1.Name = "loggingBox1";
-            this.loggingBox1.Size = new System.Drawing.Size(430, 121);
-            this.loggingBox1.TabIndex = 0;
-            // 
-            // serialPort1
-            // 
-            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
-            // 
             // serialPortControl1
             // 
             this.serialPortControl1.Location = new System.Drawing.Point(196, 155);
             this.serialPortControl1.Name = "serialPortControl1";
             this.serialPortControl1.Size = new System.Drawing.Size(324, 150);
             this.serialPortControl1.TabIndex = 3;
+            // 
+            // loggingBox1
+            // 
+            this.loggingBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.loggingBox1.AutoSelectLastEntry = true;
+            this.loggingBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.loggingBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.loggingBox1.ClearButton = true;
+            this.loggingBox1.CopyButton = true;
+            this.loggingBox1.Location = new System.Drawing.Point(12, 12);
+            this.loggingBox1.MaxEntryCount = 500;
+            this.loggingBox1.Name = "loggingBox1";
+            this.loggingBox1.SaveButtonVisible = true;
+            this.loggingBox1.Size = new System.Drawing.Size(430, 121);
+            this.loggingBox1.TabIndex = 0;
+            // 
+            // serialPort1
+            // 
+            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
             // 
             // Form1
             // 
