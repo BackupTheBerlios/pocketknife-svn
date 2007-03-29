@@ -16,7 +16,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
         {
             this._ID = ID;
             this._center = center;
-            this._radius = radius;
+            Radius = radius;
         }
 
         public string ID
