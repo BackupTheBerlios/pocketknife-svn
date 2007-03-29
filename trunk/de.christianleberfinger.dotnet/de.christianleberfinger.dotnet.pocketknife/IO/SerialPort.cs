@@ -48,6 +48,9 @@ namespace de.christianleberfinger.dotnet.IO
          CategoryAttribute("SerialPort")]
         public event ConnectionStateChangedHandler OnConnectionStateChange;
 
+        /// <summary>
+        /// Open the specified port's connection and starts an internal thread for reading from it.
+        /// </summary>
         public new void Open()
         {
             Close();
@@ -56,7 +59,7 @@ namespace de.christianleberfinger.dotnet.IO
 
             // Start reading from serialport in a concurrent thread.
             readThread = new Thread(receive);
-            readThread.Name = "serialport reading thread";
+            readThread.Name = "serialport (" + PortName + ") reading thread";
             readThread.IsBackground = true;
             readThread.Start();
             fireConnectionStateChanged(OnConnectionStateChange, true);

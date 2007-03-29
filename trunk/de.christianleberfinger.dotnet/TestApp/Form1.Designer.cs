@@ -59,8 +59,9 @@ namespace TestApp
             // 
             this.serialPortControl1.Location = new System.Drawing.Point(196, 155);
             this.serialPortControl1.Name = "serialPortControl1";
-            this.serialPortControl1.Size = new System.Drawing.Size(324, 150);
+            this.serialPortControl1.Size = new System.Drawing.Size(223, 55);
             this.serialPortControl1.TabIndex = 3;
+            this.serialPortControl1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPortControl1_OnByteReceived);
             // 
             // loggingBox1
             // 

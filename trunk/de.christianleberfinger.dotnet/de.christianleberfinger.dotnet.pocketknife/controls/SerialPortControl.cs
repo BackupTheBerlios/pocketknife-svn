@@ -41,10 +41,28 @@ namespace de.christianleberfinger.dotnet.controls
             get { return port; }
         }
 
+        public event SerialPort.ByteReceivedHandler OnByteReceived
+        {
+            add
+            {
+                port.OnByteReceived += value;
+            }
+            remove
+            {
+                port.OnByteReceived -= value;
+            }
+        }
+
         public SerialPortControl()
         {
             InitializeComponent();
             initPortNames();
+            port.OnConnectionStateChange += new SerialPort.ConnectionStateChangedHandler(port_OnConnectionStateChange);
+        }
+
+        void port_OnConnectionStateChange(bool connected)
+        {
+            updateConnectButton();
         }
 
         private void SerialPortControl_Load(object sender, EventArgs e)
@@ -65,9 +83,23 @@ namespace de.christianleberfinger.dotnet.controls
 
         private void btConnect_Click(object sender, EventArgs e)
         {
-            port.Open();
+            if (port.IsOpen)
+                port.Close();
+            else
+                open();
 
             updateConnectButton();
+        }
+
+        /// <summary>
+        /// Opens the serialport that was specified in the combobox and starts an internal
+        /// thread that reads from it. You can subscribe the event 'OnByteReceived' to
+        /// be notificated about received data.
+        /// </summary>
+        private void open()
+        {
+            port.PortName = cbPortName.Text;
+            port.Open();
         }
 
         private void updateConnectButton()
