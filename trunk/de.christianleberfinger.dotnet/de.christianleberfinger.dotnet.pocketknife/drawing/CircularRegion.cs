@@ -59,5 +59,10 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
 
             return squareDistance <= _squareRadius;
         }
+
+        public override string ToString()
+        {
+            return string.Format("CircularRegion '{0}' with radius '{1}'", ID, Radius);
+        }
     }
 }
