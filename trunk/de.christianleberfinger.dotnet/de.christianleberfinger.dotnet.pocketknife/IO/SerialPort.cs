@@ -28,6 +28,7 @@ using System.Reflection;
 using System.Threading;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace de.christianleberfinger.dotnet.IO
 {
@@ -37,7 +38,15 @@ namespace de.christianleberfinger.dotnet.IO
         Thread readThread = null;
 
         public delegate void ByteReceivedHandler(byte receivedByte);
+
+        [Description("Is fired every time, when a byte was received from the serial port."),
+		 CategoryAttribute("SerialPort")]
         public event ByteReceivedHandler OnByteReceived;
+
+        public delegate void ConnectionStateChangedHandler(bool connected);
+        [Description("Is fired, when a the connection state of the serial port has changed."),
+         CategoryAttribute("SerialPort")]
+        public event ConnectionStateChangedHandler OnConnectionStateChange;
 
         public new void Open()
         {
@@ -50,6 +59,7 @@ namespace de.christianleberfinger.dotnet.IO
             readThread.Name = "serialport reading thread";
             readThread.IsBackground = true;
             readThread.Start();
+            fireConnectionStateChanged(OnConnectionStateChange, true);
         }
 
         public new void Close()
@@ -59,13 +69,17 @@ namespace de.christianleberfinger.dotnet.IO
             // Closing the underlying serialport-object throws an IOException in readThread
             // that causes it to interrupt the blocking ReadByte()-call. 
             //  Thus no explicit interruption or abortion of readThread is necessary.
-            base.Close();
+            try
+            {
+                base.Close();
 
-            // closing the port can take some time
-            Thread.Sleep(250);
+                // closing the port can take some time
+                Thread.Sleep(250);
+            }
+            catch { }
 
             // waiting for readThread to die
-            Threading.ThreadUtils.waitForThreadToDie(readThread);
+            Threading.ThreadUtils.waitForThreadToDie(readThread, 1000);
             readThread = null;
         }
 
@@ -97,11 +111,13 @@ namespace de.christianleberfinger.dotnet.IO
                     if (data != null)
                         fireByteReceived(OnByteReceived, (byte)data);
                 }
+                fireConnectionStateChanged(OnConnectionStateChange, false);
             }
             catch
             {
                 // When the SerialPort and the underlying stream gets closed, an IOException occurs
                 // that interrupts the blocking ReadByte()-call.
+                fireConnectionStateChanged(OnConnectionStateChange, false);
             }
         }
 
@@ -115,6 +131,13 @@ namespace de.christianleberfinger.dotnet.IO
         {
             if (handler != null)
                 handler(receivedByte);
+        }
+
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        private void fireConnectionStateChanged(ConnectionStateChangedHandler handler, bool connected)
+        {
+            if (handler != null)
+                handler(connected);
         }
 
         public void Write(byte[] message)

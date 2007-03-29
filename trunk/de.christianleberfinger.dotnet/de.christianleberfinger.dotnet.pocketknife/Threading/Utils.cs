@@ -39,5 +39,15 @@ namespace de.christianleberfinger.dotnet.Threading
 
             thread.Join();
         }
+
+        public static void waitForThreadToDie(Thread thread, int timeoutMillis)
+        {
+            if (thread == null)
+                return;
+
+            Debug.Assert(Thread.CurrentThread.ManagedThreadId != thread.ManagedThreadId);
+
+            thread.Join(timeoutMillis);
+        }
     }
 }

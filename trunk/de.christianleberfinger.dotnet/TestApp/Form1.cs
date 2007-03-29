@@ -58,5 +58,10 @@ namespace TestApp
             loggingBox1.log("Message received: " + receivedByte.ToString());
         }
 
+        private void serialPort1_OnConnectionStateChange(bool connected)
+        {
+            loggingBox1.log("Connected: {0}", connected);
+        }
+
     }
 }

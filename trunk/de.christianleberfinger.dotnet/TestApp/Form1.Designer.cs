@@ -81,6 +81,7 @@ namespace TestApp
             // serialPort1
             // 
             this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
+            this.serialPort1.OnConnectionStateChange += new de.christianleberfinger.dotnet.IO.SerialPort.ConnectionStateChangedHandler(this.serialPort1_OnConnectionStateChange);
             // 
             // Form1
             // 
