@@ -56,5 +56,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
             }
         }
 
+        public List<IRegion> EnteredRegions
+        {
+            get { return _enteredRegions; }
+        }
+
+
     }
 }
