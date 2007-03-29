@@ -12,8 +12,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
         float _radius;
         float _squareRadius;
 
-        public CircularRegion(PointF center, float radius)
+        public CircularRegion(string ID, PointF center, float radius)
         {
+            this._ID = ID;
             this._center = center;
             this._radius = radius;
         }
