@@ -53,6 +53,9 @@
     <Compile Include="controls\SerialPortControl.Designer.cs">
       <DependentUpon>SerialPortControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="drawing\CircularRegion.cs" />
+    <Compile Include="drawing\HitTest.cs" />
+    <Compile Include="drawing\IRegion.cs" />
     <Compile Include="IO\SerialPort.cs">
       <SubType>Component</SubType>
     </Compile>
