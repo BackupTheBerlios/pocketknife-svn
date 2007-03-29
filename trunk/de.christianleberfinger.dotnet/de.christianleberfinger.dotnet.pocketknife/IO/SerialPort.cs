@@ -69,6 +69,9 @@ namespace de.christianleberfinger.dotnet.IO
             readThread = null;
         }
 
+        /// <summary>
+        /// Indicates, whether this serialport is open or closed.
+        /// </summary>
         public new bool IsOpen
         {
             get
@@ -112,6 +115,21 @@ namespace de.christianleberfinger.dotnet.IO
         {
             if (handler != null)
                 handler(receivedByte);
+        }
+
+        public void Write(byte[] message)
+        {
+            Write(message, 0, message.Length);
+        }
+
+        public void Write(byte message)
+        {
+            Write(new byte[]{message});
+        }
+
+        public void Write(List<byte> message)
+        {
+            Write(message.ToArray());
         }
 
     }
