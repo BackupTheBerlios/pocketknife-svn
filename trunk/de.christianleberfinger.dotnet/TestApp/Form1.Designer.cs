@@ -78,6 +78,7 @@ namespace TestApp
             this.loggingBox1.SaveButtonVisible = true;
             this.loggingBox1.Size = new System.Drawing.Size(430, 121);
             this.loggingBox1.TabIndex = 0;
+            this.loggingBox1.Title = "Logbook";
             // 
             // serialPort1
             // 

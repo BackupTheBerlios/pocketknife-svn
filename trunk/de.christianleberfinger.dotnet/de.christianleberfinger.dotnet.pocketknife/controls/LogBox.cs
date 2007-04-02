@@ -266,5 +266,26 @@ namespace de.christianleberfinger.dotnet.controls
             System.IO.File.WriteAllLines(file, this.toArray());
         }
 
+        /// <summary>
+        /// Sets the title of the LogBox.
+        /// </summary>
+        public string Title
+        {
+            get { return _lblHeader.Text; }
+            set {
+                setHeader(value);            
+            }
+        }
+
+        void setHeader(string title)
+        {
+            if (_lblHeader.InvokeRequired)
+            {
+                _lblHeader.Invoke(new StringHandler(setHeader), title);
+            }
+            else
+            _lblHeader.Text = title;
+        }
+        
     }
 }
