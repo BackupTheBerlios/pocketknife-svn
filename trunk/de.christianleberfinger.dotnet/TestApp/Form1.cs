@@ -35,6 +35,8 @@ namespace TestApp
         public Form1()
         {
             InitializeComponent();
+
+            propertyGridConfig.SelectedObject = Config.Settings;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -66,6 +68,11 @@ namespace TestApp
         private void serialPortControl1_OnByteReceived(byte receivedByte)
         {
             loggingBox1.log("0x{0}", receivedByte.ToString("X"));
+        }
+
+        private void serialPortControl1_Load(object sender, EventArgs e)
+        {
+
         }
 
     }

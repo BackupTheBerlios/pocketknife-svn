@@ -7,8 +7,8 @@ namespace TestApp
 {
     public class Config : Configuration<Config>
     {
-        int myInteger;
-        string myString;
+        int myInteger = 5555;
+        string myString = "Test-String";
 
         public string MyString
         {
