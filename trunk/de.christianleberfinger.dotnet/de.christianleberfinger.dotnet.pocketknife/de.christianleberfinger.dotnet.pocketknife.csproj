@@ -35,6 +35,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="configuration\Configuration.cs" />
+    <Compile Include="configuration\Setting.cs" />
     <Compile Include="controls\DoubleBufferedPanel.cs">
       <SubType>Component</SubType>
     </Compile>
