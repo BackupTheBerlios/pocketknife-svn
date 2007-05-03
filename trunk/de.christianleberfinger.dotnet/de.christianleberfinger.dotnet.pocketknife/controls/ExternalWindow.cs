@@ -37,6 +37,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         string windowClass = null;
         string windowTitle = null;
 
+        IntPtr windowHandle = IntPtr.Zero;
+
         /// <summary>
         /// Creates an instance, that sends the keyboard events "blindly".
         /// That means, it doesn't send it to a specified windows, but to
@@ -61,6 +63,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         {
             this.windowClass = windowClass;
             this.windowTitle = windowTitle;
+
+            windowHandle = FindWindow(windowClass, windowTitle);
         }
 
         /// <summary>
@@ -87,23 +91,80 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
 
         public void bringWindowToFront()
         {
-            if (windowClass == null || windowTitle == null)
+            if (windowHandle == IntPtr.Zero)
                 return;
 
-            IntPtr hWnd = FindWindow(windowClass, windowTitle);
-            SetForegroundWindow(hWnd);
+            SetForegroundWindow(windowHandle);
         }
 
         public void sendKey(Keys key)
         {
-            bringWindowToFront();
-            SendKeys.Send(key.ToString());
+            sendKey(key.ToString());
         }
 
+        /// <summary>
+        /// Sends the keys you define. If you want to know, how to create special keys or key combinations
+        /// not defined in the class ExternalWindow.Keys please have a look at the microsoft msdn homepage.
+        /// <see cref="http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.send.aspx"/>
+        /// </summary>
+        /// <param name="key"></param>
         public void sendKey(string key)
         {
             bringWindowToFront();
-            SendKeys.Send(key);
+            SendKeys.SendWait(key);
+            bringWindowToFront();
+        }
+
+        public class Keys
+        {
+            public const string BACKSPACE = "{BACKSPACE}";
+            public const string BREAK = "{BREAK}";
+            public const string CAPS_LOCK = "{CAPSLOCK}";
+            public const string DELETE = "{DELETE}";
+            public const string DOWN = "{DOWN}";
+            public const string END = "{END}";
+            public const string ENTER = "{ENTER}";
+            public const string ESCAPE = "{ESC}";
+            public const string HELP = "{HELP}";
+            public const string HOME = "{HOME}";
+            public const string INSERT = "{INSERT}";
+            public const string LEFT = "{LEFT}";
+            public const string NUM_LOCK = "{NUMLOCK}";
+            public const string PAGE_DOWN = "{PGDN}";
+            public const string PAGE_UP = "{PGUP}";
+
+            /// <summary>
+            /// reserved for future use
+            /// </summary>
+            public const string PRINT_SCREEN = "{PRTSC}";
+            public const string RIGHT = "{RIGHT}";
+            public const string SCROLL_LOCK = "{SCROLLLOCK}";
+            public const string TAB = "{TAB}";
+            public const string UP = "{UP}";
+            public const string F1 = "{F1}";
+            public const string ADD = "{ADD}";
+
+            /// <summary>
+            /// The subtract key on the numeric keyboard.
+            /// </summary>
+            public const string SUBTRACT = "{SUBTRACT}";
+
+            /// <summary>
+            /// The multiply key on the numeric keyboard.
+            /// </summary>
+            public const string MULTIPLY = "{MULTIPLY}";
+
+            /// <summary>
+            /// The divide key on the numeric keyboard.
+            /// </summary>
+            public const string DIVIDE = "{DIVIDE}";
+
+            public const string SHIFT = "+";
+            public const string CONTROL = "^";
+            public const string ALT = "%";
+
+            public const string CURLYBRACE_OPEN = "{{}";
+            public const string CURLYBRACE_CLOSE = "{}}";
         }
     }
 }
