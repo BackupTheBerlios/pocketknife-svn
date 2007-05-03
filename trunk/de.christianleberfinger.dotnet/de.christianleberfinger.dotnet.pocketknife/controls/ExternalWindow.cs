@@ -37,23 +37,59 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         string windowClass = null;
         string windowTitle = null;
 
+        /// <summary>
+        /// Creates an instance, that sends the keyboard events "blindly".
+        /// That means, it doesn't send it to a specified windows, but to
+        /// the window that is active at the moment.
+        /// </summary>
+        public ExternalWindow()
+        {
+        }
+
+        /// <summary>
+        /// Sends the keyboard events to a specified window. This is
+        /// achieved by first bringing the specified window to the front 
+        /// and sending the keyboard event afterwards.
+        /// </summary>
+        /// <param name="windowClass">Class of the specified window.
+        /// HINT:
+        /// You can discover the correct setting by using Spy++.</param>
+        /// <param name="windowTitle">Title of the specified window.
+        /// HINT:
+        /// You can discover the correct setting by using Spy++.</param>
         public ExternalWindow(string windowClass, string windowTitle)
         {
             this.windowClass = windowClass;
             this.windowTitle = windowTitle;
         }
 
-        // Get a handle to an application window.
+        /// <summary>
+        /// Get a handle to an application window.<para/>
+        /// </summary>
+        /// <param name="lpClassName">Class of the specified window.
+        /// HINT:
+        /// You can discover the correct setting by using Spy++.</param>
+        /// <param name="lpWindowName">Title of the specified window.
+        /// HINT:
+        /// You can discover the correct setting by using Spy++.</param>
+        /// <returns>window handle as int pointer</returns>
         [DllImport("USER32.DLL")]
         public static extern IntPtr FindWindow(string lpClassName,
             string lpWindowName);
 
-        // Activate an application window.
+        /// <summary>
+        /// Sets the specified window to be the active window.
+        /// </summary>
+        /// <param name="hWnd">The handle of the window.</param>
+        /// <returns>A flag indicating the operation's success.</returns>
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public void bringWindowToFront()
         {
+            if (windowClass == null || windowTitle == null)
+                return;
+
             IntPtr hWnd = FindWindow(windowClass, windowTitle);
             SetForegroundWindow(hWnd);
         }
@@ -66,6 +102,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
 
         public void sendKey(string key)
         {
+            bringWindowToFront();
             SendKeys.Send(key);
         }
     }

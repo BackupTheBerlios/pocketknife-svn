@@ -40,7 +40,10 @@ namespace TestApp
             propertyGridConfig.SelectedObject = Config.Settings;
         }
 
-        ExternalWindow calculatorWindow = new ExternalWindow(ExternalWindow.CALC_WINDOW_CLASS, ExternalWindow.CALC_WINDOW_TITLE);
+        public const string CALC_WINDOW_CLASS = "SciCalc";
+        public const string CALC_WINDOW_TITLE = "Rechner";
+
+        ExternalWindow calculatorWindow = new ExternalWindow(CALC_WINDOW_CLASS, CALC_WINDOW_TITLE);
 
         private void Form1_Load(object sender, EventArgs e)
         {
