@@ -37,7 +37,25 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         string windowClass = null;
         string windowTitle = null;
 
-        IntPtr windowHandle = IntPtr.Zero;
+        /// <summary>
+        /// Class of the specified window. If set to NULL, all class names match.
+        /// HINT: You can discover the correct setting by using Spy++.
+        /// </summary>
+        public string WindowClass
+        {
+            get { return windowClass; }
+            set { windowClass = value; }
+        }
+
+        /// <summary>
+        /// Title of the specified window. If set to NULL, all window titles match.
+        /// HINT: You can discover the correct setting by using Spy++.
+        /// </summary>
+        public string WindowTitle
+        {
+            get { return windowTitle; }
+            set { windowTitle = value; }
+        }
 
         /// <summary>
         /// Creates an instance, that sends the keyboard events "blindly".
@@ -53,33 +71,33 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         /// achieved by first bringing the specified window to the front 
         /// and sending the keyboard event afterwards.
         /// </summary>
-        /// <param name="windowClass">Class of the specified window.
-        /// HINT:
-        /// You can discover the correct setting by using Spy++.</param>
-        /// <param name="windowTitle">Title of the specified window.
-        /// HINT:
-        /// You can discover the correct setting by using Spy++.</param>
+        /// <param name="windowClass">Class of the specified window. If set to NULL, 
+        /// all class names match. 
+        /// HINT: You can discover the correct setting by using Spy++.</param>
+        /// <param name="windowTitle">Title of the specified window. If set to NULL, 
+        /// all window titles match.
+        /// HINT: You can discover the correct setting by using Spy++.</param>
         public ExternalWindow(string windowClass, string windowTitle)
         {
             this.windowClass = windowClass;
             this.windowTitle = windowTitle;
-
-            windowHandle = FindWindow(windowClass, windowTitle);
         }
 
         /// <summary>
         /// Get a handle to an application window.<para/>
         /// </summary>
-        /// <param name="lpClassName">Class of the specified window.
+        /// <param name="windowClass">Class of the specified window. If set to NULL, 
+        /// all class names match.
         /// HINT:
         /// You can discover the correct setting by using Spy++.</param>
-        /// <param name="lpWindowName">Title of the specified window.
+        /// <param name="windowTitle">Title of the specified window. If set to NULL, 
+        /// all window titles match.
         /// HINT:
         /// You can discover the correct setting by using Spy++.</param>
         /// <returns>window handle as int pointer</returns>
         [DllImport("USER32.DLL")]
-        public static extern IntPtr FindWindow(string lpClassName,
-            string lpWindowName);
+        public static extern IntPtr FindWindow(string windowClass,
+            string windowTitle);
 
         /// <summary>
         /// Sets the specified window to be the active window.
@@ -89,33 +107,67 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         [DllImport("USER32.DLL")]
         public static extern bool SetForegroundWindow(IntPtr hWnd);
 
+        /// <summary>
+        /// Activates the window that matches the current setting of
+        /// window class and window title.
+        /// </summary>
         public void bringWindowToFront()
         {
+            IntPtr windowHandle = findWindow();
+
             if (windowHandle == IntPtr.Zero)
                 return;
 
             SetForegroundWindow(windowHandle);
         }
 
-        public void sendKey(Keys key)
+        /// <summary>
+        /// Searches for a window that matches the current setting of
+        /// window class and window title.
+        /// </summary>
+        /// <returns>An int pointer representing the found window or 
+        /// IntPtr.Zero if no adequate window was found.</returns>
+        IntPtr findWindow()
         {
-            sendKey(key.ToString());
+            return FindWindow(windowClass, windowTitle);
         }
 
         /// <summary>
-        /// Sends the keys you define. If you want to know, how to create special keys or key combinations
+        /// That's just a dummy method in order to pay attention to the Keys class.
+        /// Unfortunately there's no easy way to use string enums in C#.
+        /// But a possible way is presented in http://www.codeproject.com/csharp/StringEnum.asp
+        /// </summary>
+        /// <param name="key"></param>
+        public void sendKey(Keys key)
+        {
+            throw new NotImplementedException("Use sendKey(string)");
+        }
+
+        /// <summary>
+        /// Sends the keys you define. If you want to know how to create special keys or key combinations
         /// not defined in the class ExternalWindow.Keys please have a look at the microsoft msdn homepage.
         /// <see cref="http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.send.aspx"/>
         /// </summary>
-        /// <param name="key"></param>
+        /// <param name="key">The key (or combination of keys) to send to the external application.</param>
         public void sendKey(string key)
         {
+            IntPtr windowHandle = findWindow();
+
+            if (windowHandle == IntPtr.Zero)
+                return;
+
             bringWindowToFront();
+
             SendKeys.SendWait(key);
+
             bringWindowToFront();
         }
 
-        public class Keys
+        /// <summary>
+        /// Defines some Keys you are able to send to an external application.
+        /// You can also combine the keys.
+        /// </summary>
+        public abstract class Keys
         {
             public const string BACKSPACE = "{BACKSPACE}";
             public const string BREAK = "{BREAK}";
@@ -132,17 +184,17 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             public const string NUM_LOCK = "{NUMLOCK}";
             public const string PAGE_DOWN = "{PGDN}";
             public const string PAGE_UP = "{PGUP}";
-
-            /// <summary>
-            /// reserved for future use
-            /// </summary>
-            public const string PRINT_SCREEN = "{PRTSC}";
             public const string RIGHT = "{RIGHT}";
             public const string SCROLL_LOCK = "{SCROLLLOCK}";
             public const string TAB = "{TAB}";
             public const string UP = "{UP}";
             public const string F1 = "{F1}";
             public const string ADD = "{ADD}";
+
+            /// <summary>
+            /// reserved for future use
+            /// </summary>
+            public const string PRINT_SCREEN = "{PRTSC}";
 
             /// <summary>
             /// The subtract key on the numeric keyboard.

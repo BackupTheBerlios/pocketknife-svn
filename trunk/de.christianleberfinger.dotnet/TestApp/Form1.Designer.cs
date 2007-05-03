@@ -42,9 +42,9 @@ namespace TestApp
             this.propertyGridConfig = new System.Windows.Forms.PropertyGrid();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btCalcOne = new System.Windows.Forms.Button();
-            this.btCalcTwo = new System.Windows.Forms.Button();
             this.btCalcThree = new System.Windows.Forms.Button();
+            this.btCalcTwo = new System.Windows.Forms.Button();
+            this.btCalcOne = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -197,20 +197,20 @@ namespace TestApp
             this.groupBox1.Controls.Add(this.btCalcOne);
             this.groupBox1.Location = new System.Drawing.Point(3, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(334, 207);
+            this.groupBox1.Size = new System.Drawing.Size(152, 79);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Calculator";
             // 
-            // btCalcOne
+            // btCalcThree
             // 
-            this.btCalcOne.Location = new System.Drawing.Point(6, 19);
-            this.btCalcOne.Name = "btCalcOne";
-            this.btCalcOne.Size = new System.Drawing.Size(41, 23);
-            this.btCalcOne.TabIndex = 0;
-            this.btCalcOne.Text = "1";
-            this.btCalcOne.UseVisualStyleBackColor = true;
-            this.btCalcOne.Click += new System.EventHandler(this.btCalcOne_Click);
+            this.btCalcThree.Location = new System.Drawing.Point(100, 19);
+            this.btCalcThree.Name = "btCalcThree";
+            this.btCalcThree.Size = new System.Drawing.Size(41, 23);
+            this.btCalcThree.TabIndex = 0;
+            this.btCalcThree.Text = "3";
+            this.btCalcThree.UseVisualStyleBackColor = true;
+            this.btCalcThree.Click += new System.EventHandler(this.btCalcThree_Click);
             // 
             // btCalcTwo
             // 
@@ -222,15 +222,15 @@ namespace TestApp
             this.btCalcTwo.UseVisualStyleBackColor = true;
             this.btCalcTwo.Click += new System.EventHandler(this.btCalcTwo_Click);
             // 
-            // btCalcThree
+            // btCalcOne
             // 
-            this.btCalcThree.Location = new System.Drawing.Point(100, 19);
-            this.btCalcThree.Name = "btCalcThree";
-            this.btCalcThree.Size = new System.Drawing.Size(41, 23);
-            this.btCalcThree.TabIndex = 0;
-            this.btCalcThree.Text = "3";
-            this.btCalcThree.UseVisualStyleBackColor = true;
-            this.btCalcThree.Click += new System.EventHandler(this.btCalcThree_Click);
+            this.btCalcOne.Location = new System.Drawing.Point(6, 19);
+            this.btCalcOne.Name = "btCalcOne";
+            this.btCalcOne.Size = new System.Drawing.Size(41, 23);
+            this.btCalcOne.TabIndex = 0;
+            this.btCalcOne.Text = "1";
+            this.btCalcOne.UseVisualStyleBackColor = true;
+            this.btCalcOne.Click += new System.EventHandler(this.btCalcOne_Click);
             // 
             // Form1
             // 

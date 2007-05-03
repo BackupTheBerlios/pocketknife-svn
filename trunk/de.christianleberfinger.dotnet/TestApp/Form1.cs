@@ -41,7 +41,7 @@ namespace TestApp
         }
 
         public const string CALC_WINDOW_CLASS = "SciCalc";
-        public const string CALC_WINDOW_TITLE = "Rechner";
+        public const string CALC_WINDOW_TITLE = null; // the title of the window doesn't matter
 
         ExternalWindow calculatorWindow = new ExternalWindow(CALC_WINDOW_CLASS, CALC_WINDOW_TITLE);
 
@@ -83,17 +83,17 @@ namespace TestApp
 
         private void btCalcOne_Click(object sender, EventArgs e)
         {
-            calculatorWindow.sendKey(Keys.D1);
+            calculatorWindow.sendKey( "1" );
         }
 
         private void btCalcTwo_Click(object sender, EventArgs e)
         {
-            calculatorWindow.sendKey(Keys.D2);
+            calculatorWindow.sendKey( "2" );
         }
 
         private void btCalcThree_Click(object sender, EventArgs e)
         {
-            calculatorWindow.sendKey(Keys.D3);
+            calculatorWindow.sendKey( "3" );
         }
 
     }
