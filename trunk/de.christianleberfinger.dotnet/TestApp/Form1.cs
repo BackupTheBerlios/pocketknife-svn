@@ -27,6 +27,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using de.christianleberfinger.dotnet.pocketknife.controls;
 
 namespace TestApp
 {
@@ -38,6 +39,8 @@ namespace TestApp
 
             propertyGridConfig.SelectedObject = Config.Settings;
         }
+
+        ExternalWindow calculatorWindow = new ExternalWindow(ExternalWindow.CALC_WINDOW_CLASS, ExternalWindow.CALC_WINDOW_TITLE);
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -73,6 +76,21 @@ namespace TestApp
         private void serialPortControl1_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btCalcOne_Click(object sender, EventArgs e)
+        {
+            calculatorWindow.sendKey(Keys.D1);
+        }
+
+        private void btCalcTwo_Click(object sender, EventArgs e)
+        {
+            calculatorWindow.sendKey(Keys.D2);
+        }
+
+        private void btCalcThree_Click(object sender, EventArgs e)
+        {
+            calculatorWindow.sendKey(Keys.D3);
         }
 
     }

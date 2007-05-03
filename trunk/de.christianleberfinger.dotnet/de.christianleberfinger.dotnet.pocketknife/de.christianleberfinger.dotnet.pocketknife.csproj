@@ -43,6 +43,7 @@
     <Compile Include="controls\DoubleBufferedPanel.Designer.cs">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="controls\ExternalWindow.cs" />
     <Compile Include="controls\LogBox.cs">
       <SubType>UserControl</SubType>
     </Compile>

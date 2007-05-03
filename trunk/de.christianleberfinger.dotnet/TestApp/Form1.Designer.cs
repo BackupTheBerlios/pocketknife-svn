@@ -40,10 +40,17 @@ namespace TestApp
             this.label1 = new System.Windows.Forms.Label();
             this.tabPageConfiguration = new System.Windows.Forms.TabPage();
             this.propertyGridConfig = new System.Windows.Forms.PropertyGrid();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btCalcOne = new System.Windows.Forms.Button();
+            this.btCalcTwo = new System.Windows.Forms.Button();
+            this.btCalcThree = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
             this.tabPageConfiguration.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -103,6 +110,7 @@ namespace TestApp
             this.tabControlMain.Controls.Add(this.tabPageLogging);
             this.tabControlMain.Controls.Add(this.tabPageSerialPort);
             this.tabControlMain.Controls.Add(this.tabPageConfiguration);
+            this.tabControlMain.Controls.Add(this.tabPage1);
             this.tabControlMain.Location = new System.Drawing.Point(12, 12);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -171,6 +179,59 @@ namespace TestApp
             this.propertyGridConfig.Size = new System.Drawing.Size(446, 180);
             this.propertyGridConfig.TabIndex = 0;
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(458, 272);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "External Window";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btCalcThree);
+            this.groupBox1.Controls.Add(this.btCalcTwo);
+            this.groupBox1.Controls.Add(this.btCalcOne);
+            this.groupBox1.Location = new System.Drawing.Point(3, 6);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(334, 207);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Calculator";
+            // 
+            // btCalcOne
+            // 
+            this.btCalcOne.Location = new System.Drawing.Point(6, 19);
+            this.btCalcOne.Name = "btCalcOne";
+            this.btCalcOne.Size = new System.Drawing.Size(41, 23);
+            this.btCalcOne.TabIndex = 0;
+            this.btCalcOne.Text = "1";
+            this.btCalcOne.UseVisualStyleBackColor = true;
+            this.btCalcOne.Click += new System.EventHandler(this.btCalcOne_Click);
+            // 
+            // btCalcTwo
+            // 
+            this.btCalcTwo.Location = new System.Drawing.Point(53, 19);
+            this.btCalcTwo.Name = "btCalcTwo";
+            this.btCalcTwo.Size = new System.Drawing.Size(41, 23);
+            this.btCalcTwo.TabIndex = 0;
+            this.btCalcTwo.Text = "2";
+            this.btCalcTwo.UseVisualStyleBackColor = true;
+            this.btCalcTwo.Click += new System.EventHandler(this.btCalcTwo_Click);
+            // 
+            // btCalcThree
+            // 
+            this.btCalcThree.Location = new System.Drawing.Point(100, 19);
+            this.btCalcThree.Name = "btCalcThree";
+            this.btCalcThree.Size = new System.Drawing.Size(41, 23);
+            this.btCalcThree.TabIndex = 0;
+            this.btCalcThree.Text = "3";
+            this.btCalcThree.UseVisualStyleBackColor = true;
+            this.btCalcThree.Click += new System.EventHandler(this.btCalcThree_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -185,6 +246,8 @@ namespace TestApp
             this.tabPageSerialPort.ResumeLayout(false);
             this.tabPageSerialPort.PerformLayout();
             this.tabPageConfiguration.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -203,6 +266,11 @@ namespace TestApp
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TabPage tabPageConfiguration;
         private System.Windows.Forms.PropertyGrid propertyGridConfig;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btCalcOne;
+        private System.Windows.Forms.Button btCalcThree;
+        private System.Windows.Forms.Button btCalcTwo;
     }
 }
 
