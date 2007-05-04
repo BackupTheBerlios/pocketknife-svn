@@ -96,6 +96,10 @@ namespace de.christianleberfinger.dotnet.configuration
             load(filename); // use automatically generated filename
         }
 
+        /// <summary>
+        /// Checks for the existence of the configuration file.
+        /// </summary>
+        /// <returns></returns>
         public static bool fileExists()
         {
             return File.Exists(filename);
@@ -134,6 +138,14 @@ namespace de.christianleberfinger.dotnet.configuration
                
                 throw new Exception("Could not load Configuration from " + filename + ". Using default values.", ex);
             }
+        }
+
+        /// <summary>
+        /// Resets the settings to the default values.
+        /// </summary>
+        public static void resetToDefault()
+        {
+            settings = Activator.CreateInstance<T>();
         }
 
         /// <summary>
