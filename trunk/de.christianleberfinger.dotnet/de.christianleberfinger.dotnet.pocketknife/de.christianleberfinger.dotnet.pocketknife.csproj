@@ -68,6 +68,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="StructSerializer.cs" />
     <Compile Include="Threading\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
