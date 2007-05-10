@@ -1,0 +1,642 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>de.christianleberfinger.dotnet.pocketknife</name>
+    </assembly>
+    <members>
+        <member name="T:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel">
+            <summary>
+            DoubleBufferedPanel adds double buffering to .NET's Panel class.
+            In order to create double buffered Panels, just derive from this class and override
+            the method OnPaint(PaintEventArgs e).
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous">
+            <summary>
+             Offers a simple way to communicate with a TCP remote device.
+             You don't have to care about the asynchronous communication in detail.
+             The only thing to do is opening a connection and send messages or wait for received messages.
+             All callbacks are handled by few events.
+             Received messages are returned without \r\n on their ends.
+             </summary>
+              <example>This sample shows how to set up a simple TCP client reading the homepage of your local webserver.
+             <code>
+            
+                static void Main(string[] args)
+                {
+                    IClient client = new AsynchronousClient("localhost", 80);
+                    client.ConnectionStateChanged += new AsynchronousClient.ConnectionEventHandler(client_ConnectionStateChanged);
+                    client.MessageReceived += new AsynchronousClient.MessageReceivedEventHandler(client_MessageReceived);
+                    client.ExceptionOccured += new AsynchronousClient.ExceptionOccuredEventHandler(client_ExceptionOccured);
+            
+                    client.connect();
+            
+                    Console.ReadLine();
+                }
+            
+             </code></example>
+              <example>The following lines define the callback-methods:
+             <code>
+            
+                 static void client_ExceptionOccured(IClient connection, Exception exception)
+                 {
+                     Console.WriteLine(exception.ToString());
+                 }
+            
+                 static void client_MessageReceived(IClient connection, string message)
+                 {
+                     Console.WriteLine("Received: " + message);
+                 }
+            
+                 static void client_ConnectionStateChanged(IClient connection)
+                 {
+                     Console.WriteLine("Connected: " + connection.Connected);
+                     if (connection.Connected)
+                      {
+                         connection.send("GET /");
+                     }
+                  }
+             </code></example>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient">
+            <summary>
+             Interface for easy-to-use TCP clients.
+             </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.connect">
+            <summary>
+            Connects the client to a remote TCP host using the specified host name and port number.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.disconnect">
+            <summary>
+            Disconnects the client from the remote device.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.send(System.String)">
+            <summary>
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.Connected">
+            <summary>
+            Gets a boolean value that determines whether this client is connected to a remote host.
+            </summary>
+            <value></value>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.ConnectionStateChanged">
+            <summary>
+            Occurs when the connection status changes, e.g. from Disconnected to Connected
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.Encoding">
+            <summary>
+            Gets or sets the encoding used when communicating with the remote device.
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.ExceptionOccured">
+            <summary>
+            Occurs with an Exception during communication.
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.MessageReceived">
+            <summary>
+            Occurs when a message is received from the remote device.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.Delimiter">
+            <summary>
+            Gets or sets the delimiter for delimiting the messages from each other. Default is line-break '\n'.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.ITcpClient.AutoReconnect">
+            <summary>
+            Gets a boolean value that determines whether the TcpClient should try to reconnect a lost connection.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.#ctor(System.String,System.Int32)">
+            <summary>
+            Initialisiert eine neue Instanz von AsynchronousConnection.
+            </summary>
+            <param name="host">Der Host-Name des TCP-Servers, z.B.: "localhost"</param>
+            <param name="port">Der Port am TCP-Server, z.B. 80</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.handleException(System.Exception)">
+            <summary>
+            Tritt eine Exception auf, so sollte diese an den Callback-Handler weitergereicht werden 
+            und die Verbindung geschlossen werden. Dies kann bequem durch einen Aufruf von handleException() 
+            geschehen.
+            </summary>
+            <param name="e">Die übergebene Exception</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.connect">
+            <summary>
+            Connects the client to a remote TCP host using the specified host name and port number.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.connectCallback(System.IAsyncResult)">
+            <summary>
+            Wird aufgerufen, wenn der Connect-Vorgang abgeschlossen ist.
+            </summary>
+            <param name="result"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.disconnect">
+            <summary>
+            Trennt die Socket-Verbindung.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.send(System.String)">
+            <summary>
+            Sendet eine Nachricht an den Client. 
+            Die Nachricht wird automatisch um den Message-Delimiter erweitert.
+            </summary>
+            <param name="message">Die Nachricht, die gesendet werden soll.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.sendCallback(System.IAsyncResult)">
+            <summary>
+            Wird aufgerufen, wenn Daten gesendet werden.
+            </summary>
+            <param name="ar"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.receive(System.Net.Sockets.Socket)">
+            <summary>
+            Sets up the state object and then calls the BeginReceive method to
+            read the data from the client socket asynchronously.
+            </summary>
+            <param name="client">The socket</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.autoReconnectTimerCallback(System.Object)">
+            <summary>
+            Wird aufgerufen, um periodisch eine Verbindung wiederaufzubauen, wenn diese abgebrochen wurde
+            und der AutoReconnect aktiviert ist.
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.ConnectionStateChanged">
+            <summary>
+            Occurs when the connection status changes, e.g. from Disconnected to Connected
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.MessageReceived">
+            <summary>
+            Occurs when a message is received from the remote device.
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.ExceptionOccured">
+            <summary>
+            Occurs with an Exception during communication.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.Connected">
+            <summary>
+            </summary>
+            <value>bool</value>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.Encoding">
+            <summary>
+            Erlaubt es, die Encodierungs-Variante für den Datenaustausch abzufragen und zu ändern.
+            Standardmäßig wird Encoding.Default benutzt, die Standard-ANSI-code-page des Systems.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.Delimiter">
+            <summary>
+            Gets or sets the delimiter for delimiting the messages from each other. Default is line-break '\n'.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous.AutoReconnect">
+            <summary>
+            Fragt ab oder legt fest, ob versucht werden soll, die Verbindung nach einem Abbruch 
+            automatisch wiederherzustellen.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.configuration.Setting`1">
+            <summary>
+            Generic class for storing settings. Especially useful when used in combination with
+            the Configuration class for storing settings in xml files.
+            </summary>
+            <typeparam name="T">The setting's value type.</typeparam>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.configuration.Setting`1.OnValueChange">
+            <summary>
+            Occurs when the setting's value is set.
+            </summary>
+        </member>
+        <!-- Nicht wohlgeformter XML-Kommentar wurde für den Member "T:de.christianleberfinger.dotnet.controls.LogBox" ignoriert -->
+        <member name="F:de.christianleberfinger.dotnet.controls.LogBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.#ctor">
+            <summary>
+            Creates a new LogBox.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.initToolTips">
+            <summary>
+            Initializes the tooltips for the subcomponents of this logbox.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String)">
+            <summary>
+            Adds a new message to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="message">The message you want to log.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String,System.Object[])">
+            <summary>
+            Adds a new message to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="format">A string that can contain zero or more format items, like e.g. {0}.</param>
+            <param name="args">An array of objects that will be used to fill the format item's gaps.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String[])">
+            <summary>
+            Adds new messages to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="messages">The messages you want to log.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.clear">
+            <summary>
+            Removes all entries of this LogBox. You can call this method without using Invoke().
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.toArray">
+            <summary>
+            Copies the entries of this LogBox to an array of strings.
+            </summary>
+            <returns>Log entries as strings.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.saveContentToFile(System.String)">
+            <summary>
+            Saves the entries of this LogBox in a text file.
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.AutoSelectLastEntry">
+            <summary>
+            Sets or gets a value that indicates whether the last most recent entry of LogBox is automatically selected when getting added.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.ClearButton">
+            <summary>
+            Sets or gets a value that indicates whether a clear-button is visible that allows the user to delete the entries of the LogBox.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.CopyButton">
+            <summary>
+            Sets or gets a value that indicates whether a button is visible that allows the user to copy the entries of the LogBox to the clipboard.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.MaxEntryCount">
+            <summary>
+            Sets or gets the maximum number of entries that are displayed in the LogBox.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.Title">
+            <summary>
+            Sets the title of the LogBox.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ConnectionEventHandler">
+            <summary>
+            Delegate for the change of the connection's state.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.MessageReceivedEventHandler">
+            <summary>
+            Delegate for message received
+            </summary>
+            <param name="connection">The connection that was the message's source.</param>
+            <param name="message">The message that was received.</param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ExceptionOccuredEventHandler">
+            <summary>
+            Delegate for handling occured exceptions.
+            </summary>
+            <param name="connection">The connection it that the exception occured.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.hitTest(System.Drawing.PointF)">
+            <summary>
+            Tests, if a point is inside one (or more) of the defined regions.
+            </summary>
+            <param name="point">A point.</param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.Regions">
+            <summary>
+            List of Regions
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow">
+            <summary>
+            Allows you to send simulated Key-Pressed-Events to an external Application.
+            Attention: This class is definitely not in a final and well tested state.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.#ctor">
+            <summary>
+            Creates an instance, that sends the keyboard events "blindly".
+            That means, it doesn't send it to a specified windows, but to
+            the window that is active at the moment.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.#ctor(System.String,System.String)">
+            <summary>
+            Sends the keyboard events to a specified window. This is
+            achieved by first bringing the specified window to the front 
+            and sending the keyboard event afterwards.
+            </summary>
+            <param name="windowClass">Class of the specified window. If set to NULL, 
+            all class names match. 
+            HINT: You can discover the correct setting by using Spy++.</param>
+            <param name="windowTitle">Title of the specified window. If set to NULL, 
+            all window titles match.
+            HINT: You can discover the correct setting by using Spy++.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.FindWindow(System.String,System.String)">
+            <summary>
+            Get a handle to an application window.<para/>
+            </summary>
+            <param name="windowClass">Class of the specified window. If set to NULL, 
+            all class names match.
+            HINT:
+            You can discover the correct setting by using Spy++.</param>
+            <param name="windowTitle">Title of the specified window. If set to NULL, 
+            all window titles match.
+            HINT:
+            You can discover the correct setting by using Spy++.</param>
+            <returns>window handle as int pointer</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.SetForegroundWindow(System.IntPtr)">
+            <summary>
+            Sets the specified window to be the active window.
+            </summary>
+            <param name="hWnd">The handle of the window.</param>
+            <returns>A flag indicating the operation's success.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.bringWindowToFront">
+            <summary>
+            Activates the window that matches the current setting of
+            window class and window title.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.findWindow">
+            <summary>
+            Searches for a window that matches the current setting of
+            window class and window title.
+            </summary>
+            <returns>An int pointer representing the found window or 
+            IntPtr.Zero if no adequate window was found.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.sendKey(de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.Keys)">
+            <summary>
+            That's just a dummy method in order to pay attention to the Keys class.
+            Unfortunately there's no easy way to use string enums in C#.
+            But a possible way is presented in http://www.codeproject.com/csharp/StringEnum.asp
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.sendKey(System.String)">
+            <summary>
+            Sends the keys you define. If you want to know how to create special keys or key combinations
+            not defined in the class ExternalWindow.Keys please have a look at the microsoft msdn homepage.
+            <see cref="!:http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.send.aspx"/>
+            </summary>
+            <param name="key">The key (or combination of keys) to send to the external application.</param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.WindowClass">
+            <summary>
+            Class of the specified window. If set to NULL, all class names match.
+            HINT: You can discover the correct setting by using Spy++.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.WindowTitle">
+            <summary>
+            Title of the specified window. If set to NULL, all window titles match.
+            HINT: You can discover the correct setting by using Spy++.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.Keys">
+            <summary>
+            Defines some Keys you are able to send to an external application.
+            You can also combine the keys.
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.Keys.PRINT_SCREEN">
+            <summary>
+            reserved for future use
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.Keys.SUBTRACT">
+            <summary>
+            The subtract key on the numeric keyboard.
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.Keys.MULTIPLY">
+            <summary>
+            The multiply key on the numeric keyboard.
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow.Keys.DIVIDE">
+            <summary>
+            The divide key on the numeric keyboard.
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.controls.SerialPortControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.open">
+            <summary>
+            Opens the serialport that was specified in the combobox and starts an internal
+            thread that reads from it. You can subscribe the event 'OnByteReceived' to
+            be notificated about received data.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Open">
+            <summary>
+            Open the specified port's connection and starts an internal thread for reading from it.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.receive">
+            <summary>
+            Threadstart-method for receiving data from the serial port.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.fireByteReceived(de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler,System.Byte)">
+            <summary>
+            Fires the ByteReceived-Event. JIT-inlining is forbidden in order to prevent race conditions.
+            </summary>
+            <param name="handler"></param>
+            <param name="receivedByte"></param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.IO.SerialPort.IsOpen">
+            <summary>
+            Indicates, whether this serialport is open or closed.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1">
+            <summary>
+            Provides a generic serializer/deserializer for .NET structs.
+            </summary>
+            <typeparam name="T">The type of your struct.</typeparam>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.deserialize(System.Byte[])">
+            <summary>
+            Creates a struct from an array of bytes.
+            If the number of bytes passed to this function doesn't match the
+            size of the struct you want to build, a default instance of the
+            struct is returned.
+            </summary>
+            <param name="bytes">The bytes that should build the struct.</param>
+            <returns>A struct that was built using the given byte array.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.serialize(`0)">
+            <summary>
+            Serializes a given struct to an array of bytes, so that it can be easily 
+            transferred over streams such as file streams or network streams.
+            </summary>
+            <param name="yourStruct">The struct you want to serialize.</param>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.configuration.Configuration`1">
+            <summary>
+            Class for storing configuration properties in XML files.
+            All public (and serializable) properties of a class can be stored in an XML file automatically.<para/>
+            You just have to derive your class from Configuration and pass the type of your class as type
+            parameter, such as <c>public class Config : Configuration&lt;Config&gt;</c><para/>
+            The settings are then available through the static property 'Settings', e.g.: 
+            <c>Config.Settings.MyInteger</c><para/>
+            To store the current settings in an XML file use the static method <c>Config.save()</c>.
+            </summary>
+            <example>
+            <code>
+            public class Config : Configuration&lt;Config&gt;
+            {
+                int myInteger;
+                string myString;
+            
+                public string MyString
+                {
+                    get { return myString; }
+                    set { myString = value; }
+                }
+                
+                public int MyInteger
+                {
+                    get { return myInteger; }
+                    set { myInteger = value; }
+                }
+            }
+            </code>
+            </example>
+            <typeparam name="T">The class that contains the properties you want to store in an XML file.</typeparam>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.#cctor">
+            <summary>
+            Static initialization. 
+            If there's a config file for the type of settings, 
+            the data specified in it is being loaded automatically.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.load">
+            <summary>
+            Tries to load a stored snapshot of the object from an XML file. 
+            The filename is generated by using the name of the object's type.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.fileExists">
+            <summary>
+            Checks for the existence of the configuration file.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.load(System.String)">
+            <summary>
+            Tries to load a snapshot of the object from the specified XML file.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.resetToDefault">
+            <summary>
+            Resets the settings to the default values.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.save">
+            <summary>
+            Create a "snapshot" of the object and store it in an XML-file.
+            The filename is automatically created by using the object's type-name.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.save(System.String)">
+            <summary>
+            Create a "snapshot" of the object and store it in the XML-file 
+            with the specified filename.
+            </summary>
+            <param name="filename">Name of the output file</param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.configuration.Configuration`1.Settings">
+            <summary>
+            Gets or sets the properties of this configuration-object.
+            </summary>
+        </member>
+    </members>
+</doc>
