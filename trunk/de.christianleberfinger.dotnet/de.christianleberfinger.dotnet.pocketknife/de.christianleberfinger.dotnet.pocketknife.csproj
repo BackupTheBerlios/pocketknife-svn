@@ -37,6 +37,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\INodeTree.cs" />
+    <Compile Include="Collections\NodeTree.cs" />
     <Compile Include="configuration\Configuration.cs" />
     <Compile Include="configuration\Setting.cs" />
     <Compile Include="controls\DoubleBufferedPanel.cs">

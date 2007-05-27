@@ -4,6 +4,22 @@
         <name>de.christianleberfinger.dotnet.pocketknife</name>
     </assembly>
     <members>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
         <member name="T:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel">
             <summary>
             DoubleBufferedPanel adds double buffering to .NET's Panel class.
@@ -25,6 +41,42 @@
         <member name="M:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.configuration.Setting`1">
+            <summary>
+            Generic class for storing settings. Especially useful when used in combination with
+            the Configuration class for storing settings in xml files.
+            </summary>
+            <typeparam name="T">The setting's value type.</typeparam>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.configuration.Setting`1.OnValueChange">
+            <summary>
+            Occurs when the setting's value is set.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.open">
+            <summary>
+            Opens the serialport that was specified in the combobox and starts an internal
+            thread that reads from it. You can subscribe the event 'OnByteReceived' to
+            be notificated about received data.
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.controls.SerialPortControl.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
             the contents of this method with the code editor.
             </summary>
         </member>
@@ -226,107 +278,6 @@
             automatisch wiederherzustellen.
             </summary>
         </member>
-        <member name="T:de.christianleberfinger.dotnet.configuration.Setting`1">
-            <summary>
-            Generic class for storing settings. Especially useful when used in combination with
-            the Configuration class for storing settings in xml files.
-            </summary>
-            <typeparam name="T">The setting's value type.</typeparam>
-        </member>
-        <member name="E:de.christianleberfinger.dotnet.configuration.Setting`1.OnValueChange">
-            <summary>
-            Occurs when the setting's value is set.
-            </summary>
-        </member>
-        <!-- Nicht wohlgeformter XML-Kommentar wurde für den Member "T:de.christianleberfinger.dotnet.controls.LogBox" ignoriert -->
-        <member name="F:de.christianleberfinger.dotnet.controls.LogBox.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.#ctor">
-            <summary>
-            Creates a new LogBox.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.initToolTips">
-            <summary>
-            Initializes the tooltips for the subcomponents of this logbox.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String)">
-            <summary>
-            Adds a new message to this LogBox. You can call this method without using Invoke().
-            </summary>
-            <param name="message">The message you want to log.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String,System.Object[])">
-            <summary>
-            Adds a new message to this LogBox. You can call this method without using Invoke().
-            </summary>
-            <param name="format">A string that can contain zero or more format items, like e.g. {0}.</param>
-            <param name="args">An array of objects that will be used to fill the format item's gaps.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String[])">
-            <summary>
-            Adds new messages to this LogBox. You can call this method without using Invoke().
-            </summary>
-            <param name="messages">The messages you want to log.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.clear">
-            <summary>
-            Removes all entries of this LogBox. You can call this method without using Invoke().
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.toArray">
-            <summary>
-            Copies the entries of this LogBox to an array of strings.
-            </summary>
-            <returns>Log entries as strings.</returns>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.saveContentToFile(System.String)">
-            <summary>
-            Saves the entries of this LogBox in a text file.
-            </summary>
-            <param name="file"></param>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.AutoSelectLastEntry">
-            <summary>
-            Sets or gets a value that indicates whether the last most recent entry of LogBox is automatically selected when getting added.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.ClearButton">
-            <summary>
-            Sets or gets a value that indicates whether a clear-button is visible that allows the user to delete the entries of the LogBox.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.CopyButton">
-            <summary>
-            Sets or gets a value that indicates whether a button is visible that allows the user to copy the entries of the LogBox to the clipboard.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.MaxEntryCount">
-            <summary>
-            Sets or gets the maximum number of entries that are displayed in the LogBox.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.Title">
-            <summary>
-            Sets the title of the LogBox.
-            </summary>
-        </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ConnectionEventHandler">
             <summary>
             Delegate for the change of the connection's state.
@@ -346,22 +297,6 @@
             <param name="connection">The connection it that the exception occured.</param>
             <param name="exception">The exception that occured.</param>
         </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
         <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.hitTest(System.Drawing.PointF)">
             <summary>
             Tests, if a point is inside one (or more) of the defined regions.
@@ -371,6 +306,28 @@
         <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.Regions">
             <summary>
             List of Regions
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Open">
+            <summary>
+            Open the specified port's connection and starts an internal thread for reading from it.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.receive">
+            <summary>
+            Threadstart-method for receiving data from the serial port.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.fireByteReceived(de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler,System.Byte)">
+            <summary>
+            Fires the ByteReceived-Event. JIT-inlining is forbidden in order to prevent race conditions.
+            </summary>
+            <param name="handler"></param>
+            <param name="receivedByte"></param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.IO.SerialPort.IsOpen">
+            <summary>
+            Indicates, whether this serialport is open or closed.
             </summary>
         </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow">
@@ -488,75 +445,94 @@
             The divide key on the numeric keyboard.
             </summary>
         </member>
-        <member name="F:de.christianleberfinger.dotnet.controls.SerialPortControl.components">
+        <!-- Badly formed XML comment ignored for member "T:de.christianleberfinger.dotnet.controls.LogBox" -->
+        <member name="F:de.christianleberfinger.dotnet.controls.LogBox.components">
             <summary> 
             Required designer variable.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.Dispose(System.Boolean)">
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.Dispose(System.Boolean)">
             <summary> 
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.InitializeComponent">
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.InitializeComponent">
             <summary> 
             Required method for Designer support - do not modify 
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.open">
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.#ctor">
             <summary>
-            Opens the serialport that was specified in the combobox and starts an internal
-            thread that reads from it. You can subscribe the event 'OnByteReceived' to
-            be notificated about received data.
+            Creates a new LogBox.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Open">
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.initToolTips">
             <summary>
-            Open the specified port's connection and starts an internal thread for reading from it.
+            Initializes the tooltips for the subcomponents of this logbox.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.receive">
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String)">
             <summary>
-            Threadstart-method for receiving data from the serial port.
+            Adds a new message to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="message">The message you want to log.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String,System.Object[])">
+            <summary>
+            Adds a new message to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="format">A string that can contain zero or more format items, like e.g. {0}.</param>
+            <param name="args">An array of objects that will be used to fill the format item's gaps.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String[])">
+            <summary>
+            Adds new messages to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="messages">The messages you want to log.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.clear">
+            <summary>
+            Removes all entries of this LogBox. You can call this method without using Invoke().
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.fireByteReceived(de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler,System.Byte)">
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.toArray">
             <summary>
-            Fires the ByteReceived-Event. JIT-inlining is forbidden in order to prevent race conditions.
+            Copies the entries of this LogBox to an array of strings.
             </summary>
-            <param name="handler"></param>
-            <param name="receivedByte"></param>
+            <returns>Log entries as strings.</returns>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.IO.SerialPort.IsOpen">
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.saveContentToFile(System.String)">
             <summary>
-            Indicates, whether this serialport is open or closed.
+            Saves the entries of this LogBox in a text file.
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.AutoSelectLastEntry">
+            <summary>
+            Sets or gets a value that indicates whether the last most recent entry of LogBox is automatically selected when getting added.
             </summary>
         </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1">
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.ClearButton">
             <summary>
-            Provides a generic serializer/deserializer for .NET structs.
+            Sets or gets a value that indicates whether a clear-button is visible that allows the user to delete the entries of the LogBox.
             </summary>
-            <typeparam name="T">The type of your struct.</typeparam>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.deserialize(System.Byte[])">
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.CopyButton">
             <summary>
-            Creates a struct from an array of bytes.
-            If the number of bytes passed to this function doesn't match the
-            size of the struct you want to build, a default instance of the
-            struct is returned.
+            Sets or gets a value that indicates whether a button is visible that allows the user to copy the entries of the LogBox to the clipboard.
             </summary>
-            <param name="bytes">The bytes that should build the struct.</param>
-            <returns>A struct that was built using the given byte array.</returns>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.serialize(`0)">
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.MaxEntryCount">
             <summary>
-            Serializes a given struct to an array of bytes, so that it can be easily 
-            transferred over streams such as file streams or network streams.
+            Sets or gets the maximum number of entries that are displayed in the LogBox.
             </summary>
-            <param name="yourStruct">The struct you want to serialize.</param>
-            <returns>An array of bytes.</returns>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.Title">
+            <summary>
+            Sets the title of the LogBox.
+            </summary>
         </member>
         <member name="T:de.christianleberfinger.dotnet.configuration.Configuration`1">
             <summary>
@@ -636,6 +612,118 @@
         <member name="P:de.christianleberfinger.dotnet.configuration.Configuration`1.Settings">
             <summary>
             Gets or sets the properties of this configuration-object.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1">
+            <summary>
+            Provides a generic serializer/deserializer for .NET structs.
+            </summary>
+            <typeparam name="T">The type of your struct.</typeparam>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.deserialize(System.Byte[])">
+            <summary>
+            Creates a struct from an array of bytes.
+            If the number of bytes passed to this function doesn't match the
+            size of the struct you want to build, a default instance of the
+            struct is returned.
+            </summary>
+            <param name="bytes">The bytes that should build the struct.</param>
+            <returns>A struct that was built using the given byte array.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.serialize(`0)">
+            <summary>
+            Serializes a given struct to an array of bytes, so that it can be easily 
+            transferred over streams such as file streams or network streams.
+            </summary>
+            <param name="yourStruct">The struct you want to serialize.</param>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1">
+            <summary>
+            Implements a simple tree.
+            </summary>
+            <typeparam name="T">The type that you want to store in this tree.</typeparam>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1">
+            <summary>
+            Defines the operations available on a simple tree.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.clear">
+            <summary>
+            Resets the current tree to it's root.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Data">
+            <summary>
+            Gets or sets the data object connected to this node.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Parent">
+            <summary>
+            Gets the parent of the current node or null if the current node 
+            is the tree's root.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.IsRoot">
+            <summary>
+            Indicates whether the current node is the root of the tree.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Root">
+            <summary>
+            Gets the root of this tree.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Children">
+            <summary>
+            Gets the current node's children.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Siblings">
+            <summary>
+            Gets the current node's siblings. (all nodes with the same parent, including the node itself)
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.#ctor">
+            <summary>
+            Creates a new tree.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.clear">
+            <summary>
+            Resets the current tree to it's root.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Children">
+            <summary>
+            Gets the current node's children.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Data">
+            <summary>
+            Gets or sets the data that is connected to this node.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Parent">
+            <summary>
+            Returns the parent of the current node or null if the current node 
+            is the tree's root.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Root">
+            <summary>
+            Gets the root of this tree.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.IsRoot">
+            <summary>
+            Indicates whether the current node is the root of the tree.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Siblings">
+            <summary>
+            Gets the current node's siblings. (all nodes with the same parent, including the node itself)
             </summary>
         </member>
     </members>
