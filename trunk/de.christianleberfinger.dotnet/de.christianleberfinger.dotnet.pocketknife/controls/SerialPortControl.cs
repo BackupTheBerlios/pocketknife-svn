@@ -32,15 +32,24 @@ using de.christianleberfinger.dotnet.IO;
 
 namespace de.christianleberfinger.dotnet.controls
 {
+    /// <summary>
+    /// Offers a simple GUI control for an event based serial port.
+    /// </summary>
     public partial class SerialPortControl : UserControl
     {
         SerialPort port = new SerialPort();
 
+        /// <summary>
+        /// Returns the inner serial port class that handles the I/O communication.
+        /// </summary>
         public SerialPort Port
         {
             get { return port; }
         }
 
+        /// <summary>
+        /// Occurs every time when a byte was received from the serial port.
+        /// </summary>
         public event SerialPort.ByteReceivedHandler OnByteReceived
         {
             add
@@ -53,6 +62,9 @@ namespace de.christianleberfinger.dotnet.controls
             }
         }
 
+        /// <summary>
+        /// Creates a new instance of SerialPortControl
+        /// </summary>
         public SerialPortControl()
         {
             InitializeComponent();

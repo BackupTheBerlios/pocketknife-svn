@@ -105,6 +105,9 @@ namespace de.christianleberfinger.dotnet.controls
             }
         }
 
+        /// <summary>
+        /// Gets ot sets a boolean value indicating whether the save button is visible.
+        /// </summary>
         public bool SaveButtonVisible
         {
             get { return _saveButtonVisible; }
@@ -194,6 +197,9 @@ namespace de.christianleberfinger.dotnet.controls
             this.Invoke(new VoidHandler(_listBox.Items.Clear));
         }
 
+        /// <summary>
+        /// Selects the last entry
+        /// </summary>
         protected void selectLastEntry()
         {
             if (_listBox.InvokeRequired)

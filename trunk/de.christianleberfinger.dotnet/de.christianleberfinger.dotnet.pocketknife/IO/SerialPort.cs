@@ -32,18 +32,36 @@ using System.ComponentModel;
 
 namespace de.christianleberfinger.dotnet.IO
 {
+    /// <summary>
+    /// Adds some functionality to the SerialPort class of .NET.
+    /// </summary>
     public class SerialPort : System.IO.Ports.SerialPort
     {
         bool reading = false;
         Thread readThread = null;
 
+        /// <summary>
+        /// Represents the method that handles a received byte from the serial port.
+        /// </summary>
+        /// <param name="receivedByte"></param>
         public delegate void ByteReceivedHandler(byte receivedByte);
 
+        /// <summary>
+        /// Occurs every time when a byte was received from the serial port.
+        /// </summary>
         [Description("Is fired every time, when a byte was received from the serial port."),
 		 CategoryAttribute("SerialPort")]
         public event ByteReceivedHandler OnByteReceived;
 
+        /// <summary>
+        /// Represents the method that handles a changed connection state of the serial port.
+        /// </summary>
+        /// <param name="connected"></param>
         public delegate void ConnectionStateChangedHandler(bool connected);
+
+        /// <summary>
+        /// Occurs whenever the connection state of the serial port has changed.
+        /// </summary>
         [Description("Is fired, when a the connection state of the serial port has changed."),
          CategoryAttribute("SerialPort")]
         public event ConnectionStateChangedHandler OnConnectionStateChange;
@@ -65,6 +83,9 @@ namespace de.christianleberfinger.dotnet.IO
             fireConnectionStateChanged(OnConnectionStateChange, true);
         }
 
+        /// <summary>
+        /// Closes the serial port.
+        /// </summary>
         public new void Close()
         {
             reading = false;
@@ -143,16 +164,28 @@ namespace de.christianleberfinger.dotnet.IO
                 handler(connected);
         }
 
+        /// <summary>
+        /// Writes a message of bytes to the serial port.
+        /// </summary>
+        /// <param name="message"></param>
         public void Write(byte[] message)
         {
             Write(message, 0, message.Length);
         }
 
+        /// <summary>
+        /// Writes a single byte to the serial port.
+        /// </summary>
+        /// <param name="message"></param>
         public void Write(byte message)
         {
             Write(new byte[]{message});
         }
 
+        /// <summary>
+        /// Writes a message to the serial port that is represented by a list of bytes.
+        /// </summary>
+        /// <param name="message"></param>
         public void Write(List<byte> message)
         {
             Write(message.ToArray());

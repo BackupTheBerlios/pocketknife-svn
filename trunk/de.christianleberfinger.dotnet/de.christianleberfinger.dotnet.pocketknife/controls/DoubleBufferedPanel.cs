@@ -36,6 +36,9 @@ namespace de.christianleberfinger.dotnet.controls
     /// </summary>
     public partial class DoubleBufferedPanel : Panel
     {
+        /// <summary>
+        /// Creates a new double buffered panel.
+        /// </summary>
         public DoubleBufferedPanel()
         {
             SetStyle(ControlStyles.OptimizedDoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);

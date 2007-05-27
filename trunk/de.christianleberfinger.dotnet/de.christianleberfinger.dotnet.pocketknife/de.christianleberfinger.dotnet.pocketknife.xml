@@ -20,11 +20,34 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion">
+            <summary>
+            Region interface.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion.IsInRegion(System.Drawing.PointF)">
+            <summary>
+            Indicates whether a given point is in the current region.
+            Also known as hit test.
+            </summary>
+            <param name="point">A point.</param>
+            <returns>A boolean value indicating whether the point is in the region.</returns>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion.ID">
+            <summary>
+            The region's id.
+            </summary>
+        </member>
         <member name="T:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel">
             <summary>
             DoubleBufferedPanel adds double buffering to .NET's Panel class.
             In order to create double buffered Panels, just derive from this class and override
             the method OnPaint(PaintEventArgs e).
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.#ctor">
+            <summary>
+            Creates a new double buffered panel.
             </summary>
         </member>
         <member name="F:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.components">
@@ -51,9 +74,41 @@
             </summary>
             <typeparam name="T">The setting's value type.</typeparam>
         </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Setting`1.#ctor">
+            <summary>
+            Creates a new instance of setting.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.configuration.Setting`1.#ctor(`0)">
+            <summary>
+            Creates a new instance of setting with a given value.
+            </summary>
+            <param name="value">The setting's value.</param>
+        </member>
         <member name="E:de.christianleberfinger.dotnet.configuration.Setting`1.OnValueChange">
             <summary>
             Occurs when the setting's value is set.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.configuration.Setting`1.Value">
+            <summary>
+            Gets or sets the setting's value.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.configuration.Setting`1.ValueChangedHandler">
+            <summary>
+            Represents the method that handles changes of the setting's value.
+            </summary>
+            <param name="setting"></param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.controls.SerialPortControl">
+            <summary>
+            Offers a simple GUI control for an event based serial port.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.#ctor">
+            <summary>
+            Creates a new instance of SerialPortControl
             </summary>
         </member>
         <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.open">
@@ -78,6 +133,16 @@
             <summary> 
             Required method for Designer support - do not modify 
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.SerialPortControl.Port">
+            <summary>
+            Returns the inner serial port class that handles the I/O communication.
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.controls.SerialPortControl.OnByteReceived">
+            <summary>
+            Occurs every time when a byte was received from the serial port.
             </summary>
         </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous">
@@ -278,6 +343,57 @@
             automatisch wiederherzustellen.
             </summary>
         </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion">
+            <summary>
+             A region with the shape of a circle. Can be used for simple hit tests.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.#ctor(System.String,System.Drawing.PointF,System.Single)">
+            <summary>
+            Creates a new circular region.
+            </summary>
+            <param name="ID"></param>
+            <param name="center"></param>
+            <param name="radius"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.IsInRegion(System.Drawing.PointF)">
+            <summary>
+            Indicates whether a given point is in the current region.
+            Also known as hit test.
+            </summary>
+            <param name="point">A point.</param>
+            <returns>A boolean value indicating whether the point is in the region.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.IsInRegion(System.Single,System.Single)">
+            <summary>
+            Indicates whether a given point is in the current region.
+            Also known as hit test.
+            </summary>
+            <param name="x">The point's x coordinate</param>
+            <param name="y">The point's y coordinate</param>
+            <returns></returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.ToString">
+            <summary>
+            Gets a string representation of this circular region.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.ID">
+            <summary>
+            The region's id.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.Center">
+            <summary>
+            The region's center.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.Radius">
+            <summary>
+            The region's radius.
+            </summary>
+        </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ConnectionEventHandler">
             <summary>
             Delegate for the change of the connection's state.
@@ -297,20 +413,64 @@
             <param name="connection">The connection it that the exception occured.</param>
             <param name="exception">The exception that occured.</param>
         </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest">
+            <summary>
+            Does a hittest for a given list of regions. This allows you
+            to check, in which region(s) a given point is located.
+            HitTest knows which region were entered 
+            </summary>
+        </member>
         <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.hitTest(System.Drawing.PointF)">
             <summary>
             Tests, if a point is inside one (or more) of the defined regions.
             </summary>
             <param name="point">A point.</param>
         </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.OnRegionEnter">
+            <summary>
+            Occurs when a region is entered.
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.OnRegionLeave">
+            <summary>
+            Occurs when a region is left.
+            </summary>
+        </member>
         <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.Regions">
             <summary>
             List of Regions
             </summary>
         </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.EnteredRegions">
+            <summary>
+            Returns a list of regions, that the last submitted point is located in.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.RegionEnterHandler">
+            <summary>
+            Represents a method that acts after a region was entered.
+            </summary>
+            <param name="region">The region that was entered.</param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.RegionLeaveHandler">
+            <summary>
+            Represents a method that acts after a region was left.
+            </summary>
+            <param name="region">The region that was left.</param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.IO.SerialPort">
+            <summary>
+            Adds some functionality to the SerialPort class of .NET.
+            </summary>
+        </member>
         <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Open">
             <summary>
             Open the specified port's connection and starts an internal thread for reading from it.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Close">
+            <summary>
+            Closes the serial port.
             </summary>
         </member>
         <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.receive">
@@ -325,10 +485,50 @@
             <param name="handler"></param>
             <param name="receivedByte"></param>
         </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Write(System.Byte[])">
+            <summary>
+            Writes a message of bytes to the serial port.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Write(System.Byte)">
+            <summary>
+            Writes a single byte to the serial port.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Write(System.Collections.Generic.List{System.Byte})">
+            <summary>
+            Writes a message to the serial port that is represented by a list of bytes.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.IO.SerialPort.OnByteReceived">
+            <summary>
+            Occurs every time when a byte was received from the serial port.
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.IO.SerialPort.OnConnectionStateChange">
+            <summary>
+            Occurs whenever the connection state of the serial port has changed.
+            </summary>
+        </member>
         <member name="P:de.christianleberfinger.dotnet.IO.SerialPort.IsOpen">
             <summary>
             Indicates, whether this serialport is open or closed.
             </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler">
+            <summary>
+            Represents the method that handles a received byte from the serial port.
+            </summary>
+            <param name="receivedByte"></param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.IO.SerialPort.ConnectionStateChangedHandler">
+            <summary>
+            Represents the method that handles a changed connection state of the serial port.
+            </summary>
+            <param name="connected"></param>
         </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow">
             <summary>
@@ -497,6 +697,11 @@
             Removes all entries of this LogBox. You can call this method without using Invoke().
             </summary>
         </member>
+        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.selectLastEntry">
+            <summary>
+            Selects the last entry
+            </summary>
+        </member>
         <member name="M:de.christianleberfinger.dotnet.controls.LogBox.toArray">
             <summary>
             Copies the entries of this LogBox to an array of strings.
@@ -517,6 +722,11 @@
         <member name="P:de.christianleberfinger.dotnet.controls.LogBox.ClearButton">
             <summary>
             Sets or gets a value that indicates whether a clear-button is visible that allows the user to delete the entries of the LogBox.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.SaveButtonVisible">
+            <summary>
+            Gets ot sets a boolean value indicating whether the save button is visible.
             </summary>
         </member>
         <member name="P:de.christianleberfinger.dotnet.controls.LogBox.CopyButton">

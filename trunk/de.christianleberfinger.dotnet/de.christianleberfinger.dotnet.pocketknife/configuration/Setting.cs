@@ -35,6 +35,10 @@ namespace de.christianleberfinger.dotnet.configuration
     [Serializable]
     public class Setting<T>
     {
+        /// <summary>
+        /// Represents the method that handles changes of the setting's value.
+        /// </summary>
+        /// <param name="setting"></param>
         public delegate void ValueChangedHandler(Setting<T> setting);
 
         /// <summary>
@@ -44,13 +48,23 @@ namespace de.christianleberfinger.dotnet.configuration
 
         private T value;
 
+        /// <summary>
+        /// Creates a new instance of setting.
+        /// </summary>
         public Setting(){}
 
+        /// <summary>
+        /// Creates a new instance of setting with a given value.
+        /// </summary>
+        /// <param name="value">The setting's value.</param>
         public Setting(T value)
         {
             this.value = value;
         }
 
+        /// <summary>
+        /// Gets or sets the setting's value.
+        /// </summary>
         public T Value
         {
             get
