@@ -33,21 +33,42 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
     public class NodeTree<T> : INodeTree<T>
     {
         private T _data = default(T);
-        private INodeTree<T> _parent = null;
+        private NodeTree<T> _parent = null;
         private List<INodeTree<T>> _children = new List<INodeTree<T>>();
 
         /// <summary>
         /// Gets the current node's children.
         /// </summary>
-        public List<INodeTree<T>> Children
+        public List<INodeTree<T>>.Enumerator Children
         {
-            get { return _children; }
+            get { return _children.GetEnumerator(); }
         }
 
         /// <summary>
-        /// Creates a new tree.
+        /// Creates an empty tree.
         /// </summary>
         public NodeTree() { }
+
+        /// <summary>
+        /// Adds a childnode to the current node.
+        /// </summary>
+        /// <param name="child">The child to add.</param>
+        public void addChild(NodeTree<T> child)
+        {
+            child._parent = this;
+            _children.Add(child);            
+        }
+
+        /// <summary>
+        /// Adds a new childnode to the current node.
+        /// </summary>
+        /// <param name="childData">The data the new node contains.</param>
+        public void addChild(T childData)
+        {
+            NodeTree<T> child = new NodeTree<T>();
+            child.Data = childData;
+            addChild(child);
+        }
 
         /// <summary>
         /// Gets or sets the data that is connected to this node.
@@ -124,12 +145,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         /// <summary>
         /// Gets the current node's siblings. (all nodes with the same parent, including the node itself)
         /// </summary>
-        public List<INodeTree<T>> Siblings
+        public List<INodeTree<T>>.Enumerator Siblings
         {
             get
             {
                 if (IsRoot)
-                    return new List<INodeTree<T>>();
+                    return new List<INodeTree<T>>().GetEnumerator();
 
                 return _parent.Children;
             }
@@ -142,7 +163,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         {
             get
             {
-                List<INodeTree<T>> siblings = Siblings;
+                List<INodeTree<T>> siblings = _parent._children;
 
                 // if there's less than 2 siblings, the current node hasn't one
                 if (siblings.Count < 2)
@@ -165,7 +186,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         {
             get
             {
-                List<INodeTree<T>> siblings = Siblings;
+                List<INodeTree<T>> siblings = _parent._children;
 
                 // if there's less than 2 siblings, the current node hasn't one
                 if (siblings.Count < 2)
@@ -186,7 +207,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         /// </summary>
         public int Degree
         {
-            get { return Children.Count; }
+            get { return _children.Count; }
         }
 
     }

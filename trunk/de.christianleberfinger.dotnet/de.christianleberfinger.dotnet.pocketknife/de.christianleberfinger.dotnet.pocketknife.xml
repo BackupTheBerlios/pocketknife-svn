@@ -654,6 +654,18 @@
             Resets the current tree to it's root.
             </summary>
         </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.addChild(de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree{`0})">
+            <summary>
+            Adds a childnode to the current node.
+            </summary>
+            <param name="child">The child to add.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.addChild(`0)">
+            <summary>
+            Adds a new childnode to the current node.
+            </summary>
+            <param name="childData">The data the new node contains.</param>
+        </member>
         <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Data">
             <summary>
             Gets or sets the data object connected to this node.
@@ -709,8 +721,20 @@
         </member>
         <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.#ctor">
             <summary>
-            Creates a new tree.
+            Creates an empty tree.
             </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.addChild(de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree{`0})">
+            <summary>
+            Adds a childnode to the current node.
+            </summary>
+            <param name="child">The child to add.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.addChild(`0)">
+            <summary>
+            Adds a new childnode to the current node.
+            </summary>
+            <param name="childData">The data the new node contains.</param>
         </member>
         <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.clear">
             <summary>

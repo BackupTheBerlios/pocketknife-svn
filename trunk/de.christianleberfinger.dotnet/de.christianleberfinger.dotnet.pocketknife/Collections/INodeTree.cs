@@ -60,12 +60,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         /// <summary>
         /// Gets the current node's children.
         /// </summary>
-        List<INodeTree<T>> Children { get; }
+        List<INodeTree<T>>.Enumerator Children { get; }
 
         /// <summary>
         /// Gets the current node's siblings. (all nodes with the same parent, including the node itself)
         /// </summary>
-        List<INodeTree<T>> Siblings { get; }
+        List<INodeTree<T>>.Enumerator Siblings { get; }
 
         /// <summary>
         /// Gets the sibling before the current node or null if there isn't a previous sibling.
@@ -88,5 +88,17 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         /// Return the number of children the current node has. (also called out-degree)
         /// </summary>
         int Degree { get; }
+
+        /// <summary>
+        /// Adds a childnode to the current node.
+        /// </summary>
+        /// <param name="child">The child to add.</param>
+         void addChild(NodeTree<T> child);
+
+        /// <summary>
+        /// Adds a new childnode to the current node.
+        /// </summary>
+        /// <param name="childData">The data the new node contains.</param>
+        void addChild(T childData);
     }
 }
