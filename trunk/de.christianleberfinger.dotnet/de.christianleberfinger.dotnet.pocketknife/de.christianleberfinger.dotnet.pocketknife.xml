@@ -685,6 +685,28 @@
             Gets the current node's siblings. (all nodes with the same parent, including the node itself)
             </summary>
         </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.PreviousSibling">
+            <summary>
+            Gets the sibling before the current node or null if there isn't a previous sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.NextSibling">
+            <summary>
+            Gets the sibling after the current node or null if there isn't a next sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Depth">
+            <summary>
+            Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
+            That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
+            a child of root has a depth of 1.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Degree">
+            <summary>
+            Return the number of children the current node has. (also called out-degree)
+            </summary>
+        </member>
         <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.#ctor">
             <summary>
             Creates a new tree.
@@ -716,6 +738,13 @@
             Gets the root of this tree.
             </summary>
         </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Depth">
+            <summary>
+            Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
+            That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
+            a child of root has a depth of 1.
+            </summary>
+        </member>
         <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.IsRoot">
             <summary>
             Indicates whether the current node is the root of the tree.
@@ -724,6 +753,21 @@
         <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Siblings">
             <summary>
             Gets the current node's siblings. (all nodes with the same parent, including the node itself)
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.PreviousSibling">
+            <summary>
+            Gets the sibling before the current node or null if there isn't a previous sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.NextSibling">
+            <summary>
+            Gets the sibling after the current node or null if there isn't a next sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Degree">
+            <summary>
+            Return the number of children the current node has. (also called out-degree)
             </summary>
         </member>
     </members>

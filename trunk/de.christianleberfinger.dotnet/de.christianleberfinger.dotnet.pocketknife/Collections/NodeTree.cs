@@ -83,6 +83,27 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         }
 
         /// <summary>
+        /// Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
+        /// That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
+        /// a child of root has a depth of 1.
+        /// </summary>
+        public int Depth
+        {
+            get
+            {
+                int depth = 0;
+                INodeTree<T> node = this;
+                while (node.Parent != null)
+                {
+                    depth++;
+                    node = node.Parent;
+                }
+
+                return depth;
+            }
+        }
+
+        /// <summary>
         /// Indicates whether the current node is the root of the tree.
         /// </summary>
         public bool IsRoot
@@ -112,6 +133,60 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
 
                 return _parent.Children;
             }
+        }
+
+        /// <summary>
+        /// Gets the sibling before the current node or null if there isn't a previous sibling.
+        /// </summary>
+        public INodeTree<T> PreviousSibling
+        {
+            get
+            {
+                List<INodeTree<T>> siblings = Siblings;
+
+                // if there's less than 2 siblings, the current node hasn't one
+                if (siblings.Count < 2)
+                    return null;
+
+                int currentIndex = siblings.IndexOf(this);
+
+                // the first sibling hasn't a previous
+                if (currentIndex == 0)
+                    return null;
+                else
+                    return siblings[currentIndex - 1];
+            }
+        }
+
+        /// <summary>
+        /// Gets the sibling after the current node or null if there isn't a next sibling.
+        /// </summary>
+        public INodeTree<T> NextSibling
+        {
+            get
+            {
+                List<INodeTree<T>> siblings = Siblings;
+
+                // if there's less than 2 siblings, the current node hasn't one
+                if (siblings.Count < 2)
+                    return null;
+
+                int currentIndex = siblings.IndexOf(this);
+
+                // the last sibling hasn't a next
+                if (currentIndex > siblings.Count)
+                    return null;
+                else
+                    return siblings[currentIndex + 1];
+            }
+        }
+
+        /// <summary>
+        /// Return the number of children the current node has. (also called out-degree)
+        /// </summary>
+        public int Degree
+        {
+            get { return Children.Count; }
         }
 
     }

@@ -66,5 +66,27 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         /// Gets the current node's siblings. (all nodes with the same parent, including the node itself)
         /// </summary>
         List<INodeTree<T>> Siblings { get; }
+
+        /// <summary>
+        /// Gets the sibling before the current node or null if there isn't a previous sibling.
+        /// </summary>
+        INodeTree<T> PreviousSibling { get; }
+
+        /// <summary>
+        /// Gets the sibling after the current node or null if there isn't a next sibling.
+        /// </summary>
+        INodeTree<T> NextSibling { get; }
+
+        /// <summary>
+        /// Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
+        /// That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
+        /// a child of root has a depth of 1.
+        /// </summary>
+        int Depth { get; }
+
+        /// <summary>
+        /// Return the number of children the current node has. (also called out-degree)
+        /// </summary>
+        int Degree { get; }
     }
 }
