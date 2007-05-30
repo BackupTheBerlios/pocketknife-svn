@@ -30,7 +30,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using System.ComponentModel;
 
-namespace de.christianleberfinger.dotnet.IO
+namespace de.christianleberfinger.dotnet.pocketknife.IO
 {
     /// <summary>
     /// Adds some functionality to the SerialPort class of .NET.
@@ -103,7 +103,7 @@ namespace de.christianleberfinger.dotnet.IO
             catch { }
 
             // waiting for readThread to die
-            Threading.ThreadUtils.waitForThreadToDie(readThread, 1000);
+            pocketknife.Threading.ThreadUtils.waitForThreadToDie(readThread, 1000);
             readThread = null;
         }
 

@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml.Serialization;
 
-namespace de.christianleberfinger.dotnet.configuration
+namespace de.christianleberfinger.dotnet.pocketknife.configuration
 {
     /// <summary>
     /// Generic class for storing settings. Especially useful when used in combination with

@@ -28,7 +28,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace de.christianleberfinger.dotnet.controls
+namespace de.christianleberfinger.dotnet.pocketknife.controls
 {
     /// <summary>
     /// LogBox adds some extra functionality to the ListBox control of the .NET-framework

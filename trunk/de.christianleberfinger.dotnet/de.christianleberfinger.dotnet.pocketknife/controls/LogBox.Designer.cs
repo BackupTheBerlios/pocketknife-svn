@@ -20,7 +20,7 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  */
-namespace de.christianleberfinger.dotnet.controls
+namespace de.christianleberfinger.dotnet.pocketknife.controls
 {
     partial class LogBox
     {

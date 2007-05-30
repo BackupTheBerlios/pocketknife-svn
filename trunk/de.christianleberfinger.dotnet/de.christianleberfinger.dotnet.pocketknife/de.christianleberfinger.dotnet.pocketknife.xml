@@ -4,145 +4,189 @@
         <name>de.christianleberfinger.dotnet.pocketknife</name>
     </assembly>
     <members>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion">
-            <summary>
-            Region interface.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion.IsInRegion(System.Drawing.PointF)">
-            <summary>
-            Indicates whether a given point is in the current region.
-            Also known as hit test.
-            </summary>
-            <param name="point">A point.</param>
-            <returns>A boolean value indicating whether the point is in the region.</returns>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion.ID">
-            <summary>
-            The region's id.
-            </summary>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel">
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.controls.DoubleBufferedPanel">
             <summary>
             DoubleBufferedPanel adds double buffering to .NET's Panel class.
             In order to create double buffered Panels, just derive from this class and override
             the method OnPaint(PaintEventArgs e).
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.#ctor">
-            <summary>
-            Creates a new double buffered panel.
-            </summary>
-        </member>
-        <member name="F:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.components">
+        <member name="F:de.christianleberfinger.dotnet.pocketknife.controls.DoubleBufferedPanel.components">
             <summary>
             Required designer variable.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.Dispose(System.Boolean)">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.DoubleBufferedPanel.Dispose(System.Boolean)">
             <summary> 
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.DoubleBufferedPanel.InitializeComponent">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.DoubleBufferedPanel.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="T:de.christianleberfinger.dotnet.configuration.Setting`1">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.DoubleBufferedPanel.#ctor">
             <summary>
-            Generic class for storing settings. Especially useful when used in combination with
-            the Configuration class for storing settings in xml files.
+            Creates a new double buffered panel.
             </summary>
-            <typeparam name="T">The setting's value type.</typeparam>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Setting`1.#ctor">
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1">
             <summary>
-            Creates a new instance of setting.
+            Implements a simple tree.
             </summary>
+            <typeparam name="T">The type that you want to store in this tree.</typeparam>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Setting`1.#ctor(`0)">
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1">
             <summary>
-            Creates a new instance of setting with a given value.
+            Defines the operations available on a simple tree.
             </summary>
-            <param name="value">The setting's value.</param>
         </member>
-        <member name="E:de.christianleberfinger.dotnet.configuration.Setting`1.OnValueChange">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.clear">
             <summary>
-            Occurs when the setting's value is set.
+            Resets the current tree to it's root.
             </summary>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.configuration.Setting`1.Value">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.addChild(de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree{`0})">
             <summary>
-            Gets or sets the setting's value.
+            Adds a childnode to the current node.
             </summary>
+            <param name="child">The child to add.</param>
         </member>
-        <member name="T:de.christianleberfinger.dotnet.configuration.Setting`1.ValueChangedHandler">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.addChild(`0)">
             <summary>
-            Represents the method that handles changes of the setting's value.
+            Adds a new childnode to the current node.
             </summary>
-            <param name="setting"></param>
+            <param name="childData">The data the new node contains.</param>
         </member>
-        <member name="T:de.christianleberfinger.dotnet.controls.SerialPortControl">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Data">
             <summary>
-            Offers a simple GUI control for an event based serial port.
+            Gets or sets the data object connected to this node.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.#ctor">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Parent">
             <summary>
-            Creates a new instance of SerialPortControl
+            Gets the parent of the current node or null if the current node 
+            is the tree's root.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.open">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.IsRoot">
             <summary>
-            Opens the serialport that was specified in the combobox and starts an internal
-            thread that reads from it. You can subscribe the event 'OnByteReceived' to
-            be notificated about received data.
+            Indicates whether the current node is the root of the tree.
             </summary>
         </member>
-        <member name="F:de.christianleberfinger.dotnet.controls.SerialPortControl.components">
-            <summary> 
-            Required designer variable.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.Dispose(System.Boolean)">
-            <summary> 
-            Clean up any resources being used.
-            </summary>
-            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.SerialPortControl.InitializeComponent">
-            <summary> 
-            Required method for Designer support - do not modify 
-            the contents of this method with the code editor.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.SerialPortControl.Port">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Root">
             <summary>
-            Returns the inner serial port class that handles the I/O communication.
+            Gets the root of this tree.
             </summary>
         </member>
-        <member name="E:de.christianleberfinger.dotnet.controls.SerialPortControl.OnByteReceived">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Children">
             <summary>
-            Occurs every time when a byte was received from the serial port.
+            Gets the current node's children.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Siblings">
+            <summary>
+            Gets the current node's siblings. (all nodes with the same parent, including the node itself)
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.PreviousSibling">
+            <summary>
+            Gets the sibling before the current node or null if there isn't a previous sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.NextSibling">
+            <summary>
+            Gets the sibling after the current node or null if there isn't a next sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Depth">
+            <summary>
+            Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
+            That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
+            a child of root has a depth of 1.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Degree">
+            <summary>
+            Return the number of children the current node has. (also called out-degree)
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.#ctor">
+            <summary>
+            Creates an empty tree.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.addChild(de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree{`0})">
+            <summary>
+            Adds a childnode to the current node.
+            </summary>
+            <param name="child">The child to add.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.addChild(`0)">
+            <summary>
+            Adds a new childnode to the current node.
+            </summary>
+            <param name="childData">The data the new node contains.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.clear">
+            <summary>
+            Resets the current tree to it's root.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Children">
+            <summary>
+            Gets the current node's children.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Data">
+            <summary>
+            Gets or sets the data that is connected to this node.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Parent">
+            <summary>
+            Returns the parent of the current node or null if the current node 
+            is the tree's root.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Root">
+            <summary>
+            Gets the root of this tree.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Depth">
+            <summary>
+            Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
+            That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
+            a child of root has a depth of 1.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.IsRoot">
+            <summary>
+            Indicates whether the current node is the root of the tree.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Siblings">
+            <summary>
+            Gets the current node's siblings. (all nodes with the same parent, including the node itself)
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.PreviousSibling">
+            <summary>
+            Gets the sibling before the current node or null if there isn't a previous sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.NextSibling">
+            <summary>
+            Gets the sibling after the current node or null if there isn't a next sibling.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Degree">
+            <summary>
+            Return the number of children the current node has. (also called out-degree)
             </summary>
         </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.TcpClientAsynchronous">
@@ -343,9 +387,240 @@
             automatisch wiederherzustellen.
             </summary>
         </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.configuration.Setting`1">
+            <summary>
+            Generic class for storing settings. Especially useful when used in combination with
+            the Configuration class for storing settings in xml files.
+            </summary>
+            <typeparam name="T">The setting's value type.</typeparam>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Setting`1.#ctor">
+            <summary>
+            Creates a new instance of setting.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Setting`1.#ctor(`0)">
+            <summary>
+            Creates a new instance of setting with a given value.
+            </summary>
+            <param name="value">The setting's value.</param>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.configuration.Setting`1.OnValueChange">
+            <summary>
+            Occurs when the setting's value is set.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.configuration.Setting`1.Value">
+            <summary>
+            Gets or sets the setting's value.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.configuration.Setting`1.ValueChangedHandler">
+            <summary>
+            Represents the method that handles changes of the setting's value.
+            </summary>
+            <param name="setting"></param>
+        </member>
+        <!-- Nicht wohlgeformter XML-Kommentar wurde für den Member "T:de.christianleberfinger.dotnet.pocketknife.controls.LogBox" ignoriert -->
+        <member name="F:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.components">
+            <summary> 
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.#ctor">
+            <summary>
+            Creates a new LogBox.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.initToolTips">
+            <summary>
+            Initializes the tooltips for the subcomponents of this logbox.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.log(System.String)">
+            <summary>
+            Adds a new message to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="message">The message you want to log.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.log(System.String,System.Object[])">
+            <summary>
+            Adds a new message to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="format">A string that can contain zero or more format items, like e.g. {0}.</param>
+            <param name="args">An array of objects that will be used to fill the format item's gaps.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.log(System.String[])">
+            <summary>
+            Adds new messages to this LogBox. You can call this method without using Invoke().
+            </summary>
+            <param name="messages">The messages you want to log.</param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.clear">
+            <summary>
+            Removes all entries of this LogBox. You can call this method without using Invoke().
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.selectLastEntry">
+            <summary>
+            Selects the last entry
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.toArray">
+            <summary>
+            Copies the entries of this LogBox to an array of strings.
+            </summary>
+            <returns>Log entries as strings.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.saveContentToFile(System.String)">
+            <summary>
+            Saves the entries of this LogBox in a text file.
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.AutoSelectLastEntry">
+            <summary>
+            Sets or gets a value that indicates whether the last most recent entry of LogBox is automatically selected when getting added.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.ClearButton">
+            <summary>
+            Sets or gets a value that indicates whether a clear-button is visible that allows the user to delete the entries of the LogBox.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.SaveButtonVisible">
+            <summary>
+            Gets ot sets a boolean value indicating whether the save button is visible.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.CopyButton">
+            <summary>
+            Sets or gets a value that indicates whether a button is visible that allows the user to copy the entries of the LogBox to the clipboard.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.MaxEntryCount">
+            <summary>
+            Sets or gets the maximum number of entries that are displayed in the LogBox.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.LogBox.Title">
+            <summary>
+            Sets the title of the LogBox.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ConnectionEventHandler">
+            <summary>
+            Delegate for the change of the connection's state.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.MessageReceivedEventHandler">
+            <summary>
+            Delegate for message received
+            </summary>
+            <param name="connection">The connection that was the message's source.</param>
+            <param name="message">The message that was received.</param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ExceptionOccuredEventHandler">
+            <summary>
+            Delegate for handling occured exceptions.
+            </summary>
+            <param name="connection">The connection it that the exception occured.</param>
+            <param name="exception">The exception that occured.</param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest">
+            <summary>
+            Does a hittest for a given list of regions. This allows you
+            to check, in which region(s) a given point is located.
+            HitTest knows which region were entered 
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.hitTest(System.Drawing.PointF)">
+            <summary>
+            Tests, if a point is inside one (or more) of the defined regions.
+            </summary>
+            <param name="point">A point.</param>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.OnRegionEnter">
+            <summary>
+            Occurs when a region is entered.
+            </summary>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.OnRegionLeave">
+            <summary>
+            Occurs when a region is left.
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.Regions">
+            <summary>
+            List of Regions
+            </summary>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.EnteredRegions">
+            <summary>
+            Returns a list of regions, that the last submitted point is located in.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.RegionEnterHandler">
+            <summary>
+            Represents a method that acts after a region was entered.
+            </summary>
+            <param name="region">The region that was entered.</param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.RegionLeaveHandler">
+            <summary>
+            Represents a method that acts after a region was left.
+            </summary>
+            <param name="region">The region that was left.</param>
+        </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion">
             <summary>
              A region with the shape of a circle. Can be used for simple hit tests.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion">
+            <summary>
+            Region interface.
+            </summary>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion.IsInRegion(System.Drawing.PointF)">
+            <summary>
+            Indicates whether a given point is in the current region.
+            Also known as hit test.
+            </summary>
+            <param name="point">A point.</param>
+            <returns>A boolean value indicating whether the point is in the region.</returns>
+        </member>
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.IRegion.ID">
+            <summary>
+            The region's id.
             </summary>
         </member>
         <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.CircularRegion.#ctor(System.String,System.Drawing.PointF,System.Single)">
@@ -393,142 +668,6 @@
             <summary>
             The region's radius.
             </summary>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ConnectionEventHandler">
-            <summary>
-            Delegate for the change of the connection's state.
-            </summary>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.MessageReceivedEventHandler">
-            <summary>
-            Delegate for message received
-            </summary>
-            <param name="connection">The connection that was the message's source.</param>
-            <param name="message">The message that was received.</param>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.Net.ExceptionOccuredEventHandler">
-            <summary>
-            Delegate for handling occured exceptions.
-            </summary>
-            <param name="connection">The connection it that the exception occured.</param>
-            <param name="exception">The exception that occured.</param>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest">
-            <summary>
-            Does a hittest for a given list of regions. This allows you
-            to check, in which region(s) a given point is located.
-            HitTest knows which region were entered 
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.hitTest(System.Drawing.PointF)">
-            <summary>
-            Tests, if a point is inside one (or more) of the defined regions.
-            </summary>
-            <param name="point">A point.</param>
-        </member>
-        <member name="E:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.OnRegionEnter">
-            <summary>
-            Occurs when a region is entered.
-            </summary>
-        </member>
-        <member name="E:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.OnRegionLeave">
-            <summary>
-            Occurs when a region is left.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.Regions">
-            <summary>
-            List of Regions
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.EnteredRegions">
-            <summary>
-            Returns a list of regions, that the last submitted point is located in.
-            </summary>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.RegionEnterHandler">
-            <summary>
-            Represents a method that acts after a region was entered.
-            </summary>
-            <param name="region">The region that was entered.</param>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.drawing.HitTest.RegionLeaveHandler">
-            <summary>
-            Represents a method that acts after a region was left.
-            </summary>
-            <param name="region">The region that was left.</param>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.IO.SerialPort">
-            <summary>
-            Adds some functionality to the SerialPort class of .NET.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Open">
-            <summary>
-            Open the specified port's connection and starts an internal thread for reading from it.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Close">
-            <summary>
-            Closes the serial port.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.receive">
-            <summary>
-            Threadstart-method for receiving data from the serial port.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.fireByteReceived(de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler,System.Byte)">
-            <summary>
-            Fires the ByteReceived-Event. JIT-inlining is forbidden in order to prevent race conditions.
-            </summary>
-            <param name="handler"></param>
-            <param name="receivedByte"></param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Write(System.Byte[])">
-            <summary>
-            Writes a message of bytes to the serial port.
-            </summary>
-            <param name="message"></param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Write(System.Byte)">
-            <summary>
-            Writes a single byte to the serial port.
-            </summary>
-            <param name="message"></param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.IO.SerialPort.Write(System.Collections.Generic.List{System.Byte})">
-            <summary>
-            Writes a message to the serial port that is represented by a list of bytes.
-            </summary>
-            <param name="message"></param>
-        </member>
-        <member name="E:de.christianleberfinger.dotnet.IO.SerialPort.OnByteReceived">
-            <summary>
-            Occurs every time when a byte was received from the serial port.
-            </summary>
-        </member>
-        <member name="E:de.christianleberfinger.dotnet.IO.SerialPort.OnConnectionStateChange">
-            <summary>
-            Occurs whenever the connection state of the serial port has changed.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.IO.SerialPort.IsOpen">
-            <summary>
-            Indicates, whether this serialport is open or closed.
-            </summary>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler">
-            <summary>
-            Represents the method that handles a received byte from the serial port.
-            </summary>
-            <param name="receivedByte"></param>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.IO.SerialPort.ConnectionStateChangedHandler">
-            <summary>
-            Represents the method that handles a changed connection state of the serial port.
-            </summary>
-            <param name="connected"></param>
         </member>
         <member name="T:de.christianleberfinger.dotnet.pocketknife.controls.ExternalWindow">
             <summary>
@@ -645,106 +784,147 @@
             The divide key on the numeric keyboard.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:de.christianleberfinger.dotnet.controls.LogBox" -->
-        <member name="F:de.christianleberfinger.dotnet.controls.LogBox.components">
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl">
+            <summary>
+            Offers a simple GUI control for an event based serial port.
+            </summary>
+        </member>
+        <member name="F:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl.components">
             <summary> 
             Required designer variable.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.Dispose(System.Boolean)">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl.Dispose(System.Boolean)">
             <summary> 
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.InitializeComponent">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl.InitializeComponent">
             <summary> 
             Required method for Designer support - do not modify 
             the contents of this method with the code editor.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.#ctor">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl.#ctor">
             <summary>
-            Creates a new LogBox.
+            Creates a new instance of SerialPortControl
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.initToolTips">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl.open">
             <summary>
-            Initializes the tooltips for the subcomponents of this logbox.
+            Opens the serialport that was specified in the combobox and starts an internal
+            thread that reads from it. You can subscribe the event 'OnByteReceived' to
+            be notificated about received data.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String)">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl.Port">
             <summary>
-            Adds a new message to this LogBox. You can call this method without using Invoke().
-            </summary>
-            <param name="message">The message you want to log.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String,System.Object[])">
-            <summary>
-            Adds a new message to this LogBox. You can call this method without using Invoke().
-            </summary>
-            <param name="format">A string that can contain zero or more format items, like e.g. {0}.</param>
-            <param name="args">An array of objects that will be used to fill the format item's gaps.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.log(System.String[])">
-            <summary>
-            Adds new messages to this LogBox. You can call this method without using Invoke().
-            </summary>
-            <param name="messages">The messages you want to log.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.clear">
-            <summary>
-            Removes all entries of this LogBox. You can call this method without using Invoke().
+            Returns the inner serial port class that handles the I/O communication.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.selectLastEntry">
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl.OnByteReceived">
             <summary>
-            Selects the last entry
+            Occurs every time when a byte was received from the serial port.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.toArray">
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort">
             <summary>
-            Copies the entries of this LogBox to an array of strings.
-            </summary>
-            <returns>Log entries as strings.</returns>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.controls.LogBox.saveContentToFile(System.String)">
-            <summary>
-            Saves the entries of this LogBox in a text file.
-            </summary>
-            <param name="file"></param>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.AutoSelectLastEntry">
-            <summary>
-            Sets or gets a value that indicates whether the last most recent entry of LogBox is automatically selected when getting added.
+            Adds some functionality to the SerialPort class of .NET.
             </summary>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.ClearButton">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.Open">
             <summary>
-            Sets or gets a value that indicates whether a clear-button is visible that allows the user to delete the entries of the LogBox.
+            Open the specified port's connection and starts an internal thread for reading from it.
             </summary>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.SaveButtonVisible">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.Close">
             <summary>
-            Gets ot sets a boolean value indicating whether the save button is visible.
+            Closes the serial port.
             </summary>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.CopyButton">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.receive">
             <summary>
-            Sets or gets a value that indicates whether a button is visible that allows the user to copy the entries of the LogBox to the clipboard.
+            Threadstart-method for receiving data from the serial port.
             </summary>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.MaxEntryCount">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.fireByteReceived(de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler,System.Byte)">
             <summary>
-            Sets or gets the maximum number of entries that are displayed in the LogBox.
+            Fires the ByteReceived-Event. JIT-inlining is forbidden in order to prevent race conditions.
+            </summary>
+            <param name="handler"></param>
+            <param name="receivedByte"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.Write(System.Byte[])">
+            <summary>
+            Writes a message of bytes to the serial port.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.Write(System.Byte)">
+            <summary>
+            Writes a single byte to the serial port.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.Write(System.Collections.Generic.List{System.Byte})">
+            <summary>
+            Writes a message to the serial port that is represented by a list of bytes.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.OnByteReceived">
+            <summary>
+            Occurs every time when a byte was received from the serial port.
             </summary>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.controls.LogBox.Title">
+        <member name="E:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.OnConnectionStateChange">
             <summary>
-            Sets the title of the LogBox.
+            Occurs whenever the connection state of the serial port has changed.
             </summary>
         </member>
-        <member name="T:de.christianleberfinger.dotnet.configuration.Configuration`1">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.IsOpen">
+            <summary>
+            Indicates, whether this serialport is open or closed.
+            </summary>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler">
+            <summary>
+            Represents the method that handles a received byte from the serial port.
+            </summary>
+            <param name="receivedByte"></param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ConnectionStateChangedHandler">
+            <summary>
+            Represents the method that handles a changed connection state of the serial port.
+            </summary>
+            <param name="connected"></param>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1">
+            <summary>
+            Provides a generic serializer/deserializer for .NET structs.
+            </summary>
+            <typeparam name="T">The type of your struct.</typeparam>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.deserialize(System.Byte[])">
+            <summary>
+            Creates a struct from an array of bytes.
+            If the number of bytes passed to this function doesn't match the
+            size of the struct you want to build, a default instance of the
+            struct is returned.
+            </summary>
+            <param name="bytes">The bytes that should build the struct.</param>
+            <returns>A struct that was built using the given byte array.</returns>
+        </member>
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.serialize(`0)">
+            <summary>
+            Serializes a given struct to an array of bytes, so that it can be easily 
+            transferred over streams such as file streams or network streams.
+            </summary>
+            <param name="yourStruct">The struct you want to serialize.</param>
+            <returns>An array of bytes.</returns>
+        </member>
+        <member name="T:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1">
             <summary>
             Class for storing configuration properties in XML files.
             All public (and serializable) properties of a class can be stored in an XML file automatically.<para/>
@@ -777,231 +957,51 @@
             </example>
             <typeparam name="T">The class that contains the properties you want to store in an XML file.</typeparam>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.#cctor">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.#cctor">
             <summary>
             Static initialization. 
             If there's a config file for the type of settings, 
             the data specified in it is being loaded automatically.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.load">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.load">
             <summary>
             Tries to load a stored snapshot of the object from an XML file. 
             The filename is generated by using the name of the object's type.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.fileExists">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.fileExists">
             <summary>
             Checks for the existence of the configuration file.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.load(System.String)">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.load(System.String)">
             <summary>
             Tries to load a snapshot of the object from the specified XML file.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.resetToDefault">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.resetToDefault">
             <summary>
             Resets the settings to the default values.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.save">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.save">
             <summary>
             Create a "snapshot" of the object and store it in an XML-file.
             The filename is automatically created by using the object's type-name.
             </summary>
         </member>
-        <member name="M:de.christianleberfinger.dotnet.configuration.Configuration`1.save(System.String)">
+        <member name="M:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.save(System.String)">
             <summary>
             Create a "snapshot" of the object and store it in the XML-file 
             with the specified filename.
             </summary>
             <param name="filename">Name of the output file</param>
         </member>
-        <member name="P:de.christianleberfinger.dotnet.configuration.Configuration`1.Settings">
+        <member name="P:de.christianleberfinger.dotnet.pocketknife.configuration.Configuration`1.Settings">
             <summary>
             Gets or sets the properties of this configuration-object.
-            </summary>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1">
-            <summary>
-            Provides a generic serializer/deserializer for .NET structs.
-            </summary>
-            <typeparam name="T">The type of your struct.</typeparam>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.deserialize(System.Byte[])">
-            <summary>
-            Creates a struct from an array of bytes.
-            If the number of bytes passed to this function doesn't match the
-            size of the struct you want to build, a default instance of the
-            struct is returned.
-            </summary>
-            <param name="bytes">The bytes that should build the struct.</param>
-            <returns>A struct that was built using the given byte array.</returns>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.StructSerializer`1.serialize(`0)">
-            <summary>
-            Serializes a given struct to an array of bytes, so that it can be easily 
-            transferred over streams such as file streams or network streams.
-            </summary>
-            <param name="yourStruct">The struct you want to serialize.</param>
-            <returns>An array of bytes.</returns>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1">
-            <summary>
-            Implements a simple tree.
-            </summary>
-            <typeparam name="T">The type that you want to store in this tree.</typeparam>
-        </member>
-        <member name="T:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1">
-            <summary>
-            Defines the operations available on a simple tree.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.clear">
-            <summary>
-            Resets the current tree to it's root.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.addChild(de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree{`0})">
-            <summary>
-            Adds a childnode to the current node.
-            </summary>
-            <param name="child">The child to add.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.addChild(`0)">
-            <summary>
-            Adds a new childnode to the current node.
-            </summary>
-            <param name="childData">The data the new node contains.</param>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Data">
-            <summary>
-            Gets or sets the data object connected to this node.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Parent">
-            <summary>
-            Gets the parent of the current node or null if the current node 
-            is the tree's root.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.IsRoot">
-            <summary>
-            Indicates whether the current node is the root of the tree.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Root">
-            <summary>
-            Gets the root of this tree.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Children">
-            <summary>
-            Gets the current node's children.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Siblings">
-            <summary>
-            Gets the current node's siblings. (all nodes with the same parent, including the node itself)
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.PreviousSibling">
-            <summary>
-            Gets the sibling before the current node or null if there isn't a previous sibling.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.NextSibling">
-            <summary>
-            Gets the sibling after the current node or null if there isn't a next sibling.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Depth">
-            <summary>
-            Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
-            That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
-            a child of root has a depth of 1.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.INodeTree`1.Degree">
-            <summary>
-            Return the number of children the current node has. (also called out-degree)
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.#ctor">
-            <summary>
-            Creates an empty tree.
-            </summary>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.addChild(de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree{`0})">
-            <summary>
-            Adds a childnode to the current node.
-            </summary>
-            <param name="child">The child to add.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.addChild(`0)">
-            <summary>
-            Adds a new childnode to the current node.
-            </summary>
-            <param name="childData">The data the new node contains.</param>
-        </member>
-        <member name="M:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.clear">
-            <summary>
-            Resets the current tree to it's root.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Children">
-            <summary>
-            Gets the current node's children.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Data">
-            <summary>
-            Gets or sets the data that is connected to this node.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Parent">
-            <summary>
-            Returns the parent of the current node or null if the current node 
-            is the tree's root.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Root">
-            <summary>
-            Gets the root of this tree.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Depth">
-            <summary>
-            Gets the depth of the current node. The depth is the distance from the current node to the root of the tree.
-            That means how deep the current node is 'hidden' in the hierarchy of the tree. Root has a depth of 0,
-            a child of root has a depth of 1.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.IsRoot">
-            <summary>
-            Indicates whether the current node is the root of the tree.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Siblings">
-            <summary>
-            Gets the current node's siblings. (all nodes with the same parent, including the node itself)
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.PreviousSibling">
-            <summary>
-            Gets the sibling before the current node or null if there isn't a previous sibling.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.NextSibling">
-            <summary>
-            Gets the sibling after the current node or null if there isn't a next sibling.
-            </summary>
-        </member>
-        <member name="P:de.christianleberfinger.dotnet.pocketknife.Collections.NodeTree`1.Degree">
-            <summary>
-            Return the number of children the current node has. (also called out-degree)
             </summary>
         </member>
     </members>

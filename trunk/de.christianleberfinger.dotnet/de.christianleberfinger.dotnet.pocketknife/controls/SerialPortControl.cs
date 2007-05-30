@@ -28,9 +28,9 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
-using de.christianleberfinger.dotnet.IO;
+using de.christianleberfinger.dotnet.pocketknife.IO;
 
-namespace de.christianleberfinger.dotnet.controls
+namespace de.christianleberfinger.dotnet.pocketknife.controls
 {
     /// <summary>
     /// Offers a simple GUI control for an event based serial port.

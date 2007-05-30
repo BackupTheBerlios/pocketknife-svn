@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using de.christianleberfinger.dotnet.configuration;
+using de.christianleberfinger.dotnet.pocketknife.configuration;
 
 namespace TestApp
 {

@@ -63,6 +63,9 @@
     <Compile Include="drawing\CircularRegion.cs" />
     <Compile Include="drawing\HitTest.cs" />
     <Compile Include="drawing\IRegion.cs" />
+    <Compile Include="patterns\commandhandling\CommandManager.cs" />
+    <Compile Include="patterns\commandhandling\ICommand.cs" />
+    <Compile Include="patterns\commandhandling\ICommandHandler.cs" />
     <Compile Include="IO\SerialPort.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -75,7 +78,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="StructSerializer.cs" />
-    <Compile Include="Threading\Utils.cs" />
+    <Compile Include="Threading\ThreadUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="controls\LogBox.resx">

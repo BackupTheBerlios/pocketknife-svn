@@ -26,7 +26,7 @@ using System.Text;
 using System.IO;
 using System.Xml.Serialization;
 
-namespace de.christianleberfinger.dotnet.configuration
+namespace de.christianleberfinger.dotnet.pocketknife.configuration
 {
     /// <summary>
     /// Class for storing configuration properties in XML files.

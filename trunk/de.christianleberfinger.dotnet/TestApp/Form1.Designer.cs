@@ -30,9 +30,9 @@ namespace TestApp
         {
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.serialPortControl1 = new de.christianleberfinger.dotnet.controls.SerialPortControl();
-            this.loggingBox1 = new de.christianleberfinger.dotnet.controls.LogBox();
-            this.serialPort1 = new de.christianleberfinger.dotnet.IO.SerialPort();
+            this.serialPortControl1 = new de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl();
+            this.loggingBox1 = new de.christianleberfinger.dotnet.pocketknife.controls.LogBox();
+            this.serialPort1 = new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageLogging = new System.Windows.Forms.TabPage();
             this.tabPageSerialPort = new System.Windows.Forms.TabPage();
@@ -80,7 +80,7 @@ namespace TestApp
             this.serialPortControl1.Size = new System.Drawing.Size(223, 55);
             this.serialPortControl1.TabIndex = 3;
             this.serialPortControl1.Load += new System.EventHandler(this.serialPortControl1_Load);
-            this.serialPortControl1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPortControl1_OnByteReceived);
+            this.serialPortControl1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPortControl1_OnByteReceived);
             // 
             // loggingBox1
             // 
@@ -102,8 +102,8 @@ namespace TestApp
             // 
             // serialPort1
             // 
-            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
-            this.serialPort1.OnConnectionStateChange += new de.christianleberfinger.dotnet.IO.SerialPort.ConnectionStateChangedHandler(this.serialPort1_OnConnectionStateChange);
+            this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
+            this.serialPort1.OnConnectionStateChange += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ConnectionStateChangedHandler(this.serialPort1_OnConnectionStateChange);
             // 
             // tabControlMain
             // 
@@ -254,11 +254,11 @@ namespace TestApp
 
         #endregion
 
-        private de.christianleberfinger.dotnet.controls.LogBox loggingBox1;
+        private de.christianleberfinger.dotnet.pocketknife.controls.LogBox loggingBox1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private de.christianleberfinger.dotnet.IO.SerialPort serialPort1;
-        private de.christianleberfinger.dotnet.controls.SerialPortControl serialPortControl1;
+        private de.christianleberfinger.dotnet.pocketknife.IO.SerialPort serialPort1;
+        private de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl serialPortControl1;
         private System.Windows.Forms.TabControl tabControlMain;
         private System.Windows.Forms.TabPage tabPageLogging;
         private System.Windows.Forms.TabPage tabPageSerialPort;

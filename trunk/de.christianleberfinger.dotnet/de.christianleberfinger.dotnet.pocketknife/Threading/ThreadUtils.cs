@@ -26,9 +26,9 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 
-namespace de.christianleberfinger.dotnet.Threading
+namespace de.christianleberfinger.dotnet.pocketknife.Threading
 {
-    class ThreadUtils
+    public class ThreadUtils
     {
         public static void waitForThreadToDie(Thread thread)
         {
