@@ -63,6 +63,7 @@
     <Compile Include="drawing\CircularRegion.cs" />
     <Compile Include="drawing\HitTest.cs" />
     <Compile Include="drawing\IRegion.cs" />
+    <Compile Include="Net\UdpBroadcaster.cs" />
     <Compile Include="patterns\commandhandling\CommandManager.cs" />
     <Compile Include="patterns\commandhandling\ICommand.cs" />
     <Compile Include="patterns\commandhandling\ICommandHandler.cs" />
