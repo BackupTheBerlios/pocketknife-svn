@@ -46,10 +46,11 @@ namespace TestApp
             this.btCalcTwo = new System.Windows.Forms.Button();
             this.btCalcOne = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.btMask = new System.Windows.Forms.Button();
-            this.tbBitValue = new System.Windows.Forms.TextBox();
-            this.tbBitResult = new System.Windows.Forms.TextBox();
             this.tbBitIndex = new System.Windows.Forms.NumericUpDown();
+            this.tbBitResult = new System.Windows.Forms.TextBox();
+            this.tbBitValue = new System.Windows.Forms.TextBox();
+            this.btMask = new System.Windows.Forms.Button();
+            this.tbBitMaskComplete = new System.Windows.Forms.TextBox();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -243,6 +244,7 @@ namespace TestApp
             // tabPage2
             // 
             this.tabPage2.Controls.Add(this.tbBitIndex);
+            this.tabPage2.Controls.Add(this.tbBitMaskComplete);
             this.tabPage2.Controls.Add(this.tbBitResult);
             this.tabPage2.Controls.Add(this.tbBitValue);
             this.tabPage2.Controls.Add(this.btMask);
@@ -251,34 +253,8 @@ namespace TestApp
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(458, 272);
             this.tabPage2.TabIndex = 4;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "BitMasking";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // btMask
-            // 
-            this.btMask.Location = new System.Drawing.Point(210, 6);
-            this.btMask.Name = "btMask";
-            this.btMask.Size = new System.Drawing.Size(75, 23);
-            this.btMask.TabIndex = 0;
-            this.btMask.Text = "Mask";
-            this.btMask.UseVisualStyleBackColor = true;
-            this.btMask.Click += new System.EventHandler(this.btMask_Click);
-            // 
-            // tbBitValue
-            // 
-            this.tbBitValue.Location = new System.Drawing.Point(6, 8);
-            this.tbBitValue.Name = "tbBitValue";
-            this.tbBitValue.Size = new System.Drawing.Size(100, 20);
-            this.tbBitValue.TabIndex = 1;
-            this.tbBitValue.Text = "170";
-            // 
-            // tbBitResult
-            // 
-            this.tbBitResult.Location = new System.Drawing.Point(291, 8);
-            this.tbBitResult.Name = "tbBitResult";
-            this.tbBitResult.ReadOnly = true;
-            this.tbBitResult.Size = new System.Drawing.Size(161, 20);
-            this.tbBitResult.TabIndex = 2;
             // 
             // tbBitIndex
             // 
@@ -291,6 +267,40 @@ namespace TestApp
             this.tbBitIndex.Name = "tbBitIndex";
             this.tbBitIndex.Size = new System.Drawing.Size(92, 20);
             this.tbBitIndex.TabIndex = 3;
+            // 
+            // tbBitResult
+            // 
+            this.tbBitResult.Location = new System.Drawing.Point(291, 8);
+            this.tbBitResult.Name = "tbBitResult";
+            this.tbBitResult.ReadOnly = true;
+            this.tbBitResult.Size = new System.Drawing.Size(161, 20);
+            this.tbBitResult.TabIndex = 2;
+            // 
+            // tbBitValue
+            // 
+            this.tbBitValue.Location = new System.Drawing.Point(6, 8);
+            this.tbBitValue.Name = "tbBitValue";
+            this.tbBitValue.Size = new System.Drawing.Size(100, 20);
+            this.tbBitValue.TabIndex = 1;
+            this.tbBitValue.Text = "170";
+            // 
+            // btMask
+            // 
+            this.btMask.Location = new System.Drawing.Point(210, 6);
+            this.btMask.Name = "btMask";
+            this.btMask.Size = new System.Drawing.Size(75, 23);
+            this.btMask.TabIndex = 0;
+            this.btMask.Text = "Mask";
+            this.btMask.UseVisualStyleBackColor = true;
+            this.btMask.Click += new System.EventHandler(this.btMask_Click);
+            // 
+            // tbBitMaskComplete
+            // 
+            this.tbBitMaskComplete.Location = new System.Drawing.Point(6, 34);
+            this.tbBitMaskComplete.Name = "tbBitMaskComplete";
+            this.tbBitMaskComplete.ReadOnly = true;
+            this.tbBitMaskComplete.Size = new System.Drawing.Size(198, 20);
+            this.tbBitMaskComplete.TabIndex = 2;
             // 
             // Form1
             // 
@@ -339,6 +349,7 @@ namespace TestApp
         private System.Windows.Forms.TextBox tbBitValue;
         private System.Windows.Forms.Button btMask;
         private System.Windows.Forms.NumericUpDown tbBitIndex;
+        private System.Windows.Forms.TextBox tbBitMaskComplete;
     }
 }
 

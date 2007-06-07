@@ -82,9 +82,10 @@ namespace de.christianleberfinger.dotnet.pocketknife
 
         /// <summary>
         /// Masks every bit in a given byte value and returns the eight bits in an array.
+        /// Note: The index 0 in the array is the least significant bit!
         /// </summary>
         /// <param name="b">The byte of interest.</param>
-        /// <returns>The single bits of the given byte.</returns>
+        /// <returns>The single bits of the given byte. Note: The index 0 in the array is the least significant bit!</returns>
         public static bool[] toBitArray(byte b)
         {
             bool[] list = new bool[8];
@@ -97,9 +98,10 @@ namespace de.christianleberfinger.dotnet.pocketknife
 
         /// <summary>
         /// Masks every bit in a given integer value and returns the 32 bits in an array.
+        /// Note: The index 0 in the array is the least significant bit!
         /// </summary>
         /// <param name="integer">The integer of interest.</param>
-        /// <returns>The single bits of the given integer value.</returns>
+        /// <returns>The single bits of the given integer value. Note: The index 0 in the array is the least significant bit!</returns>
         public static bool[] toBitArray(int integer)
         {
             bool[] list = new bool[32];
@@ -112,9 +114,10 @@ namespace de.christianleberfinger.dotnet.pocketknife
 
         /// <summary>
         /// Masks every bit in a given long value and returns the 64 bits in an array.
+        /// Note: The index 0 in the array is the least significant bit!
         /// </summary>
         /// <param name="l">The long value.</param>
-        /// <returns>The single bits of the given long value.</returns>
+        /// <returns>The single bits of the given long value. Note: The index 0 in the array is the least significant bit!</returns>
         public static bool[] toBitArray(long l)
         {
             bool[] list = new bool[64];

@@ -84,24 +84,30 @@ namespace TestApp
 
         private void btCalcOne_Click(object sender, EventArgs e)
         {
-            calculatorWindow.sendKey( "1" );
+            calculatorWindow.sendKey("1");
         }
 
         private void btCalcTwo_Click(object sender, EventArgs e)
         {
-            calculatorWindow.sendKey( "2" );
+            calculatorWindow.sendKey("2");
         }
 
         private void btCalcThree_Click(object sender, EventArgs e)
         {
-            calculatorWindow.sendKey( "3" );
+            calculatorWindow.sendKey("3");
         }
 
         private void btMask_Click(object sender, EventArgs e)
         {
             long l = long.Parse(tbBitValue.Text);
             bool b = BitUtil.getBit(l, (byte)tbBitIndex.Value);
+            bool[] bools = BitUtil.toBitArray(l);
             tbBitResult.Text = b ? "1" : "0";
+
+            tbBitMaskComplete.Text = "";
+
+            foreach (bool bval in bools)
+                tbBitMaskComplete.Text += bval ? "1" : "0";
         }
 
     }
