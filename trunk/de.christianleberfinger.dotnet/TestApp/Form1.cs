@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using de.christianleberfinger.dotnet.pocketknife.controls;
+using de.christianleberfinger.dotnet.pocketknife;
 
 namespace TestApp
 {
@@ -94,6 +95,13 @@ namespace TestApp
         private void btCalcThree_Click(object sender, EventArgs e)
         {
             calculatorWindow.sendKey( "3" );
+        }
+
+        private void btMask_Click(object sender, EventArgs e)
+        {
+            long l = long.Parse(tbBitValue.Text);
+            bool b = BitUtil.getBit(l, (byte)tbBitIndex.Value);
+            tbBitResult.Text = b ? "1" : "0";
         }
 
     }

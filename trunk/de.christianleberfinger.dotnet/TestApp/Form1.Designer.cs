@@ -45,12 +45,19 @@ namespace TestApp
             this.btCalcThree = new System.Windows.Forms.Button();
             this.btCalcTwo = new System.Windows.Forms.Button();
             this.btCalcOne = new System.Windows.Forms.Button();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.btMask = new System.Windows.Forms.Button();
+            this.tbBitValue = new System.Windows.Forms.TextBox();
+            this.tbBitResult = new System.Windows.Forms.TextBox();
+            this.tbBitIndex = new System.Windows.Forms.NumericUpDown();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
             this.tabPageConfiguration.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBitIndex)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
@@ -111,6 +118,7 @@ namespace TestApp
             this.tabControlMain.Controls.Add(this.tabPageSerialPort);
             this.tabControlMain.Controls.Add(this.tabPageConfiguration);
             this.tabControlMain.Controls.Add(this.tabPage1);
+            this.tabControlMain.Controls.Add(this.tabPage2);
             this.tabControlMain.Location = new System.Drawing.Point(12, 12);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -232,6 +240,58 @@ namespace TestApp
             this.btCalcOne.UseVisualStyleBackColor = true;
             this.btCalcOne.Click += new System.EventHandler(this.btCalcOne_Click);
             // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.tbBitIndex);
+            this.tabPage2.Controls.Add(this.tbBitResult);
+            this.tabPage2.Controls.Add(this.tbBitValue);
+            this.tabPage2.Controls.Add(this.btMask);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(458, 272);
+            this.tabPage2.TabIndex = 4;
+            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // btMask
+            // 
+            this.btMask.Location = new System.Drawing.Point(210, 6);
+            this.btMask.Name = "btMask";
+            this.btMask.Size = new System.Drawing.Size(75, 23);
+            this.btMask.TabIndex = 0;
+            this.btMask.Text = "Mask";
+            this.btMask.UseVisualStyleBackColor = true;
+            this.btMask.Click += new System.EventHandler(this.btMask_Click);
+            // 
+            // tbBitValue
+            // 
+            this.tbBitValue.Location = new System.Drawing.Point(6, 8);
+            this.tbBitValue.Name = "tbBitValue";
+            this.tbBitValue.Size = new System.Drawing.Size(100, 20);
+            this.tbBitValue.TabIndex = 1;
+            this.tbBitValue.Text = "170";
+            // 
+            // tbBitResult
+            // 
+            this.tbBitResult.Location = new System.Drawing.Point(291, 8);
+            this.tbBitResult.Name = "tbBitResult";
+            this.tbBitResult.ReadOnly = true;
+            this.tbBitResult.Size = new System.Drawing.Size(161, 20);
+            this.tbBitResult.TabIndex = 2;
+            // 
+            // tbBitIndex
+            // 
+            this.tbBitIndex.Location = new System.Drawing.Point(112, 8);
+            this.tbBitIndex.Maximum = new decimal(new int[] {
+            63,
+            0,
+            0,
+            0});
+            this.tbBitIndex.Name = "tbBitIndex";
+            this.tbBitIndex.Size = new System.Drawing.Size(92, 20);
+            this.tbBitIndex.TabIndex = 3;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -248,6 +308,9 @@ namespace TestApp
             this.tabPageConfiguration.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tbBitIndex)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -271,6 +334,11 @@ namespace TestApp
         private System.Windows.Forms.Button btCalcOne;
         private System.Windows.Forms.Button btCalcThree;
         private System.Windows.Forms.Button btCalcTwo;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TextBox tbBitResult;
+        private System.Windows.Forms.TextBox tbBitValue;
+        private System.Windows.Forms.Button btMask;
+        private System.Windows.Forms.NumericUpDown tbBitIndex;
     }
 }
 

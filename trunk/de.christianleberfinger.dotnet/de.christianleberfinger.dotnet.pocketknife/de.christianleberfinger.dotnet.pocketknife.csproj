@@ -37,6 +37,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitUtil.cs" />
     <Compile Include="Collections\INodeTree.cs" />
     <Compile Include="Collections\NodeTree.cs" />
     <Compile Include="configuration\Configuration.cs" />
