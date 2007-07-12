@@ -36,17 +36,24 @@ namespace de.christianleberfinger.dotnet.pocketknife.Reflection
     public class InterfaceQuery
     {
         /// <summary>
-        /// Returns all valid (loadable) dll files in the given path.
+        /// Returns all valid (loadable) assembly files (dll and exe) in the given path.
         /// </summary>
         /// <param name="path">The path the dll files are located in.</param>
         /// <param name="searchOption">Search option for finding the dll files.</param>
         /// <returns>The filenames of all loadable assemblies in the given path.</returns>
         public static string[] getAssemblyFiles(string path, SearchOption searchOption)
         {
+            if (path == null)
+                throw new ArgumentNullException("The given search path must not be null.");
+
+            List<string> filenames = new List<string>();
             string[] dllFiles = Directory.GetFiles(path, "*.dll", searchOption);
+            filenames.AddRange(dllFiles);
+            dllFiles = Directory.GetFiles(path, "*.exe", searchOption);
+            filenames.AddRange(dllFiles);
 
             List<string> assemblyFiles = new List<string>();
-            foreach (string dllFile in dllFiles)
+            foreach (string dllFile in filenames)
             {
                 if (!File.Exists(dllFile))
                     continue;
@@ -70,6 +77,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Reflection
 
         /// <summary>
         /// Returns all Types in a given Assembly file that implement the given interface.
+        /// Please mind that also abstract types are being returned before you are instantiating them.
         /// </summary>
         /// <param name="interfaceToFind">The interface of interest.</param>
         /// <param name="assemblyFile">The assembly file that should be searched in.</param>
@@ -81,12 +89,16 @@ namespace de.christianleberfinger.dotnet.pocketknife.Reflection
 
         /// <summary>
         /// Returns all Types in a given list of Assembly files that implement the given interface.
+        /// Please mind that also abstract types are being returned before you are instantiating them.
         /// </summary>
         /// <param name="interfaceToFind">The interface of interest.</param>
         /// <param name="assemblyFiles">The assembly files that should be searched in.</param>
         /// <returns>All Types in the given Assembly files that implement the given interface.</returns>
         public static Type[] getImplementingTypes(Type interfaceToFind, string[] assemblyFiles)
         {
+            if (interfaceToFind == null)
+                throw new ArgumentNullException("The given interface type mustn't be null");
+
             List<Assembly> assemblies = new List<Assembly>();
 
             foreach (string assemblyFile in assemblyFiles)
@@ -110,12 +122,16 @@ namespace de.christianleberfinger.dotnet.pocketknife.Reflection
 
         /// <summary>
         /// Returns all Types in a given list of Assemblies that implement the given interface.
+        /// Please mind that also abstract types are being returned before you are instantiating them.
         /// </summary>
         /// <param name="interfaceToFind">The interface of interest.</param>
         /// <param name="assemblies">The assemblies that should be searched in.</param>
         /// <returns>All Types in the given Assemblies that implement the given interface.</returns>
         public static Type[] getImplementingTypes(Type interfaceToFind, Assembly[] assemblies)
         {
+            if (interfaceToFind == null)
+                throw new ArgumentNullException("The given interface type mustn't be null");
+
             List<Type> implementingTypes = new List<Type>();
             foreach (Assembly assembly in assemblies)
             {
@@ -133,6 +149,5 @@ namespace de.christianleberfinger.dotnet.pocketknife.Reflection
 
             return implementingTypes.ToArray();
         }
-
     }
 }

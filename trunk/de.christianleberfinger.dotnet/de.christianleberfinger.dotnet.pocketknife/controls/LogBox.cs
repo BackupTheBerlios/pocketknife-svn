@@ -34,7 +34,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
     /// LogBox adds some extra functionality to the ListBox control of the .NET-framework
     /// that makes it an ideal component for the purpose of logging.
     /// Problems with cross-threaded access are avoided internally. That means, you only
-    /// have to drag&drop LogBox into your GUI and can use it with just calling the log() method.
+    /// have to drag&amp;drop LogBox into your GUI and can use it with just calling the log() method.
     /// </summary>
     public partial class LogBox : UserControl
     {

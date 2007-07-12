@@ -28,8 +28,15 @@ using System.Diagnostics;
 
 namespace de.christianleberfinger.dotnet.pocketknife.Threading
 {
+    /// <summary>
+    /// Contains some helper methods for handling threads.
+    /// </summary>
     public class ThreadUtils
     {
+        /// <summary>
+        /// Joins a given thread and blocks until it dies.
+        /// </summary>
+        /// <param name="thread"></param>
         public static void waitForThreadToDie(Thread thread)
         {
             if (thread == null)
@@ -40,6 +47,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             thread.Join();
         }
 
+        /// <summary>
+        /// Joins a given thread and blocks until it dies.
+        /// </summary>
+        /// <param name="thread"></param>
+        /// <param name="timeoutMillis"></param>
         public static void waitForThreadToDie(Thread thread, int timeoutMillis)
         {
             if (thread == null)

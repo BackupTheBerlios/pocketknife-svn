@@ -26,16 +26,30 @@ using System.Text;
 
 namespace de.christianleberfinger.dotnet.pocketknife.patterns.commandhandling {
 
+    /// <summary>
+    /// Manages objects that are handling commands and invokes them when necessary.
+    /// </summary>
+    /// <typeparam name="ID"></typeparam>
+    /// <typeparam name="HANDLER"></typeparam>
+    /// <typeparam name="CMD"></typeparam>
 	public class CommandManager<ID, HANDLER, CMD> where HANDLER : ICommandHandler<ID,CMD> where CMD:ICommand<ID>
 	{
 		Dictionary<ID, HANDLER> commandHandlers = new Dictionary<ID,HANDLER>();
 
+        /// <summary>
+        /// Adds a command handler.
+        /// </summary>
+        /// <param name="commandHandler"></param>
 		public void addHandler(HANDLER commandHandler)
 		{
 			foreach(ID commandID in commandHandler.CommandIdentifiers)
 				commandHandlers.Add(commandID, commandHandler);
 		}
 
+        /// <summary>
+        /// Handles a command. The specific handler for this command will be automatically invoked.
+        /// </summary>
+        /// <param name="command"></param>
 		public void handleCommand(CMD command)
 		{
 			HANDLER commandHandler;

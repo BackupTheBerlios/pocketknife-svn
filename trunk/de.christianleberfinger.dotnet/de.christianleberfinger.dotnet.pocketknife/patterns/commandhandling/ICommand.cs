@@ -26,8 +26,15 @@ using System.Text;
 
 namespace de.christianleberfinger.dotnet.pocketknife.patterns.commandhandling
 {
+    /// <summary>
+    /// Interface for a specific command. It only has to define an identifier.
+    /// </summary>
+    /// <typeparam name="ID"></typeparam>
     public interface ICommand<ID>
     {
+        /// <summary>
+        /// The command's identifier.
+        /// </summary>
         ID CommandIdentifier
         {
             get;
