@@ -79,6 +79,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Reflection\InterfaceQuery.cs" />
     <Compile Include="StructSerializer.cs" />
     <Compile Include="Threading\ThreadUtils.cs" />
   </ItemGroup>
