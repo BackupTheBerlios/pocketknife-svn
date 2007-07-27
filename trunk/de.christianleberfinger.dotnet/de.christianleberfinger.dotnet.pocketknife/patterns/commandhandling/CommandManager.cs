@@ -27,7 +27,7 @@ using System.Text;
 namespace de.christianleberfinger.dotnet.pocketknife.patterns.commandhandling {
 
     /// <summary>
-    /// Manages objects that are handling commands and invokes them when necessary.
+    /// Manages objects that are handling messages and invokes them when a message is incoming.
     /// </summary>
     /// <typeparam name="ID"></typeparam>
     /// <typeparam name="HANDLER"></typeparam>

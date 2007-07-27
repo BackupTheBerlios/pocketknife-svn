@@ -71,7 +71,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this._listBox.Name = "_listBox";
             this._listBox.ScrollAlwaysVisible = true;
             this._listBox.Size = new System.Drawing.Size(274, 95);
-            this._listBox.TabIndex = 0;
+            this._listBox.TabIndex = 3;
             // 
             // _btSave
             // 
@@ -82,7 +82,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this._btSave.Location = new System.Drawing.Point(183, 1);
             this._btSave.Name = "_btSave";
             this._btSave.Size = new System.Drawing.Size(25, 25);
-            this._btSave.TabIndex = 3;
+            this._btSave.TabIndex = 0;
             this._btSave.UseVisualStyleBackColor = true;
             this._btSave.Click += new System.EventHandler(this.btSave_Click);
             // 
@@ -95,7 +95,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this._btCopyClipboard.Location = new System.Drawing.Point(214, 1);
             this._btCopyClipboard.Name = "_btCopyClipboard";
             this._btCopyClipboard.Size = new System.Drawing.Size(25, 25);
-            this._btCopyClipboard.TabIndex = 2;
+            this._btCopyClipboard.TabIndex = 1;
             this._btCopyClipboard.UseVisualStyleBackColor = true;
             this._btCopyClipboard.Click += new System.EventHandler(this.btCopyClipboard_Click);
             // 
@@ -108,7 +108,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this._btClear.Location = new System.Drawing.Point(245, 1);
             this._btClear.Name = "_btClear";
             this._btClear.Size = new System.Drawing.Size(25, 25);
-            this._btClear.TabIndex = 1;
+            this._btClear.TabIndex = 2;
             this._btClear.UseVisualStyleBackColor = true;
             this._btClear.Click += new System.EventHandler(this.btClear_Click);
             // 

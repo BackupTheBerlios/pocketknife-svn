@@ -26,10 +26,24 @@ using System.Text;
 
 namespace de.christianleberfinger.dotnet.pocketknife.patterns.commandhandling
 {
-    public interface ICommandHandler<ID, CMD>
+    /// <summary>
+    /// Provides an interface that specifies a commandhandler.
+    /// A commandhandler is a small class that encapsulates the handling of an incoming message.
+    /// It should be specific to one or few message ids in order to keep the complexity low.
+    /// </summary>
+    /// <typeparam name="ID">Defines the type of the message IDs, e.g. byte, string</typeparam>
+    /// <typeparam name="CMD">Defines the type of the incoming messages.</typeparam>
+    public interface ICommandHandler<ID, CMD> where CMD:ICommand<ID>
     {
+        /// <summary>
+        /// Defines to which message IDs the commandhandler reacts.
+        /// </summary>
         ID[] CommandIdentifiers { get; }
 
+        /// <summary>
+        /// Handles a given commmand.
+        /// </summary>
+        /// <param name="command"></param>
         void handleCommand(CMD command);
     }
 }

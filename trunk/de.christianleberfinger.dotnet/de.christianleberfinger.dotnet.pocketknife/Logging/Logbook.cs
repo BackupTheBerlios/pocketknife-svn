@@ -23,15 +23,18 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace de.christianleberfinger.dotnet.pocketknife.Logging
 {
     /// <summary>
     /// Provides a logbook.
     /// </summary>
-    public class Logbook : configuration.Configuration<Logbook>
+    public class Logbook : List<LogEntry>
     {
-        private List<LogEntry> _entries = new List<LogEntry>();
+        //todo: serialize it
+        //http://www.codeproject.com/csharp/XmlSerializerForUnknown.asp?print=true
 
         /// <summary>
         /// Adds a new entry to the logbook.
@@ -39,12 +42,33 @@ namespace de.christianleberfinger.dotnet.pocketknife.Logging
         /// <param name="entry">The entry to add.</param>
         public void addEntry(LogEntry entry)
         {
-            _entries.Add(entry);
+            Add(entry);
         }
 
-        public void saveToFile(string filename)
+        public void saveToXML(string filename)
         {
-            Logbook.save(filename);
+            StreamWriter sw = null;
+            try
+            {
+                // serialize the settings object
+                XmlSerializer serializer = new XmlSerializer(typeof(Logbook));
+                sw = new StreamWriter(filename);
+                serializer.Serialize(sw, this);
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                // close the stream writer
+                if (sw != null)
+                {
+                    try
+                    {
+                        sw.Close();
+                    }
+                    catch { }
+                }
+                throw e;
+            }
         }
     }
 }
