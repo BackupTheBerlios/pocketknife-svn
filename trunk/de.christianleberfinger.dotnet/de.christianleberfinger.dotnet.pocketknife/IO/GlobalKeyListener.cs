@@ -396,7 +396,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         private static HookProc KeyboardHookProcedure;
 
         /// <summary>
-        /// Installs both or one of mouse and/or keyboard hooks and starts rasing events
+        /// Installs the keyboard hook and starts raising events
         /// </summary>
         /// <exception cref="Win32Exception">Any windows problem.</exception>
         public void start()
@@ -427,7 +427,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         }
 
         /// <summary>
-        /// Stops monitoring both or one of mouse and/or keyboard events and rasing events.
+        /// Stops raising events and uninstalls the keyboard hook.
         /// </summary>
         /// <param name="ThrowExceptions"><b>true</b> if exceptions which occured during uninstalling must be thrown</param>
         /// <exception cref="Win32Exception">Any windows problem.</exception>

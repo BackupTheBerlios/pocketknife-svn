@@ -378,16 +378,17 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         private static HookProc MouseHookProcedure;
 
         /// <summary>
-        /// Installs both or one of mouse and/or keyboard hooks and starts rasing events
+        /// Installs the mouse hook and starts raising events
         /// </summary>
         /// <exception cref="Win32Exception">Any windows problem.</exception>
-        public void Start()
+        public void start()
         {
             // install Mouse hook only if it is not installed
             if (hMouseHook == 0)
             {
                 // Create an instance of HookProc.
                 MouseHookProcedure = new HookProc(MouseHookProc);
+
                 //install hook
                 hMouseHook = SetWindowsHookEx(
                     WH_MOUSE_LL,
