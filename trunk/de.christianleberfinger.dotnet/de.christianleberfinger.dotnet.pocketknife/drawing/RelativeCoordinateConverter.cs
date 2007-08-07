@@ -31,22 +31,32 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
     /// Generates relative coordinates from absolute ones.
     /// You can reduce the amount of events by setting pixelthreshold.
     /// It sums up the incoming coordinates and calls the move-event only after the 
-    /// summed up coordinates satisfy the following equation:
-    /// |SummedUp.X| + |SummedUps.Y| >= PixelThreshold
+    /// summed up coordinates exceed the PixelThreshold.
     /// </summary>
     public class RelativeCoordinateConverter
     {
-        int _pixelThreshold = 1;
+        int _minDistance = 1;
+        int _maxDistance = int.MaxValue;
+
+        /// <summary>
+        /// Defines a maximum distance to the last added coordinate.
+        /// If this threshold is exceeded, the added coordinate is being ignored.
+        /// </summary>
+        public int MaxDistance
+        {
+            get { return _maxDistance; }
+            set { _maxDistance = value; }
+        }
 
         /// <summary>
         /// Threshold for reducing the event count.
-        /// The event 'OnCoordinateMove' is fired only when the summed up coordinates satisfy the following equation:
-        /// |SummedUp.X| + |SummedUps.Y| >= PixelThreshold
+        /// The event 'OnCoordinateMove' is only fired when the summed up 
+        /// coordinates exceed the MinDistance.
         /// </summary>
-        public int PixelThreshold
+        public int MinDistance
         {
-            get { return _pixelThreshold; }
-            set { _pixelThreshold = value; }
+            get { return _minDistance; }
+            set { _minDistance = value; }
         }
 
         bool _isFirst = true;
@@ -75,14 +85,25 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
             {
                 _isFirst = false;
                 _lastCoordinate = p;
+
+                // there's no distance 'between' a single point
                 return;
             }
-            
+
             Size delta = new Size(p.X - _lastCoordinate.X, p.Y - _lastCoordinate.Y);
+
+            // Verify MaxPixelThreshold
+            // If this distance is exceeded, the added coordinate is being ignored.
+            if (delta.Width * delta.Width + delta.Height * delta.Height > MaxDistance * MaxDistance)
+            {
+                _isFirst = true;
+                return;
+            }
+
             _lastCoordinate = p;
             _relativeBuffer += delta;
-
-            if ((Math.Abs(_relativeBuffer.X) + Math.Abs(_relativeBuffer.Y)) >= _pixelThreshold)
+            
+            if (_relativeBuffer.X * _relativeBuffer.X + _relativeBuffer.Y + _relativeBuffer.Y > _minDistance * _minDistance)
             {
                 CoordinateHandler temp = OnCoordinateMove;
                 if (temp != null)
