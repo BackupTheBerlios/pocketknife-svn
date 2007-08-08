@@ -68,8 +68,6 @@
     <Compile Include="drawing\RelativeCoordinateConverter.cs" />
     <Compile Include="IO\GlobalKeyListener.cs" />
     <Compile Include="IO\GlobalMouseListener.cs" />
-    <Compile Include="Logging\Logbook.cs" />
-    <Compile Include="Logging\LogEntry.cs" />
     <Compile Include="Net\UdpBroadcaster.cs" />
     <Compile Include="patterns\commandhandling\CommandManager.cs" />
     <Compile Include="patterns\commandhandling\ICommand.cs" />
