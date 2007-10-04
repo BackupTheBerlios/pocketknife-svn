@@ -39,7 +39,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitUtil.cs" />
+    <Compile Include="Collections\HashSet.cs" />
     <Compile Include="Collections\INodeTree.cs" />
+    <Compile Include="Collections\ISet.cs" />
     <Compile Include="Collections\NodeTree.cs" />
     <Compile Include="configuration\Configuration.cs" />
     <Compile Include="configuration\Setting.cs" />

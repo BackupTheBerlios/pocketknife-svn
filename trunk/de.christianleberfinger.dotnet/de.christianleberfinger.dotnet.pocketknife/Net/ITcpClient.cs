@@ -53,7 +53,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
         /// <summary>
         /// Connects the client to a remote TCP host using the specified host name and port number.
         /// </summary>
-        void connect();
+        void connect(string hostName, int port);
 
         /// <summary>
         /// Gets a boolean value that determines whether this client is connected to a remote host.

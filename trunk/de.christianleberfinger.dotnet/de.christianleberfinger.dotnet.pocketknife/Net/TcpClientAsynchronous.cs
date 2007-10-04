@@ -146,18 +146,14 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
         /// <summary>
         /// Initialisiert eine neue Instanz von AsynchronousConnection.
         /// </summary>
-        /// <param name="host">Der Host-Name des TCP-Servers, z.B.: "localhost"</param>
-        /// <param name="port">Der Port am TCP-Server, z.B. 80</param>
-        public TcpClientAsynchronous(string host, int port)
+        public TcpClientAsynchronous()
         {
-            this._port = port;
-            this._host = host;
+            // Timer für Auto-Reconnect
+            _reconnectTimer = new Timer(new TimerCallback(autoReconnectTimerCallback), this, 1000, 1000);
+            
 
             // Das TCP/IP-Socket initialisieren.
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-
-            // Timer für Auto-Reconnect
-            _reconnectTimer = new Timer(new TimerCallback(autoReconnectTimerCallback), this, 1000, 1000);
         }
 
         #region ITcpClient Members
@@ -177,8 +173,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
         /// <summary>
         /// Connects the client to a remote TCP host using the specified host name and port number.
         /// </summary>
-        public void connect()
+        public void connect(string hostName, int port)
         {
+            _host = hostName;
+            _port = port;
+
             _tryAutoReconnect = true;
 
             // Nichts zu tun, wenn bereits verbunden
@@ -536,7 +535,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
             if (!instance._tryAutoReconnect)
                 return;
 
-            instance.connect();
+            instance.connect(instance._host, instance._port);
         }
     }
 }

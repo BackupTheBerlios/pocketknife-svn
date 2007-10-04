@@ -70,7 +70,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this._listBox.Location = new System.Drawing.Point(-1, 25);
             this._listBox.Name = "_listBox";
             this._listBox.ScrollAlwaysVisible = true;
-            this._listBox.Size = new System.Drawing.Size(274, 95);
+            this._listBox.Size = new System.Drawing.Size(275, 95);
             this._listBox.TabIndex = 3;
             // 
             // _btSave
