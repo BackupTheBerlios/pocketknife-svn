@@ -68,6 +68,7 @@
     <Compile Include="drawing\HitTest.cs" />
     <Compile Include="drawing\IRegion.cs" />
     <Compile Include="drawing\RelativeCoordinateConverter.cs" />
+    <Compile Include="EventHelper.cs" />
     <Compile Include="IO\GlobalKeyListener.cs" />
     <Compile Include="IO\GlobalMouseListener.cs" />
     <Compile Include="Net\UdpBroadcaster.cs" />
