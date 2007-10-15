@@ -166,8 +166,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
         /// <param name="e">Die übergebene Exception</param>
         private void handleException(Exception e)
         {
-            if (ExceptionOccured != null)
-                ExceptionOccured(this, e);
+            EventHelper.invokeUnsafe(ExceptionOccured, this, e);
         }
 
         /// <summary>
@@ -233,11 +232,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
                  * häufig ein threadübergreifender Zugriff auf ein GUI-Element. Damit diese Exception den Verbindungsaufbau
                  * nicht unterbricht, wird der ConnectionStateChanged-Event erst ganz am Ende propagiert.
                  */
-                ConnectionEventHandler handler = ConnectionStateChanged;
-                if (handler != null)
-                {
-                    handler(this);
-                }
+                EventHelper.invokeUnsafe(ConnectionStateChanged, this);
             }
             catch (Exception e)
             {
@@ -296,8 +291,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
                 _socket.Close();
 
                 // OnConnectionStateChanged - Event feuern
-                if (ConnectionStateChanged != null)
-                    ConnectionStateChanged(this);
+                EventHelper.invokeUnsafe(ConnectionStateChanged, this);
             }
             // Eine Exception beim Socket-Schließen kann meines Erachtens vernachlässigt werden
             catch { }
@@ -469,8 +463,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
                     {
                         // Abschließendes \r und \n entfernen
                         EventHelper.invokeUnsafe(MessageReceived, this, messages[i].TrimEnd(new char[] { '\r', '\n' }));
-
-                        //MessageReceived(this, messages[i].TrimEnd(new char[] { '\r', '\n' }));
                     }
                 }
 
