@@ -463,16 +463,14 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
                         state.sb = new StringBuilder();
                     }
 
-                    // Ist der EventHandler null?
-                    if (MessageReceived == null)
-                        return;
-
                     // Alle Messages bis auf die letzte an den Callback-Handler übergeben.
                     // Die letzte Message enthält nur den Delimiter bzw. die unvollständige Nachricht
                     for (int i = 0; i < messages.Length - 1; i++)
                     {
                         // Abschließendes \r und \n entfernen
-                        MessageReceived(this, messages[i].TrimEnd(new char[] { '\r', '\n' }));
+                        EventHelper.invokeUnsafe(MessageReceived, this, messages[i].TrimEnd(new char[] { '\r', '\n' }));
+
+                        //MessageReceived(this, messages[i].TrimEnd(new char[] { '\r', '\n' }));
                     }
                 }
 

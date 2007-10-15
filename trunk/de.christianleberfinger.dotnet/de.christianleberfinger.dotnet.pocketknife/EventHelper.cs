@@ -24,8 +24,6 @@ namespace de.christianleberfinger.dotnet.pocketknife
             }
         }
 
-        
-
         /// <summary>
         /// Unsafe means: the given arguments aren't checked for type safety (as they are objects)
         /// </summary>
@@ -45,8 +43,10 @@ namespace de.christianleberfinger.dotnet.pocketknife
                 }
                 catch(Exception ex) 
                 {
-                    Debug.WriteLine(ex.Message);
-                };
+
+                    Console.WriteLine("Error calling: " + del.Method.ToString() + " in " + del.Target.ToString());
+                    Console.WriteLine(ex.StackTrace);
+                }
             }
         }
     }
