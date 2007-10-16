@@ -49,7 +49,7 @@ namespace de.christianleberfinger.dotnet.pocketknife
         }
 
         /// <summary>
-        /// Unsafe means: the given arguments aren't checked for type safety (as they are objects)
+        /// Unsafe means here: the given arguments aren't checked for type safety (as they are objects)
         /// </summary>
         /// <param name="delegateToInvoke"></param>
         /// <param name="args"></param>
@@ -74,36 +74,106 @@ namespace de.christianleberfinger.dotnet.pocketknife
             }
         }
 
+        /// <summary>
+        /// Type safe invoke
+        /// </summary>
+        /// <param name="eh"></param>
         public static void invoke(GenericEventHandler eh)
         {
             invokeUnsafe(eh);
         }
 
+        /// <summary>
+        /// Type safe invoke
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="eh"></param>
+        /// <param name="t"></param>
         public static void invoke<T>(GenericEventHandler<T> eh, T t)
         {
             invokeUnsafe(eh, t);
         }
 
+        /// <summary>
+        /// Type safe invoke
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <param name="eh"></param>
+        /// <param name="t"></param>
+        /// <param name="u"></param>
         public static void invoke<T,U>(GenericEventHandler<T, U> eh, T t, U u)
         {
             invokeUnsafe(eh, t, u);
         }
 
+        /// <summary>
+        /// Type safe invoke
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <param name="eh"></param>
+        /// <param name="t"></param>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
         public static void invoke<T,U,V>(GenericEventHandler<T, U, V> eh, T t, U u, V v)
         {
             invokeUnsafe(eh, t, u, v);
         }
 
+        /// <summary>
+        /// Type safe invoke
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <typeparam name="W"></typeparam>
+        /// <param name="eh"></param>
+        /// <param name="t"></param>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
         public static void invoke<T,U,V,W>(GenericEventHandler<T, U, V, W> eh, T t, U u, V v, W w)
         {
             invokeUnsafe(eh, t, u, v, w);
         }
 
+        /// <summary>
+        /// Type safe invoke
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <typeparam name="W"></typeparam>
+        /// <typeparam name="X"></typeparam>
+        /// <param name="eh"></param>
+        /// <param name="t"></param>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
+        /// <param name="x"></param>
         public static void invoke<T,U,V,W,X>(GenericEventHandler<T, U, V, W, X> eh, T t, U u, V v, W w, X x)
         {
             invokeUnsafe(eh, t, u, v, w, x);
         }
 
+        /// <summary>
+        /// Type safe invoke
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="U"></typeparam>
+        /// <typeparam name="V"></typeparam>
+        /// <typeparam name="W"></typeparam>
+        /// <typeparam name="X"></typeparam>
+        /// <typeparam name="Y"></typeparam>
+        /// <param name="eh"></param>
+        /// <param name="t"></param>
+        /// <param name="u"></param>
+        /// <param name="v"></param>
+        /// <param name="w"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         public static void invoke<T,U,V,W,X,Y>(GenericEventHandler<T, U, V, W, X, Y> eh, T t, U u, V v, W w, X x, Y y)
         {
             invokeUnsafe(eh, t, u, v, w, x, y);
