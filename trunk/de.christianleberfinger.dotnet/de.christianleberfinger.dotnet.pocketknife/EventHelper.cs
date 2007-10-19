@@ -49,7 +49,8 @@ namespace de.christianleberfinger.dotnet.pocketknife
         }
 
         /// <summary>
-        /// Unsafe means here: the given arguments aren't checked for type safety (as they are objects)
+        /// Unsafe means here: the given arguments aren't checked for type safety (as they are objects).
+        /// Consider using a GenericEventHandler&lt;&gt;
         /// </summary>
         /// <param name="delegateToInvoke"></param>
         /// <param name="args"></param>
@@ -67,7 +68,6 @@ namespace de.christianleberfinger.dotnet.pocketknife
                 }
                 catch(Exception ex) 
                 {
-
                     Console.WriteLine("Error calling: " + del.Method.ToString() + " in " + del.Target.ToString());
                     Console.WriteLine(ex.StackTrace);
                 }
@@ -77,183 +77,24 @@ namespace de.christianleberfinger.dotnet.pocketknife
         /// <summary>
         /// Type safe invoke
         /// </summary>
-        /// <param name="eh"></param>
-        public static void invoke(GenericEventHandler eh)
+        /// <typeparam name="SENDER">The type of the event source.</typeparam>
+        /// <typeparam name="ARGS">The type of the event arguments.</typeparam>
+        /// <param name="delegat">The event you want to invoke.</param>
+        /// <param name="sender">Any object that is the source of this event. Don't send null as it might be not expected by the user code.</param>
+        /// <param name="args">Event arguments.</param>
+        public static void invoke<SENDER,ARGS>(GenericEventHandler<SENDER, ARGS> delegat, SENDER sender, ARGS args) where ARGS:EventArgs
         {
-            invokeUnsafe(eh);
-        }
-
-        /// <summary>
-        /// Type safe invoke
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="eh"></param>
-        /// <param name="t"></param>
-        public static void invoke<T>(GenericEventHandler<T> eh, T t)
-        {
-            invokeUnsafe(eh, t);
-        }
-
-        /// <summary>
-        /// Type safe invoke
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
-        /// <param name="eh"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        public static void invoke<T,U>(GenericEventHandler<T, U> eh, T t, U u)
-        {
-            invokeUnsafe(eh, t, u);
-        }
-
-        /// <summary>
-        /// Type safe invoke
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
-        /// <typeparam name="V"></typeparam>
-        /// <param name="eh"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        public static void invoke<T,U,V>(GenericEventHandler<T, U, V> eh, T t, U u, V v)
-        {
-            invokeUnsafe(eh, t, u, v);
-        }
-
-        /// <summary>
-        /// Type safe invoke
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
-        /// <typeparam name="V"></typeparam>
-        /// <typeparam name="W"></typeparam>
-        /// <param name="eh"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        public static void invoke<T,U,V,W>(GenericEventHandler<T, U, V, W> eh, T t, U u, V v, W w)
-        {
-            invokeUnsafe(eh, t, u, v, w);
-        }
-
-        /// <summary>
-        /// Type safe invoke
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
-        /// <typeparam name="V"></typeparam>
-        /// <typeparam name="W"></typeparam>
-        /// <typeparam name="X"></typeparam>
-        /// <param name="eh"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        public static void invoke<T,U,V,W,X>(GenericEventHandler<T, U, V, W, X> eh, T t, U u, V v, W w, X x)
-        {
-            invokeUnsafe(eh, t, u, v, w, x);
-        }
-
-        /// <summary>
-        /// Type safe invoke
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="U"></typeparam>
-        /// <typeparam name="V"></typeparam>
-        /// <typeparam name="W"></typeparam>
-        /// <typeparam name="X"></typeparam>
-        /// <typeparam name="Y"></typeparam>
-        /// <param name="eh"></param>
-        /// <param name="t"></param>
-        /// <param name="u"></param>
-        /// <param name="v"></param>
-        /// <param name="w"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        public static void invoke<T,U,V,W,X,Y>(GenericEventHandler<T, U, V, W, X, Y> eh, T t, U u, V v, W w, X x, Y y)
-        {
-            invokeUnsafe(eh, t, u, v, w, x, y);
+            invokeUnsafe(delegat, sender, args);
         }
     }
 
     /// <summary>
-    /// parameterless handler
+    /// Generic event handler.
     /// </summary>
-    public delegate void GenericEventHandler();
+    /// <typeparam name="SENDER">The type of the event source.</typeparam>
+    /// <typeparam name="ARGS">The type of the event arguments.</typeparam>
+    /// <param name="sender">Any object that is the source of this event. Don't send null as it might be not expected by the user code.</param>
+    /// <param name="e">Event arguments.</param>
+    public delegate void GenericEventHandler<SENDER, ARGS>(SENDER sender, ARGS e);
 
-    /// <summary>
-    /// handler with 1 parameter
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="t"></param>
-    public delegate void GenericEventHandler<T>(T t);
-
-    /// <summary>
-    /// handler with 2 parameters
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="U"></typeparam>
-    /// <param name="t"></param>
-    /// <param name="u"></param>
-    public delegate void GenericEventHandler<T, U>(T t, U u);
-
-    /// <summary>
-    /// handler with 3 parameters
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="U"></typeparam>
-    /// <typeparam name="V"></typeparam>
-    /// <param name="t"></param>
-    /// <param name="u"></param>
-    /// <param name="v"></param>
-    public delegate void GenericEventHandler<T, U, V>(T t, U u, V v);
-
-    /// <summary>
-    /// handler with 3 parameters
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="U"></typeparam>
-    /// <typeparam name="V"></typeparam>
-    /// <typeparam name="W"></typeparam>
-    /// <param name="t"></param>
-    /// <param name="u"></param>
-    /// <param name="v"></param>
-    /// <param name="w"></param>
-    public delegate void GenericEventHandler<T, U, V, W>(T t, U u, V v, W w);
-
-    /// <summary>
-    /// handler with 4 parameters
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="U"></typeparam>
-    /// <typeparam name="V"></typeparam>
-    /// <typeparam name="W"></typeparam>
-    /// <typeparam name="X"></typeparam>
-    /// <param name="t"></param>
-    /// <param name="u"></param>
-    /// <param name="v"></param>
-    /// <param name="w"></param>
-    /// <param name="x"></param>
-    public delegate void GenericEventHandler<T, U, V, W, X>(T t, U u, V v, W w, X x);
-
-    /// <summary>
-    /// handler with 5 parameters
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="U"></typeparam>
-    /// <typeparam name="V"></typeparam>
-    /// <typeparam name="W"></typeparam>
-    /// <typeparam name="X"></typeparam>
-    /// <typeparam name="Y"></typeparam>
-    /// <param name="t"></param>
-    /// <param name="u"></param>
-    /// <param name="v"></param>
-    /// <param name="w"></param>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    public delegate void GenericEventHandler<T, U, V, W, X, Y>(T t, U u, V v, W w, X x, Y y);
 }
