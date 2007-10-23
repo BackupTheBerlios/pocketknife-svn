@@ -197,8 +197,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
             {
                 // Wurde das Socket bereits disposed, so muss ein neues erstellt werden
                 _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                // Den Verbindungsaufbau anstoﬂen
-                _socket.BeginConnect(remoteEP, new AsyncCallback(connectCallback), _socket);
+
+                if (!_socket.Connected)
+                {
+                    // Den Verbindungsaufbau anstoﬂen
+                    _socket.BeginConnect(remoteEP, new AsyncCallback(connectCallback), _socket);
+                }
             }
             catch (Exception e)
             {
