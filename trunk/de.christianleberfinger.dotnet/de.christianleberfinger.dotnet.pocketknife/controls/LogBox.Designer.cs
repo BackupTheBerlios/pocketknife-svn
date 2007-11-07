@@ -65,8 +65,10 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this._listBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this._listBox.Font = new System.Drawing.Font("Arial Unicode MS", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this._listBox.FormattingEnabled = true;
             this._listBox.IntegralHeight = false;
+            this._listBox.ItemHeight = 16;
             this._listBox.Location = new System.Drawing.Point(-1, 25);
             this._listBox.Name = "_listBox";
             this._listBox.ScrollAlwaysVisible = true;
