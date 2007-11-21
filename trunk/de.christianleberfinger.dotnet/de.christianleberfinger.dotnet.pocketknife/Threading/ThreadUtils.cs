@@ -42,6 +42,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             if (thread == null)
                 return;
 
+            // aufpassen, dass man sich nicht selber joined
             Debug.Assert(Thread.CurrentThread.ManagedThreadId != thread.ManagedThreadId);
 
             thread.Join();
@@ -57,6 +58,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             if (thread == null)
                 return;
 
+            // aufpassen, dass man sich nicht selber joined
             Debug.Assert(Thread.CurrentThread.ManagedThreadId != thread.ManagedThreadId);
 
             thread.Join(timeoutMillis);
