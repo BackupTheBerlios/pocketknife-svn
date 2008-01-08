@@ -41,7 +41,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         private byte[] buffer = new byte[256];
         private AsyncCallback myCallBack; // delegated method
 
-
         /// <summary>
         /// Handler for the ReadingFinished event.
         /// </summary>
@@ -97,10 +96,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         /// </summary>
         void OnCompletedRead(IAsyncResult asyncResult)
         {
-            int bytesRead = _stream.EndRead(asyncResult);
-            if (bytesRead > 0)
+            int byteCount = _stream.EndRead(asyncResult);
+            if (byteCount > 0)
             {
-                invoke(buffer);
+                byte[] readBytes = new byte[byteCount];
+                Buffer.BlockCopy(buffer, 0, readBytes, 0, byteCount);
+
+                //raise bytes read event
+                invoke(readBytes);
+
                 _stream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
             }
             else
