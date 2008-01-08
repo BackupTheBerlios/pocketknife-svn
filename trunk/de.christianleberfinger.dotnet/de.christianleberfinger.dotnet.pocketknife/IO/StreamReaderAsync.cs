@@ -20,26 +20,129 @@
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  * 
  */
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
 
 namespace de.christianleberfinger.dotnet.pocketknife.IO
 {
-        public class StreamReaderAsync
+    /// <summary>
+    /// This class allows you to read concurrently from a stream without 
+    /// caring about threads. There a only few steps to read from a stream:
+    /// 1) Create an instance of StreamReaderAsync
+    /// 2) Register for the event <see cref="OnBytesReceive"/>
+    /// 3) Call the <see cref="start"/> method
+    /// </summary>
+    public class StreamReaderAsync
     {
-        private Stream inputStream;
+        private Stream _stream;
         private byte[] buffer = new byte[256];
         private AsyncCallback myCallBack; // delegated method
 
+
+        /// <summary>
+        /// Handler for the ReadingFinished event.
+        /// </summary>
+        public delegate void ReadingFinishedHandler(ReadingFinishedEventArgs e);
+        /// <summary>
+        /// Is raised when no more bytes could be read from the stream.
+        /// </summary>
+        public event ReadingFinishedHandler OnReadingFinish;
+
+        /// <summary>
+        /// Handler for the BytesReceived event.
+        /// </summary>
+        public delegate void BytesReceivedHandler(BytesReceiveEventArgs e);
+        /// <summary>
+        /// Is raised when bytes were read from the stream.
+        /// </summary>
+        public event BytesReceivedHandler OnBytesReceive;
+
+        /// <summary>
+        /// Creates a new instance of StreamReaderAsync.
+        /// After creating the instance you have to register for the 
+        /// event <see cref="OnBytesReceive"/> and call the <see cref="start"/> method
+        /// in order to listen to the given stream.
+        /// </summary>
+        /// <param name="s"></param>
+        public StreamReaderAsync(Stream s)
+        {
+            Debug.Assert(s!=null, "The given stream may not be null.");
+            
+            if (s == null)
+                throw new ArgumentNullException();
+
+            _stream = s;
+            myCallBack = new AsyncCallback(OnCompletedRead);
+        }
+
+        /// <summary>
+        /// Starts reading from the stream.
+        /// You have to register for the event <see cref="OnBytesReceive"/> 
+        /// in order to get notified about received bytes.
+        /// </summary>
+        public void start()
+        {
+            if (_stream == null)
+                throw new ArgumentNullException();
+            
+            // asynchronen Lesevorgang starten
+            _stream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
+        }
+
+        /// <summary>
+        /// gets called after an asynchronous reading of the stream was completed
+        /// </summary>
+        void OnCompletedRead(IAsyncResult asyncResult)
+        {
+            int bytesRead = _stream.EndRead(asyncResult);
+            if (bytesRead > 0)
+            {
+                invoke(buffer);
+                _stream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
+            }
+            else
+            {
+                ReadingFinishedHandler temp = OnReadingFinish;
+                if (temp != null)
+                {
+                    temp(new ReadingFinishedEventArgs(_stream));
+                }
+            }
+        }
+
+        /// <summary>
+        /// we want to reuse the EventArgs class to reduce the garbage collector's load.
+        /// </summary>
+        BytesReceiveEventArgs _reusableEventArgs = new BytesReceiveEventArgs();
+
+        private void invoke(byte[] buffer)
+        {
+            BytesReceivedHandler temp = OnBytesReceive;
+            if (temp != null)
+            {
+                _reusableEventArgs.Bytes = buffer;
+                temp(_reusableEventArgs);
+            }
+        }
+
+        /// <summary>
+        /// EventArgs class for bytesreceived event
+        /// </summary>
         public class BytesReceiveEventArgs : EventArgs
         {
             private byte[] _bytes;
+            /// <summary>
+            /// Creates a new instance
+            /// </summary>
             public BytesReceiveEventArgs()
             {
             }
+            /// <summary>
+            /// The bytes that were read.
+            /// </summary>
             public byte[] Bytes
             {
                 internal set { _bytes = value; }
@@ -47,60 +150,26 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
             }
         }
 
+        /// <summary>
+        /// EventArgs class for reading finished event
+        /// </summary>
         public class ReadingFinishedEventArgs : EventArgs
         {
             Stream _stream;
+            /// <summary>
+            /// Creates a new instance
+            /// </summary>
+            /// <param name="s"></param>
             public ReadingFinishedEventArgs(Stream s)
             {
                 _stream = s;
             }
+
+            /// <summary>
+            /// The stream that was read until its end.
+            /// You might want to close it.
+            /// </summary>
             public Stream Stream { get { return _stream; } }
-        }
-        public delegate void ReadingFinishedHandler(ReadingFinishedEventArgs e);
-        public event ReadingFinishedHandler OnReadingFinish;
-
-
-        public delegate void BytesReceivedHandler(BytesReceiveEventArgs e);
-        public event BytesReceivedHandler OnBytesReceive;
-
-        BytesReceiveEventArgs _commonEventArgs = new BytesReceiveEventArgs();
-        public StreamReaderAsync(Stream s)
-        {
-            inputStream = s;
-            myCallBack = new AsyncCallback(OnCompletedRead);
-        }
-
-        public void start()
-        {
-            inputStream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
-        }
-
-        void OnCompletedRead(IAsyncResult asyncResult)
-        {
-            int bytesRead = inputStream.EndRead(asyncResult);
-            if (bytesRead > 0)
-            {
-                invoke(buffer);
-                inputStream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
-            }
-            else
-            {
-                ReadingFinishedHandler temp = OnReadingFinish;
-                if (temp != null)
-                {
-                    temp(new ReadingFinishedEventArgs(inputStream));
-                }
-            }
-        }
-
-        private void invoke(byte[] buffer)
-        {
-            BytesReceivedHandler temp = OnBytesReceive;
-            if (temp != null)
-            {
-                _commonEventArgs.Bytes = buffer;
-                temp(_commonEventArgs);
-            }
         }
 
     }
