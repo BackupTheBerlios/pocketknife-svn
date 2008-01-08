@@ -96,25 +96,30 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         /// </summary>
         void OnCompletedRead(IAsyncResult asyncResult)
         {
-            int byteCount = _stream.EndRead(asyncResult);
-            if (byteCount > 0)
+            try
             {
-                byte[] readBytes = new byte[byteCount];
-                Buffer.BlockCopy(buffer, 0, readBytes, 0, byteCount);
-
-                //raise bytes read event
-                invoke(readBytes);
-
-                _stream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
-            }
-            else
-            {
-                ReadingFinishedHandler temp = OnReadingFinish;
-                if (temp != null)
+                int byteCount = _stream.EndRead(asyncResult);
+                if (byteCount > 0)
                 {
-                    temp(new ReadingFinishedEventArgs(_stream));
+                    byte[] readBytes = new byte[byteCount];
+                    Buffer.BlockCopy(buffer, 0, readBytes, 0, byteCount);
+
+                    //raise bytes read event
+                    invoke(readBytes);
+
+                    _stream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
+                }
+                else
+                {
+                    ReadingFinishedHandler temp = OnReadingFinish;
+                    if (temp != null)
+                    {
+                        temp(new ReadingFinishedEventArgs(_stream));
+                    }
                 }
             }
+            catch(IOException) //E/A-Ende Exception
+            { }
         }
 
         /// <summary>
