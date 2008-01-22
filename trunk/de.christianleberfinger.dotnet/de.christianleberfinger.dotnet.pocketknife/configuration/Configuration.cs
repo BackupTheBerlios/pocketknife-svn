@@ -69,6 +69,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
         private static string filename = typeof(T).Name + ".xml";
 
         /// <summary>
+        /// Returns the filename that is automatically created from the type name.
+        /// When you call save() the settings will be stored to this file.
+        /// </summary>
+        public static string Filename
+        {
+            get { return Configuration<T>.filename; }
+        }
+
+        /// <summary>
         /// Static initialization. 
         /// If there's a config file for the type of settings, 
         /// the data specified in it is being loaded automatically.
@@ -159,7 +168,10 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
 
         /// <summary>
         /// Create a "snapshot" of the object and store it in the XML-file 
-        /// with the specified filename.
+        /// with the specified filename. For consistency reasons, all data will
+        /// first be written to a temporary file. When the writing was successful,
+        /// the temp file will be moved to the given filename. 
+        /// An existing filename will be overwritten.
         /// </summary>
         /// <param name="filename">Name of the output file</param>
         public static void save(string filename)
@@ -169,9 +181,18 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
             {
                 // serialize the settings object
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
-                sw = new StreamWriter(filename);
+
+                // get a temporary file
+                string tempFile = Path.GetTempFileName();
+                
+                // write to temp file
+                sw = new StreamWriter(tempFile, false, Encoding.UTF8);
                 serializer.Serialize(sw, settings);
                 sw.Close();
+
+                // copy tempfile to real filename
+                File.Copy(tempFile, filename, true);
+                File.Delete(tempFile);
             }
             catch (Exception e)
             {

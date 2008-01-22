@@ -118,8 +118,10 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
                     }
                 }
             }
-            catch(IOException) //E/A-Ende Exception
-            { }
+            catch(Exception ex) //E/A-Ende Exception
+            {
+                Debug.WriteLine("StreamReaderAsync: " + ex.Message);
+            }
         }
 
         /// <summary>

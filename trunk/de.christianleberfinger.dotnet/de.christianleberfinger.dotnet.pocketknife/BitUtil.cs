@@ -29,6 +29,7 @@ namespace de.christianleberfinger.dotnet.pocketknife
     /// <summary>
     /// A class that makes it easier to care about single bits of code in your programs.
     /// BitUtil offers static methods to mask single bits of integer types.
+    /// Another helpful class is <see cref="BitConverter"/>.
     /// </summary>
     public class BitUtil
     {
