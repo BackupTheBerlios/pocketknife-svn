@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace de.christianleberfinger.dotnet.pocketknife.configuration
 {
@@ -44,7 +45,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
             string[] arguments = System.Environment.GetCommandLineArgs();
 
             // regular expression for searching class.key=value combination
-            System.Text.RegularExpressions.Regex keyVal = new System.Text.RegularExpressions.Regex(@"((?<class>\w*)\.)?((?<key>\w+))*=(?<value>.*)((?=\W$)|\z)", RegexOptions.CultureInvariant);
+            Regex keyVal = new Regex(@"((?<class>\w*)\.)?((?<key>\w+))*=(?<value>.*)((?=\W$)|\z)", RegexOptions.CultureInvariant);
 
             int i = 0;
             foreach (string a in arguments)
