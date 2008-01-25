@@ -24,7 +24,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
-using System.Text.RegularExpressions;
 
 namespace de.christianleberfinger.dotnet.pocketknife.configuration
 {
@@ -37,13 +36,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
         /// Takes the given object and sets all fields that match
         /// to the given command line arguments, e.g. Config.port=2345
         /// </summary>
+        /// <remarks>At the moment only values of the following types can be set 
+        /// according to parsing from string.</remarks>
         /// <param name="instance">The instance into which the data should be imported.</param>
         public static void import(object instance)
         {
             string[] arguments = System.Environment.GetCommandLineArgs();
 
             // regular expression for searching class.key=value combination
-            Regex keyVal = new Regex(@"((?<class>\w*)\.)?((?<key>\w+))*=(?<value>.*)((?=\W$)|\z)", RegexOptions.CultureInvariant);
+            System.Text.RegularExpressions.Regex keyVal = new System.Text.RegularExpressions.Regex(@"((?<class>\w*)\.)?((?<key>\w+))*=(?<value>.*)((?=\W$)|\z)", RegexOptions.CultureInvariant);
 
             int i = 0;
             foreach (string a in arguments)
