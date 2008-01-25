@@ -66,7 +66,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
         /// <summary>
         /// Handler for points
         /// </summary>
-        /// <param name="p"></param>
+        /// <param name="newValue"></param>
         public delegate void CoordinateHandler(Point p);
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
         /// Adds an absolute coordinate and sums it up until the threshold is reached.
         /// Then the event 'OnCoordinateMove' is fired.
         /// </summary>
-        /// <param name="p">The absolute coordinate to add.</param>
+        /// <param name="newValue">The absolute coordinate to add.</param>
         public void addCoordinate(Point p)
         {
             if (_isFirst)

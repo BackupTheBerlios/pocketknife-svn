@@ -44,20 +44,22 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         /// <summary>
         /// Handler for the ReadingFinished event.
         /// </summary>
-        public delegate void ReadingFinishedHandler(ReadingFinishedEventArgs e);
+        //public delegate void ReadingFinishedHandler(ReadingFinishedEventArgs e);
         /// <summary>
         /// Is raised when no more bytes could be read from the stream.
         /// </summary>
-        public event ReadingFinishedHandler OnReadingFinish;
+        public event GenericEventHandler<StreamReaderAsync, ReadingFinishedEventArgs> OnReadingFinish;
 
         /// <summary>
         /// Handler for the BytesReceived event.
         /// </summary>
-        public delegate void BytesReceivedHandler(BytesReceiveEventArgs e);
+        //public delegate void BytesReceivedHandler(BytesReceiveEventArgs e);
+        //public event BytesReceivedHandler OnBytesReceive;
+
         /// <summary>
         /// Is raised when bytes were read from the stream.
         /// </summary>
-        public event BytesReceivedHandler OnBytesReceive;
+        public event GenericEventHandler<StreamReaderAsync, BytesReceiveEventArgs> OnBytesReive;
 
         /// <summary>
         /// Creates a new instance of StreamReaderAsync.
@@ -88,7 +90,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
                 throw new ArgumentNullException();
             
             // asynchronen Lesevorgang starten
-            _stream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
+            IAsyncResult result = _stream.BeginRead(buffer, 0, buffer.Length, myCallBack, null);
         }
 
         /// <summary>
@@ -111,16 +113,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
                 }
                 else
                 {
-                    ReadingFinishedHandler temp = OnReadingFinish;
-                    if (temp != null)
-                    {
-                        temp(new ReadingFinishedEventArgs(_stream));
-                    }
+                    ReadingFinishedEventArgs e = new ReadingFinishedEventArgs(_stream);
+                    EventHelper.invoke<StreamReaderAsync, ReadingFinishedEventArgs>(OnReadingFinish, this, e);
                 }
             }
-            catch(Exception ex) //E/A-Ende Exception
+            catch (Exception ex)//E/A-Ende Exception
             {
-                Debug.WriteLine("StreamReaderAsync: " + ex.Message);
+                ReadingFinishedEventArgs e = new ReadingFinishedEventArgs(_stream);
+                e.Exception = ex;
+                EventHelper.invoke<StreamReaderAsync, ReadingFinishedEventArgs>(OnReadingFinish, this, e);
             }
         }
 
@@ -131,12 +132,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
 
         private void invoke(byte[] buffer)
         {
-            BytesReceivedHandler temp = OnBytesReceive;
-            if (temp != null)
-            {
-                _reusableEventArgs.Bytes = buffer;
-                temp(_reusableEventArgs);
-            }
+            // raise received event
+            _reusableEventArgs.Bytes = buffer;
+            EventHelper.invoke<StreamReaderAsync, BytesReceiveEventArgs>(OnBytesReive, this, _reusableEventArgs);
         }
 
         /// <summary>
@@ -167,6 +165,18 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         public class ReadingFinishedEventArgs : EventArgs
         {
             Stream _stream;
+            Exception _exception = null;
+
+            /// <summary>
+            /// If an exception caused the reading to quit, you can
+            /// see it here.
+            /// </summary>
+            public Exception Exception
+            {
+                get { return _exception; }
+                set { _exception = value; }
+            }
+
             /// <summary>
             /// Creates a new instance
             /// </summary>

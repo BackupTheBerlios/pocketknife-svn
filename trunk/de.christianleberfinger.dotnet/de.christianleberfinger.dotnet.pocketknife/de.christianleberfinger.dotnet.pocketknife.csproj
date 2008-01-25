@@ -44,6 +44,7 @@
     <Compile Include="Collections\INodeTree.cs" />
     <Compile Include="Collections\ISet.cs" />
     <Compile Include="Collections\NodeTree.cs" />
+    <Compile Include="configuration\CommandLineArgs.cs" />
     <Compile Include="configuration\Configuration.cs" />
     <Compile Include="configuration\Setting.cs" />
     <Compile Include="controls\DoubleBufferedPanel.cs">

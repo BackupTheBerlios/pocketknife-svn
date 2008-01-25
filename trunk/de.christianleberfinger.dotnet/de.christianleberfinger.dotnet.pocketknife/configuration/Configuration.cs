@@ -184,17 +184,22 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
 
                 // get a temporary file
                 string tempFile = Path.GetTempFileName();
-                
+
                 // write to temp file
                 sw = new StreamWriter(tempFile, false, Encoding.UTF8);
                 serializer.Serialize(sw, settings);
                 sw.Close();
+                sw = null;
 
                 // copy tempfile to real filename
                 File.Copy(tempFile, filename, true);
                 File.Delete(tempFile);
             }
             catch (Exception e)
+            {
+                throw e;
+            }
+            finally
             {
                 // close the stream writer
                 if (sw != null)
@@ -205,7 +210,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
                     }
                     catch { }
                 }
-                throw e;
             }
         }
 
