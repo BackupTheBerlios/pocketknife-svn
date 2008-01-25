@@ -34,6 +34,29 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
     public class CommandLineArgs
     {
         /// <summary>
+        /// Returns all the fields for the given object. 
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <returns></returns>
+        public static string getPossibleOptions(object instance)
+        {
+            Type t = instance.GetType();
+            FieldInfo[] fis = t.GetFields();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < fis.Length; i++)
+            {
+                sb.Append(t.Name);
+                sb.Append('.');
+                sb.Append(fis[i].Name);
+
+                if (i < fis.Length - 1)
+                    sb.Append('|');
+            }
+
+            return sb.ToString();
+        }
+
+        /// <summary>
         /// Takes the given object and sets all fields that match
         /// to the given command line arguments, e.g. Config.port=2345
         /// </summary>
@@ -72,12 +95,19 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
             if (clazz == null || clazz.Length<1 || clazz==typeName)
             {
                 FieldInfo fi = t.GetField(key);
+
+                if (fi == null)
+                    throw new ArgumentException("key", "The field "+clazz+"."+key+" couldn't be found.");
+
                 setFieldValueByString(instance, fi, value);
             }
         }
 
         private static void setFieldValueByString(object instance, FieldInfo fi, string newValue)
         {
+            if (fi == null)
+                throw new ArgumentNullException("key", "The field couldn't be found.");
+
             if (fi.FieldType == typeof(string))
             {
                 fi.SetValue(instance, newValue);

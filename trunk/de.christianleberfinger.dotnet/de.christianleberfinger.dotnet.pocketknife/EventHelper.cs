@@ -48,29 +48,55 @@ namespace de.christianleberfinger.dotnet.pocketknife
             }
         }
 
+        public class InvokeException : Exception
+        {
+            List<Exception> _exceptions = null;
+            public InvokeException(List<Exception> exceptions)
+            {
+                _exceptions = exceptions;
+            }
+            public List<Exception> Exceptions
+            {
+                get { return _exceptions; }
+            }
+        }
+
         /// <summary>
         /// Unsafe means here: the given arguments aren't checked for type safety (as they are objects).
         /// Consider using a GenericEventHandler&lt;&gt;
         /// </summary>
         /// <param name="delegateToInvoke"></param>
         /// <param name="args"></param>
+        /// <exception cref="InvokeException">When an error occured in one or more delegates,
+        /// this exception is thrown that contains all collected exceptions during invoking.
+        /// </exception>
+        /// <remarks>All delegates will be invoked even if exceptions occur during ivoking.</remarks>
         public static void invokeUnsafe(Delegate delegateToInvoke, params object[] args)
         {
             if (delegateToInvoke == null)
                 return;
 
             Delegate[] delegates = delegateToInvoke.GetInvocationList();
+            List<Exception> occuredExceptions = null;
             foreach (Delegate del in delegates)
             {
                 try
                 {
-                    del.DynamicInvoke(args);
+                    if(del!=null)
+                        del.DynamicInvoke(args);
                 }
                 catch(Exception ex) 
                 {
-                    Console.WriteLine("Error calling: " + del.Method.ToString() + " in " + del.Target.ToString());
-                    Console.WriteLine(ex.StackTrace);
+                    if (occuredExceptions == null)
+                    {
+                        occuredExceptions = new List<Exception>();
+                    }
+                    occuredExceptions.Add(ex);                    
                 }
+            }
+            if (occuredExceptions != null)
+            {
+                throw new InvokeException(occuredExceptions);
             }
         }
 
@@ -82,6 +108,10 @@ namespace de.christianleberfinger.dotnet.pocketknife
         /// <param name="delegat">The event you want to invoke.</param>
         /// <param name="sender">Any object that is the source of this event. Don't send null as it might be not expected by the user code.</param>
         /// <param name="args">Event arguments.</param>
+        /// <exception cref="InvokeException">When an error occured in one or more delegates,
+        /// this exception is thrown that contains all collected exceptions during invoking.
+        /// </exception>
+        /// <remarks>All delegates will be invoked even if exceptions occur during ivoking.</remarks>
         public static void invoke<SENDER,ARGS>(GenericEventHandler<SENDER, ARGS> delegat, SENDER sender, ARGS args) where ARGS:EventArgs
         {
             invokeUnsafe(delegat, sender, args);
