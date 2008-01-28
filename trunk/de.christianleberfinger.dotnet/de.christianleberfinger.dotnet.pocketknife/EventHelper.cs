@@ -56,10 +56,18 @@ namespace de.christianleberfinger.dotnet.pocketknife
         public class InvokeException : Exception
         {
             List<Exception> _exceptions = null;
+            /// <summary>
+            /// Creates a new instance of <see cref="InvokeException"/>
+            /// </summary>
+            /// <param name="exceptions"></param>
             public InvokeException(List<Exception> exceptions)
             {
                 _exceptions = exceptions;
             }
+            /// <summary>
+            /// A list of all exceptions that were thrown during invoking all the subscribers
+            /// of the event.
+            /// </summary>
             public List<Exception> Exceptions
             {
                 get { return _exceptions; }

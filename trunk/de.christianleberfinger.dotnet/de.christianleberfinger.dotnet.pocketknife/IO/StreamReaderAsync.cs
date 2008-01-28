@@ -42,24 +42,14 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         private AsyncCallback myCallBack; // delegated method
 
         /// <summary>
-        /// Handler for the ReadingFinished event.
-        /// </summary>
-        //public delegate void ReadingFinishedHandler(ReadingFinishedEventArgs e);
-        /// <summary>
         /// Is raised when no more bytes could be read from the stream.
         /// </summary>
         public event GenericEventHandler<StreamReaderAsync, ReadingFinishedEventArgs> OnReadingFinish;
 
         /// <summary>
-        /// Handler for the BytesReceived event.
-        /// </summary>
-        //public delegate void BytesReceivedHandler(BytesReceiveEventArgs e);
-        //public event BytesReceivedHandler OnBytesReceive;
-
-        /// <summary>
         /// Is raised when bytes were read from the stream.
         /// </summary>
-        public event GenericEventHandler<StreamReaderAsync, BytesReceiveEventArgs> OnBytesReive;
+        public event GenericEventHandler<StreamReaderAsync, BytesReceiveEventArgs> OnBytesReceive;
 
         /// <summary>
         /// Creates a new instance of StreamReaderAsync.
@@ -134,7 +124,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         {
             // raise received event
             _reusableEventArgs.Bytes = buffer;
-            EventHelper.invoke<StreamReaderAsync, BytesReceiveEventArgs>(OnBytesReive, this, _reusableEventArgs);
+            EventHelper.invoke<StreamReaderAsync, BytesReceiveEventArgs>(OnBytesReceive, this, _reusableEventArgs);
         }
 
         /// <summary>
