@@ -75,14 +75,24 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
         /// Returns all the public fields for the given object. 
         /// This options can be overwritten via commandline.
         /// </summary>
-        /// <param name="instance"></param>
-        /// <returns></returns>
+        /// <param name="instance">The object that contains the fields to query.</param>
+        /// <returns>A string showing all the options.</returns>
         public static string getPossibleOptions(object instance)
         {
             Type t = instance.GetType();
             FieldInfo[] fis = t.GetFields();
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < fis.Length; i++)
+            {
+                sb.Append(t.Name);
+                sb.Append('.');
+                sb.Append(fis[i].Name);
 
-            return StringTools.listElements(fis, " | ");
+                if (i < fis.Length - 1)
+                    sb.Append(" | ");
+            }
+
+            return sb.ToString();
         }
 
         /// <summary>

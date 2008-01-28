@@ -48,6 +48,11 @@ namespace de.christianleberfinger.dotnet.pocketknife
             }
         }
 
+        /// <summary>
+        /// Exception can occur when you invoke events.
+        /// When you have multiple subscribers, this class 
+        /// collects the exceptions.
+        /// </summary>
         public class InvokeException : Exception
         {
             List<Exception> _exceptions = null;
@@ -63,7 +68,7 @@ namespace de.christianleberfinger.dotnet.pocketknife
 
         /// <summary>
         /// Unsafe means here: the given arguments aren't checked for type safety (as they are objects).
-        /// Consider using a GenericEventHandler&lt;&gt;
+        /// Consider using a <see cref="GenericEventHandler&lt;SENDER,ARGS&gt;"/>
         /// </summary>
         /// <param name="delegateToInvoke"></param>
         /// <param name="args"></param>
