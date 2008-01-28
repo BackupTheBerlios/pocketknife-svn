@@ -25,6 +25,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using de.christianleberfinger.dotnet.pocketknife.text;
 
 namespace de.christianleberfinger.dotnet.pocketknife.configuration
 {
@@ -34,7 +35,45 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
     public class CommandLineArgs
     {
         /// <summary>
-        /// Returns all the fields for the given object. 
+        /// This exception contains information about the commandline args
+        /// that couldn't be handled correctly.
+        /// </summary>
+        public class CommandLineArgException : Exception
+        {
+            string[] _optionsThatCouldntBeSet;
+            /// <summary>
+            /// ctor.
+            /// </summary>
+            /// <param name="optionsThatCouldntBeSet"></param>
+            public CommandLineArgException(string[] optionsThatCouldntBeSet)
+            {
+                _optionsThatCouldntBeSet = optionsThatCouldntBeSet;
+            }
+
+            /// <summary>
+            /// A list of all command line arguments arguments that caused errors 
+            /// during processing.
+            /// </summary>
+            public string[] ArgumentsThatCausedErrors
+            {
+                get { return _optionsThatCouldntBeSet; }
+            }
+
+            /// <summary>
+            /// Tells you about the source of the exception.
+            /// </summary>
+            public override string Message
+            {
+                get
+                {
+                    return _optionsThatCouldntBeSet.Length + " error(s) in CommandLineArgs: "+ StringTools.listElements(_optionsThatCouldntBeSet, " | ");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns all the public fields for the given object. 
+        /// This options can be overwritten via commandline.
         /// </summary>
         /// <param name="instance"></param>
         /// <returns></returns>
@@ -42,18 +81,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
         {
             Type t = instance.GetType();
             FieldInfo[] fis = t.GetFields();
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < fis.Length; i++)
-            {
-                sb.Append(t.Name);
-                sb.Append('.');
-                sb.Append(fis[i].Name);
 
-                if (i < fis.Length - 1)
-                    sb.Append('|');
-            }
-
-            return sb.ToString();
+            return StringTools.listElements(fis, " | ");
         }
 
         /// <summary>
@@ -63,9 +92,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
         /// <remarks>At the moment only values of the following types can be set 
         /// according to parsing from string.</remarks>
         /// <param name="instance">The instance into which the data should be imported.</param>
+        /// <exception cref="CommandLineArgException"/>
         public static void import(object instance)
         {
             string[] arguments = System.Environment.GetCommandLineArgs();
+            List<string> optionsWithErrors = new List<string>();
 
             // regular expression for searching class.key=value combination
             Regex keyVal = new Regex(@"((?<class>\w*)\.)?((?<key>\w+))*=(?<value>.*)((?=\W$)|\z)", RegexOptions.CultureInvariant);
@@ -77,15 +108,24 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
                 if (i++ == 0)
                     continue;
 
-                Match m = keyVal.Match(a);
-                string clazz = m.Groups["class"].Value;
-                string key = m.Groups["key"].Value;
-                string val = m.Groups["value"].Value;
+                try
+                {
+                    Match m = keyVal.Match(a);
+                    string clazz = m.Groups["class"].Value;
+                    string key = m.Groups["key"].Value;
+                    string val = m.Groups["value"].Value;
 
-                // no need to set anything if no field was specified
-                if(key!=null && key.Length>0)
-                    setFieldValueByString(instance, clazz, key, val);
+                    // no need to set anything if no field was specified
+                    if (key != null && key.Length > 0)
+                        setFieldValueByString(instance, clazz, key, val);
+                }
+                catch
+                {
+                    optionsWithErrors.Add(a);
+                }
             }
+            if (optionsWithErrors.Count > 0)
+                throw new CommandLineArgException(optionsWithErrors.ToArray());
         }
 
         private static void setFieldValueByString(object instance, string clazz, string key, string value)

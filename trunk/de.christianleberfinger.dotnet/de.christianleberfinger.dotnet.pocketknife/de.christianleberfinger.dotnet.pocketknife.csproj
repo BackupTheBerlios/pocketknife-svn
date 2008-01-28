@@ -92,6 +92,7 @@
     <Compile Include="Reflection\InterfaceQuery.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
     <Compile Include="StructSerializer.cs" />
+    <Compile Include="text\StringTools.cs" />
     <Compile Include="Threading\ThreadUtils.cs" />
   </ItemGroup>
   <ItemGroup>
