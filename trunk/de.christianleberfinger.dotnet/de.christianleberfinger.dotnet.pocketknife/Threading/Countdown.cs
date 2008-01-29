@@ -66,9 +66,30 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// </summary>
         public event GenericEventHandler<Countdown<T>, CountdownElapsedArgs<T>> OnCountdownElapsed;
 
+        /// <summary>
+        /// Defines the duration of each countdown in milliseconds.
+        /// </summary>
         private int _millis = 0;
-        private Queue<WaitObject<T>> _queue = new Queue<WaitObject<T>>();
-        private Thread _thread = null;
+
+        /// <summary>
+        /// The thread that is waiting for the current countdown to elapse.
+        /// </summary>
+        private Thread _waitingThread = null;
+
+        /// <summary>
+        /// Controls the thread that is waiting for the countdowns to elapse
+        /// </summary>
+        AutoResetEvent _waitHandle = new AutoResetEvent(false);
+
+        /// <summary>
+        /// locking variable for the waiting queue.
+        /// </summary>
+        object _queueLock = new object();
+
+        /// <summary>
+        /// contains all pending countdowns
+        /// </summary>
+        private LinkedList<CountdownHandle<T>> _queue = new LinkedList<CountdownHandle<T>>();
 
         /// <summary>
         /// Creates a new instance of the countdown class. You can start countdowns and will be
@@ -88,16 +109,24 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             Dispose();
         }
 
-        public interface IWaitObjectHandler { }
-        private class WaitObject<U> : IWaitObjectHandler
+        /// <summary>
+        /// A handle that you can use to cancel a pending countdown action
+        /// </summary>
+        /// <typeparam name="U"></typeparam>
+        public class CountdownHandle<U>
         {
-            public DateTime timeElapsed;
-            public U userObject;
-            public WaitObject(DateTime timeElapsed, U userObject)
+            internal readonly DateTime timeElapsed;
+            U userObject = default(U);
+            internal CountdownHandle(DateTime timeElapsed, U userObject)
             {
                 this.timeElapsed = timeElapsed;
                 this.userObject = userObject;
             }
+            /// <summary>
+            /// Returns the user object that is linked with the Countdown event
+            /// or default(U) if none was specified.
+            /// </summary>
+            public U UserObject { get { return userObject; } }
         }
 
         /// <summary>
@@ -106,43 +135,100 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// be raised.
         /// </summary>
         /// <param name="userObject">Any kind of user object that you will receive with the event.</param>
-        public IWaitObjectHandler startCountdown(T userObject)
+        public CountdownHandle<T> startCountdown(T userObject)
         {
-            if (_thread == null)
+            if (_waitingThread == null)
             {
-                _thread = new Thread(new ThreadStart(runThread));
-                _thread.Name = "Countdown thread";
-                _thread.IsBackground = true;
-                _thread.Start();
+                _waitingThread = new Thread(new ThreadStart(runThread));
+                _waitingThread.Name = "Countdown thread";
+                _waitingThread.IsBackground = true;
+                _waitingThread.Start();
             }
 
-            WaitObject<T> wo = new WaitObject<T>(DateTime.Now.AddMilliseconds(_millis), userObject);
-            _queue.Enqueue(wo);
+            CountdownHandle<T> wo = new CountdownHandle<T>(DateTime.Now.AddMilliseconds(_millis), userObject);
+            enqueue(wo);
             
-            resetEvent.Set();
+            _waitHandle.Set();
 
             return wo;
         }
 
-        //TODO
-        //public void cancel(IWaitObjectHandler waitHandler)
-        //{
-        //    lock (queueLock)
-        //    {
-        //    }
-        //}
+        void enqueue(CountdownHandle<T> wo)
+        {
+            lock (_queueLock)
+            {
+                _queue.AddLast(wo);
+            }
+        }
 
-        bool running = true;
-        AutoResetEvent resetEvent = new AutoResetEvent(false);
-        object queueLock = new object();
+        CountdownHandle<T> dequeue()
+        {
+            CountdownHandle<T> wo;
+            lock (_queueLock)
+            {
+                wo = _queue.First.Value;
+                _queue.RemoveFirst();
+            }
+            return wo;
+        }
+
+        CountdownHandle<T> peek()
+        {
+            lock (_queueLock)
+            {
+                return _queue.First.Value;
+            }
+        }
+
+        /// <summary>
+        /// Cancel a pending countdown operation. if the operation couldn't be found,
+        /// false will be returned. 
+        /// </summary>
+        /// <param name="handle">The countdown operation you want to cancel.</param>
+        public bool cancel(CountdownHandle<T> handle)
+        {
+            lock (_queueLock)
+            {
+                // find the node that has to be removed
+                LinkedListNode<CountdownHandle<T>> node = _queue.Find(handle);
+
+                // node wasn't found
+                if (node == null)
+                {
+                    return false;
+                }
+
+                // waitobject entfernen
+                _queue.Remove(node);
+                
+                // resume waiting thread
+                _waitHandle.Set();
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Cancels all pending countdown operations.
+        /// </summary>
+        public void cancelAll()
+        {
+            lock (_queueLock)
+            {
+                _queue.Clear();
+                _waitHandle.Set();
+            }
+        }
+
+        bool _running = true;
 
         void runThread()
         {
-            while (running)
+            while (_running)
             {
                 if (_queue.Count > 0)
                 {
-                    WaitObject<T> wo = _queue.Peek();
+                    CountdownHandle<T> wo = peek();
 
                     DateTime now = DateTime.Now;
                     TimeSpan timeTillElapsed = wo.timeElapsed - now;
@@ -150,22 +236,22 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
                     if (timeTillElapsed.TotalMilliseconds < 0)
                     {
                         // remove element from queue
-                        _queue.Dequeue();
+                        dequeue();
 
                         // Event auslösen
-                        CountdownElapsedArgs<T> args = new CountdownElapsedArgs<T>(wo.userObject);
+                        CountdownElapsedArgs<T> args = new CountdownElapsedArgs<T>(wo.UserObject);
                         EventHelper.invoke<Countdown<T>, CountdownElapsedArgs<T>>(OnCountdownElapsed, this, args);
                     }
                     else
                     {
                         // die verbliebende Zeit warten
-                        Thread.Sleep(timeTillElapsed);
+                        _waitHandle.WaitOne(timeTillElapsed, false);
                     }
                 }
                 else
                 {
                     // warten bis wieder Elemente in der Queue sind.
-                    resetEvent.WaitOne();
+                    _waitHandle.WaitOne();
                 }
             }
         }
@@ -178,14 +264,14 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         public void Dispose()
         {
             Debug.WriteLine("Countdown wird disposed.");
-            running = false;
-            resetEvent.Set();
-            resetEvent.Close();
+            _running = false;
+            _waitHandle.Set();
+            _waitHandle.Close();
 
-            if (_thread != null)
+            if (_waitingThread != null)
             {
-                _thread.Abort();
-                _thread = null;
+                _waitingThread.Abort();
+                _waitingThread = null;
             }
         }
 
