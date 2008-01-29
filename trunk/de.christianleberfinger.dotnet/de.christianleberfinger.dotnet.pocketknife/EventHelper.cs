@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 
 namespace de.christianleberfinger.dotnet.pocketknife
 {
@@ -84,6 +85,7 @@ namespace de.christianleberfinger.dotnet.pocketknife
         /// this exception is thrown that contains all collected exceptions during invoking.
         /// </exception>
         /// <remarks>All delegates will be invoked even if exceptions occur during ivoking.</remarks>
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static void invokeUnsafe(Delegate delegateToInvoke, params object[] args)
         {
             if (delegateToInvoke == null)

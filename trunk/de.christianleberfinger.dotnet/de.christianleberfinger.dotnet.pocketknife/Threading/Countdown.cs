@@ -265,6 +265,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         {
             Debug.WriteLine("Countdown wird disposed.");
             _running = false;
+
             _waitHandle.Set();
             _waitHandle.Close();
 

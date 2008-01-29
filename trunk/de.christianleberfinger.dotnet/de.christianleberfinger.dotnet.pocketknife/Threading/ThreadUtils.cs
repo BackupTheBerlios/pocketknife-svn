@@ -36,13 +36,13 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// <summary>
         /// Joins a given thread and blocks until it dies.
         /// </summary>
-        /// <param name="thread"></param>
+        /// <param name="thread">The thread you want to join.</param>
         public static void waitForThreadToDie(Thread thread)
         {
             if (thread == null)
                 return;
 
-            // aufpassen, dass man sich nicht selber joined
+            // a thread is not allowed to join itself!
             Debug.Assert(Thread.CurrentThread.ManagedThreadId != thread.ManagedThreadId);
 
             thread.Join();
@@ -51,14 +51,14 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// <summary>
         /// Joins a given thread and blocks until it dies.
         /// </summary>
-        /// <param name="thread"></param>
+        /// <param name="thread">The thread you want to join.</param>
         /// <param name="timeoutMillis"></param>
         public static void waitForThreadToDie(Thread thread, int timeoutMillis)
         {
             if (thread == null)
                 return;
 
-            // aufpassen, dass man sich nicht selber joined
+            // a thread is not allowed to join itself!
             Debug.Assert(Thread.CurrentThread.ManagedThreadId != thread.ManagedThreadId);
 
             thread.Join(timeoutMillis);

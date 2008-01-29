@@ -146,7 +146,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         /// <summary>
         /// Sends the keys you define. If you want to know how to create special keys or key combinations
         /// not defined in the class ExternalWindow.Keys please have a look at the microsoft msdn homepage.
-        /// <see cref="http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.send.aspx"/>
+        /// <seealso cref="http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.send.aspx"/>
         /// </summary>
         /// <param name="key">The key (or combination of keys) to send to the external application.</param>
         public void sendKey(string key)
@@ -169,26 +169,90 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         /// </summary>
         public abstract class Keys
         {
+            /// <summary>
+            /// The backspace key
+            /// </summary>
             public const string BACKSPACE = "{BACKSPACE}";
+            /// <summary>
+            /// The BREAK / PAUSE key.
+            /// </summary>
             public const string BREAK = "{BREAK}";
+            /// <summary>
+            /// CAPS LOCK
+            /// </summary>
             public const string CAPS_LOCK = "{CAPSLOCK}";
+            /// <summary>
+            /// DELETE
+            /// </summary>
             public const string DELETE = "{DELETE}";
+            /// <summary>
+            /// DOWN KEY
+            /// </summary>
             public const string DOWN = "{DOWN}";
+            /// <summary>
+            /// END KEY
+            /// </summary>
             public const string END = "{END}";
+            /// <summary>
+            /// ENTER key
+            /// </summary>
             public const string ENTER = "{ENTER}";
+            /// <summary>
+            /// ESCAPE (ESC) key
+            /// </summary>
             public const string ESCAPE = "{ESC}";
+            /// <summary>
+            /// HELP key
+            /// </summary>
             public const string HELP = "{HELP}";
+            /// <summary>
+            /// HOME (POS1) key
+            /// </summary>
             public const string HOME = "{HOME}";
+            /// <summary>
+            /// INSERT (INS) key
+            /// </summary>
             public const string INSERT = "{INSERT}";
+            /// <summary>
+            /// LEFT key
+            /// </summary>
             public const string LEFT = "{LEFT}";
+            /// <summary>
+            /// NUM_LOCK key
+            /// </summary>
             public const string NUM_LOCK = "{NUMLOCK}";
+            /// <summary>
+            /// PAGE DOWN
+            /// </summary>
             public const string PAGE_DOWN = "{PGDN}";
+            /// <summary>
+            /// PAGE UP
+            /// </summary>
             public const string PAGE_UP = "{PGUP}";
+
+            /// <summary>
+            /// RIGHT
+            /// </summary>
             public const string RIGHT = "{RIGHT}";
+            /// <summary>
+            /// SCROLL LOCK
+            /// </summary>
             public const string SCROLL_LOCK = "{SCROLLLOCK}";
+            /// <summary>
+            /// TAB (tabulator) key
+            /// </summary>
             public const string TAB = "{TAB}";
+            /// <summary>
+            /// UP key
+            /// </summary>
             public const string UP = "{UP}";
+            /// <summary>
+            /// F1 key.
+            /// </summary>
             public const string F1 = "{F1}";
+            /// <summary>
+            /// ADD (+) key
+            /// </summary>
             public const string ADD = "{ADD}";
 
             /// <summary>
@@ -211,11 +275,26 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             /// </summary>
             public const string DIVIDE = "{DIVIDE}";
 
+            /// <summary>
+            /// The shift key.
+            /// </summary>
             public const string SHIFT = "+";
+            /// <summary>
+            /// The CONTROL (CTRL) key.
+            /// </summary>
             public const string CONTROL = "^";
+            /// <summary>
+            /// The ALT key.
+            /// </summary>
             public const string ALT = "%";
 
+            /// <summary>
+            /// Curly brace open
+            /// </summary>
             public const string CURLYBRACE_OPEN = "{{}";
+            /// <summary>
+            /// Curly brace close
+            /// </summary>
             public const string CURLYBRACE_CLOSE = "{}}";
         }
     }
