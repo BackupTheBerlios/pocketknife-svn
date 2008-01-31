@@ -29,27 +29,6 @@ using System.Diagnostics;
 namespace de.christianleberfinger.dotnet.pocketknife.Threading
 {
     /// <summary>
-    /// A handle that is used to identify a pending countdown action
-    /// and keep the user data.
-    /// </summary>
-    /// <typeparam name="U"></typeparam>
-    public class CountdownHandle<U>
-    {
-        internal readonly DateTime timeElapsed;
-        U userObject = default(U);
-        internal CountdownHandle(DateTime timeElapsed, U userObject)
-        {
-            this.timeElapsed = timeElapsed;
-            this.userObject = userObject;
-        }
-        /// <summary>
-        /// Returns the user object that is linked with the Countdown event
-        /// or default(U) if none was specified.
-        /// </summary>
-        public U UserObject { get { return userObject; } }
-    }
-
-    /// <summary>
     /// An easy to use countdown class.
     /// Just create an instance, subscribe the <see cref="OnCountdownElapsed"/> event and
     /// start your countdowns. You will be noticed and can specify a generic user object 
@@ -60,18 +39,37 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
     public class Countdown<T> : IDisposable
     {
         /// <summary>
+        /// A handle that is used to identify a pending countdown action
+        /// and keep the user data.
+        /// </summary>
+        public class CountdownHandle
+        {
+            internal readonly DateTime timeElapsed;
+            T userObject = default(T);
+            internal CountdownHandle(DateTime timeElapsed, T userObject)
+            {
+                this.timeElapsed = timeElapsed;
+                this.userObject = userObject;
+            }
+            /// <summary>
+            /// Returns the user object that is linked with the Countdown event
+            /// or default(T) if none was specified.
+            /// </summary>
+            public T UserObject { get { return userObject; } }
+        }
+
+        /// <summary>
         /// Contains user information that is connected with a countdown elapsed event.
         /// </summary>
-        /// <typeparam name="U">The type of your userobject.</typeparam>
-        public class CountdownElapsedArgs<U> : EventArgs
+        public class CountdownElapsedArgs : EventArgs
         {
-            private U _userObject;
+            private T _userObject;
             /// <summary>
             /// ctor.
             /// </summary>
             /// <param name="userobject">Any object you would like to receive with 
             /// a raised elapsed event.</param>
-            public CountdownElapsedArgs(U userobject)
+            public CountdownElapsedArgs(T userobject)
             {
                 _userObject = userobject;
             }
@@ -79,13 +77,13 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             /// The userobject you defined when starting the countdown.
             /// Can be null!
             /// </summary>
-            public U UserObject { get { return _userObject; } }
+            public T UserObject { get { return _userObject; } }
         }
 
         /// <summary>
         /// Is raised when the countdown is elapsed.
         /// </summary>
-        public event GenericEventHandler<Countdown<T>, CountdownElapsedArgs<T>> OnCountdownElapsed;
+        public event GenericEventHandler<Countdown<T>, CountdownElapsedArgs> OnCountdownElapsed;
 
         /// <summary>
         /// The thread that is waiting for the current countdown to elapse.
@@ -105,7 +103,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// <summary>
         /// contains all pending countdowns
         /// </summary>
-        private SortedList<DateTime, CountdownHandle<T>> _queue = new SortedList<DateTime, CountdownHandle<T>>();
+        private SortedList<DateTime, CountdownHandle> _queue = new SortedList<DateTime, CountdownHandle>();
 
         /// <summary>
         /// Creates a new instance of the countdown class. You can start countdowns and will be
@@ -130,7 +128,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// </summary>
         /// <param name="userObject">Any kind of user object that you will receive with the event.</param>
         /// <param name="millis">The countdowns duration [ms].</param>
-        public CountdownHandle<T> startCountdown(T userObject, int millis)
+        public CountdownHandle startCountdown(T userObject, int millis)
         {
             if (_waitingThread == null)
             {
@@ -140,7 +138,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
                 _waitingThread.Start();
             }
 
-            CountdownHandle<T> wo = new CountdownHandle<T>(DateTime.Now.AddMilliseconds(millis), userObject);
+            CountdownHandle wo = new CountdownHandle(DateTime.Now.AddMilliseconds(millis), userObject);
             enqueue(wo);
 
             // resume the waiting thread if it's currently blocked
@@ -149,7 +147,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             return wo;
         }
 
-        void enqueue(CountdownHandle<T> wo)
+        void enqueue(CountdownHandle wo)
         {
             lock (_queueLock)
             {
@@ -157,9 +155,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             }
         }
 
-        CountdownHandle<T> dequeue()
+        CountdownHandle dequeue()
         {
-            CountdownHandle<T> wo;
+            CountdownHandle wo;
             lock (_queueLock)
             {
                 wo = _queue.Values[0];
@@ -168,7 +166,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             return wo;
         }
 
-        CountdownHandle<T> peek()
+        CountdownHandle peek()
         {
             lock (_queueLock)
             {
@@ -181,12 +179,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// </summary>
         /// <returns>array of pending operations or null if there are 
         /// no pending operations</returns>
-        public CountdownHandle<T>[] getPendingOperations()
+        public CountdownHandle[] getPendingOperations()
         {
-            CountdownHandle<T>[] retVal = null;
+            CountdownHandle[] retVal = null;
             lock (_queueLock)
             {
-                retVal = new CountdownHandle<T>[_queue.Count];
+                retVal = new CountdownHandle[_queue.Count];
                 _queue.Values.CopyTo(retVal, 0);
             }
             return retVal;
@@ -197,7 +195,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// false will be returned. 
         /// </summary>
         /// <param name="handle">The countdown operation you want to cancel.</param>
-        public bool cancel(CountdownHandle<T> handle)
+        public bool cancel(CountdownHandle handle)
         {
             lock (_queueLock)
             {
@@ -236,7 +234,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             {
                 if (_queue.Count > 0)
                 {
-                    CountdownHandle<T> wo = peek();
+                    CountdownHandle wo = peek();
 
                     DateTime now = DateTime.Now;
                     TimeSpan timeTillElapsed = wo.timeElapsed - now;
@@ -247,8 +245,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
                         dequeue();
 
                         // Event auslösen
-                        CountdownElapsedArgs<T> args = new CountdownElapsedArgs<T>(wo.UserObject);
-                        EventHelper.invoke<Countdown<T>, CountdownElapsedArgs<T>>(OnCountdownElapsed, this, args);
+                        CountdownElapsedArgs args = new CountdownElapsedArgs(wo.UserObject);
+                        EventHelper.invoke<Countdown<T>, CountdownElapsedArgs>(OnCountdownElapsed, this, args);
                     }
                     else
                     {

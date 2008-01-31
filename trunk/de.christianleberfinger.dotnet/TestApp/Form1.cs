@@ -118,7 +118,7 @@ namespace TestApp
             if(countdown == null)
             {
                 countdown = new Countdown<int>();
-                countdown.OnCountdownElapsed +=new GenericEventHandler<Countdown<int>,Countdown<int>.CountdownElapsedArgs<int>>(countdown_OnCountdownElapsed);
+                countdown.OnCountdownElapsed +=new GenericEventHandler<Countdown<int>,Countdown<int>.CountdownElapsedArgs>(countdown_OnCountdownElapsed);
             }
 
             int duration = 0;
@@ -132,15 +132,25 @@ namespace TestApp
             }
             
             tbCountdownTime.ForeColor = Color.Black;
-            CountdownHandle<int> ch = countdown.startCountdown(Environment.TickCount, duration);
+            Countdown<int>.CountdownHandle ch = countdown.startCountdown(Environment.TickCount, duration);
 
             lblCountdownInfo.Text = "Countdown started.";
         }
 
-        void countdown_OnCountdownElapsed(Countdown<int> sender, Countdown<int>.CountdownElapsedArgs<int> e)
+        /// <summary>
+        /// is called from countdown thread when countdown is elapsed
+        /// </summary>
+        void countdown_OnCountdownElapsed(Countdown<int> sender, Countdown<int>.CountdownElapsedArgs e)
         {
             int durationMillis = Environment.TickCount - e.UserObject;
-            lblCountdownInfo.Text = "Countdown time elapsed after " + durationMillis + " milliseconds.";
+            string msg = "Countdown time elapsed after " + durationMillis + " milliseconds.";
+            this.Invoke(new StringHandler(setCountdownLabelText), msg);
+        }
+
+        delegate void StringHandler(string msg);
+        void setCountdownLabelText(string msg)
+        {
+            lblCountdownInfo.Text = msg;
         }
 
         private void btCountdownCancel_Click(object sender, EventArgs e)
