@@ -29,6 +29,7 @@ using System.Text;
 using System.Windows.Forms;
 using de.christianleberfinger.dotnet.pocketknife.controls;
 using de.christianleberfinger.dotnet.pocketknife;
+using de.christianleberfinger.dotnet.pocketknife.Threading;
 
 namespace TestApp
 {
@@ -108,6 +109,44 @@ namespace TestApp
 
             foreach (bool bval in bools)
                 tbBitMaskComplete.Text += bval ? "1" : "0";
+        }
+
+        Countdown<int> countdown = null;
+
+        private void btCountdownStart_Click(object sender, EventArgs e)
+        {
+            if(countdown == null)
+            {
+                countdown = new Countdown<int>();
+                countdown.OnCountdownElapsed +=new GenericEventHandler<Countdown<int>,Countdown<int>.CountdownElapsedArgs<int>>(countdown_OnCountdownElapsed);
+            }
+
+            int duration = 0;
+            bool parsed = int.TryParse(tbCountdownTime.Text, out duration);
+
+            if (!parsed)
+            {
+                tbCountdownTime.ForeColor = Color.Red;
+                lblCountdownInfo.Text = "Countdown duration couldn't be parsed.";
+                return;
+            }
+            
+            tbCountdownTime.ForeColor = Color.Black;
+            CountdownHandle<int> ch = countdown.startCountdown(Environment.TickCount, duration);
+
+            lblCountdownInfo.Text = "Countdown started.";
+        }
+
+        void countdown_OnCountdownElapsed(Countdown<int> sender, Countdown<int>.CountdownElapsedArgs<int> e)
+        {
+            int durationMillis = Environment.TickCount - e.UserObject;
+            lblCountdownInfo.Text = "Countdown time elapsed after " + durationMillis + " milliseconds.";
+        }
+
+        private void btCountdownCancel_Click(object sender, EventArgs e)
+        {
+            countdown.cancelAll();
+            lblCountdownInfo.Text = "Countdown cancelled.";
         }
 
     }

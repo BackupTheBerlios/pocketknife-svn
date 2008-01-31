@@ -29,7 +29,8 @@ using System.Diagnostics;
 namespace de.christianleberfinger.dotnet.pocketknife.Threading
 {
     /// <summary>
-    /// A handle that you can use to cancel a pending countdown action
+    /// A handle that is used to identify a pending countdown action
+    /// and keep the user data.
     /// </summary>
     /// <typeparam name="U"></typeparam>
     public class CountdownHandle<U>
@@ -289,6 +290,5 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         }
 
         #endregion
-
     }
 }
