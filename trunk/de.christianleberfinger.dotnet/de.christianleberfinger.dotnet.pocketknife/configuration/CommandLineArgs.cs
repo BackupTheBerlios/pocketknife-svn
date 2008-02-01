@@ -25,7 +25,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using de.christianleberfinger.dotnet.pocketknife.text;
+using de.christianleberfinger.dotnet.pocketknife.Collections;
 
 namespace de.christianleberfinger.dotnet.pocketknife.configuration
 {
@@ -66,7 +66,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
             {
                 get
                 {
-                    return _optionsThatCouldntBeSet.Length + " error(s) in CommandLineArgs: "+ StringTools.listElements(_optionsThatCouldntBeSet, " | ");
+                    return _optionsThatCouldntBeSet.Length + " error(s) in CommandLineArgs: "+ ArrayHelper.listElements(_optionsThatCouldntBeSet, " | ");
                 }
             }
         }

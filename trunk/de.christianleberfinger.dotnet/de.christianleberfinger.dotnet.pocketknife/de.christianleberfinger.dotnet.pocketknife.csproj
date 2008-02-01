@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitUtil.cs" />
+    <Compile Include="Collections\ArrayHelper.cs" />
     <Compile Include="Collections\HashSet.cs" />
     <Compile Include="Collections\INodeTree.cs" />
     <Compile Include="Collections\ISet.cs" />
@@ -92,7 +93,6 @@
     <Compile Include="Reflection\InterfaceQuery.cs" />
     <Compile Include="Reflection\TypeHelper.cs" />
     <Compile Include="StructSerializer.cs" />
-    <Compile Include="text\StringTools.cs" />
     <Compile Include="Threading\Countdown.cs" />
     <Compile Include="Threading\NiceThread.cs" />
     <Compile Include="Threading\ThreadUtils.cs" />
@@ -116,6 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="images\media-floppy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="text\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

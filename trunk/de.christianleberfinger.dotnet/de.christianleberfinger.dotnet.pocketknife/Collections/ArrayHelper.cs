@@ -24,12 +24,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace de.christianleberfinger.dotnet.pocketknife.text
+namespace de.christianleberfinger.dotnet.pocketknife.Collections
 {
     /// <summary>
-    /// Contains helper methods for working with strings.
+    /// Contains helper methods for arrays.
     /// </summary>
-    public class StringTools
+    public class ArrayHelper
     {
         /// <summary>
         /// Creates a string that lists the elements of the given array.
