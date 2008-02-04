@@ -32,9 +32,11 @@ namespace TestApp
             this.button2 = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageLogging = new System.Windows.Forms.TabPage();
+            this.loggingBox1 = new de.christianleberfinger.dotnet.pocketknife.controls.LogBox();
             this.tabPageSerialPort = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.serialPortControl1 = new de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl();
             this.tabPageConfiguration = new System.Windows.Forms.TabPage();
             this.propertyGridConfig = new System.Windows.Forms.PropertyGrid();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -49,14 +51,12 @@ namespace TestApp
             this.tbBitValue = new System.Windows.Forms.TextBox();
             this.btMask = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.btCountdownStart = new System.Windows.Forms.Button();
-            this.tbCountdownTime = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lblCountdownInfo = new System.Windows.Forms.Label();
-            this.loggingBox1 = new de.christianleberfinger.dotnet.pocketknife.controls.LogBox();
-            this.serialPortControl1 = new de.christianleberfinger.dotnet.pocketknife.controls.SerialPortControl();
-            this.serialPort1 = new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort();
             this.btCountdownCancel = new System.Windows.Forms.Button();
+            this.lblCountdownInfo = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbCountdownTime = new System.Windows.Forms.TextBox();
+            this.btCountdownStart = new System.Windows.Forms.Button();
+            this.serialPort1 = new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -113,6 +113,24 @@ namespace TestApp
             this.tabPageLogging.Text = "Logging";
             this.tabPageLogging.UseVisualStyleBackColor = true;
             // 
+            // loggingBox1
+            // 
+            this.loggingBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.loggingBox1.AutoSelectLastEntry = true;
+            this.loggingBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.loggingBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.loggingBox1.ClearButton = true;
+            this.loggingBox1.CopyButton = true;
+            this.loggingBox1.Location = new System.Drawing.Point(6, 6);
+            this.loggingBox1.MaxEntryCount = 500;
+            this.loggingBox1.Name = "loggingBox1";
+            this.loggingBox1.SaveButtonVisible = true;
+            this.loggingBox1.Size = new System.Drawing.Size(446, 260);
+            this.loggingBox1.TabIndex = 0;
+            this.loggingBox1.Title = "Logbook";
+            // 
             // tabPageSerialPort
             // 
             this.tabPageSerialPort.Controls.Add(this.label2);
@@ -145,6 +163,15 @@ namespace TestApp
             this.label1.Size = new System.Drawing.Size(82, 13);
             this.label1.TabIndex = 4;
             this.label1.Text = "SerialPort class:";
+            // 
+            // serialPortControl1
+            // 
+            this.serialPortControl1.Location = new System.Drawing.Point(9, 92);
+            this.serialPortControl1.Name = "serialPortControl1";
+            this.serialPortControl1.Size = new System.Drawing.Size(223, 55);
+            this.serialPortControl1.TabIndex = 3;
+            this.serialPortControl1.Load += new System.EventHandler(this.serialPortControl1_Load);
+            this.serialPortControl1.OnBytesReceive += new de.christianleberfinger.dotnet.pocketknife.GenericEventHandler<de.christianleberfinger.dotnet.pocketknife.IO.StreamReaderAsync, de.christianleberfinger.dotnet.pocketknife.IO.StreamReaderAsync.BytesReceiveEventArgs>(this.serialPortControl1_OnBytesReceive);
             // 
             // tabPageConfiguration
             // 
@@ -292,32 +319,15 @@ namespace TestApp
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "tabPage3";
             // 
-            // btCountdownStart
+            // btCountdownCancel
             // 
-            this.btCountdownStart.Location = new System.Drawing.Point(144, 4);
-            this.btCountdownStart.Name = "btCountdownStart";
-            this.btCountdownStart.Size = new System.Drawing.Size(102, 23);
-            this.btCountdownStart.TabIndex = 0;
-            this.btCountdownStart.Text = "Start countdown";
-            this.btCountdownStart.UseVisualStyleBackColor = true;
-            this.btCountdownStart.Click += new System.EventHandler(this.btCountdownStart_Click);
-            // 
-            // tbCountdownTime
-            // 
-            this.tbCountdownTime.Location = new System.Drawing.Point(6, 6);
-            this.tbCountdownTime.Name = "tbCountdownTime";
-            this.tbCountdownTime.Size = new System.Drawing.Size(100, 20);
-            this.tbCountdownTime.TabIndex = 1;
-            this.tbCountdownTime.Text = "1000";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(112, 9);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(26, 13);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "[ms]";
+            this.btCountdownCancel.Location = new System.Drawing.Point(252, 4);
+            this.btCountdownCancel.Name = "btCountdownCancel";
+            this.btCountdownCancel.Size = new System.Drawing.Size(75, 23);
+            this.btCountdownCancel.TabIndex = 4;
+            this.btCountdownCancel.Text = "Cancel";
+            this.btCountdownCancel.UseVisualStyleBackColor = true;
+            this.btCountdownCancel.Click += new System.EventHandler(this.btCountdownCancel_Click);
             // 
             // lblCountdownInfo
             // 
@@ -328,47 +338,37 @@ namespace TestApp
             this.lblCountdownInfo.TabIndex = 3;
             this.lblCountdownInfo.Text = "Countdown not started.";
             // 
-            // loggingBox1
+            // label3
             // 
-            this.loggingBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.loggingBox1.AutoSelectLastEntry = true;
-            this.loggingBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.loggingBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.loggingBox1.ClearButton = true;
-            this.loggingBox1.CopyButton = true;
-            this.loggingBox1.Location = new System.Drawing.Point(6, 6);
-            this.loggingBox1.MaxEntryCount = 500;
-            this.loggingBox1.Name = "loggingBox1";
-            this.loggingBox1.SaveButtonVisible = true;
-            this.loggingBox1.Size = new System.Drawing.Size(446, 260);
-            this.loggingBox1.TabIndex = 0;
-            this.loggingBox1.Title = "Logbook";
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(112, 9);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(26, 13);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "[ms]";
             // 
-            // serialPortControl1
+            // tbCountdownTime
             // 
-            this.serialPortControl1.Location = new System.Drawing.Point(9, 92);
-            this.serialPortControl1.Name = "serialPortControl1";
-            this.serialPortControl1.Size = new System.Drawing.Size(223, 55);
-            this.serialPortControl1.TabIndex = 3;
-            this.serialPortControl1.Load += new System.EventHandler(this.serialPortControl1_Load);
-            this.serialPortControl1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPortControl1_OnByteReceived);
+            this.tbCountdownTime.Location = new System.Drawing.Point(6, 6);
+            this.tbCountdownTime.Name = "tbCountdownTime";
+            this.tbCountdownTime.Size = new System.Drawing.Size(100, 20);
+            this.tbCountdownTime.TabIndex = 1;
+            this.tbCountdownTime.Text = "1000";
+            // 
+            // btCountdownStart
+            // 
+            this.btCountdownStart.Location = new System.Drawing.Point(144, 4);
+            this.btCountdownStart.Name = "btCountdownStart";
+            this.btCountdownStart.Size = new System.Drawing.Size(102, 23);
+            this.btCountdownStart.TabIndex = 0;
+            this.btCountdownStart.Text = "Start countdown";
+            this.btCountdownStart.UseVisualStyleBackColor = true;
+            this.btCountdownStart.Click += new System.EventHandler(this.btCountdownStart_Click);
             // 
             // serialPort1
             // 
             this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
             this.serialPort1.OnConnectionStateChange += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ConnectionStateChangedHandler(this.serialPort1_OnConnectionStateChange);
-            // 
-            // btCountdownCancel
-            // 
-            this.btCountdownCancel.Location = new System.Drawing.Point(252, 4);
-            this.btCountdownCancel.Name = "btCountdownCancel";
-            this.btCountdownCancel.Size = new System.Drawing.Size(75, 23);
-            this.btCountdownCancel.TabIndex = 4;
-            this.btCountdownCancel.Text = "Cancel";
-            this.btCountdownCancel.UseVisualStyleBackColor = true;
-            this.btCountdownCancel.Click += new System.EventHandler(this.btCountdownCancel_Click);
             // 
             // Form1
             // 

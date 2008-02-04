@@ -25,6 +25,12 @@ using System.Collections.Generic;
 using System.Text;
 using System.IO;
 using System.Xml.Serialization;
+using System.Reflection;
+using System.Reflection.Emit;
+using de.christianleberfinger.dotnet.pocketknife.Reflection;
+using System.Threading;
+using System.ComponentModel;
+using de.christianleberfinger.dotnet.pocketknife.ComponentModel;
 
 namespace de.christianleberfinger.dotnet.pocketknife.configuration
 {
@@ -84,6 +90,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
         /// </summary>
         static Configuration()
         {
+            // register type info provider (for displaying fields in property grid)
+            TypeDescriptor.AddProvider(new FieldDescriptionProvider(typeof(T)), typeof(T));
+
             load(); // loads settings automatically.
         }
 
@@ -133,7 +142,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
                 settings = (T)serializer.Deserialize(sr);
                 sr.Close();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 if (sr != null)
                 {
@@ -144,7 +153,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
                     catch { }
                 }
                 settings = (T)Activator.CreateInstance(typeof(T));
-               
+
                 throw new Exception("Could not load Configuration from " + filename + ". Using default values.", ex);
             }
         }
@@ -213,5 +222,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
             }
         }
 
-    }
+
+
+    } // end of class Configuration
 }

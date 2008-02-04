@@ -28,6 +28,7 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+using System.IO.Ports;
 using de.christianleberfinger.dotnet.pocketknife.IO;
 
 namespace de.christianleberfinger.dotnet.pocketknife.controls
@@ -37,30 +38,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
     /// </summary>
     public partial class SerialPortControl : UserControl
     {
-        SerialPort port = new SerialPort();
-
-        /// <summary>
-        /// Returns the inner serial port class that handles the I/O communication.
-        /// </summary>
-        public SerialPort Port
-        {
-            get { return port; }
-        }
-
-        /// <summary>
-        /// Occurs every time when a byte was received from the serial port.
-        /// </summary>
-        public event SerialPort.ByteReceivedHandler OnByteReceived
-        {
-            add
-            {
-                port.OnByteReceived += value;
-            }
-            remove
-            {
-                port.OnByteReceived -= value;
-            }
-        }
+        System.IO.Ports.SerialPort port = new System.IO.Ports.SerialPort();
+        StreamReaderAsync _reader = null;
 
         /// <summary>
         /// Creates a new instance of SerialPortControl
@@ -69,8 +48,38 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         {
             InitializeComponent();
             initPortNames();
-            port.OnConnectionStateChange += new SerialPort.ConnectionStateChangedHandler(port_OnConnectionStateChange);
+            //port.OnConnectionStateChange += new SerialPort.ConnectionStateChangedHandler(port_OnConnectionStateChange);
         }
+
+        /// <summary>
+        /// Is called when some bytes are read from the serial port.
+        /// </summary>
+        public event GenericEventHandler<StreamReaderAsync, StreamReaderAsync.BytesReceiveEventArgs> OnBytesReceive;
+
+        /// <summary>
+        /// Returns the internal serial port object that handles the I/O communication.
+        /// </summary>
+        public System.IO.Ports.SerialPort Port
+        {
+            get { return port; }
+        }
+
+        ///// <summary>
+        ///// Occurs every time when a byte was received from the serial port.
+        ///// </summary>
+        //public event SerialPort.ByteReceivedHandler OnByteReceived
+        //{
+        //    add
+        //    {
+        //        port.OnByteReceived += value;
+        //    }
+        //    remove
+        //    {
+        //        port.OnByteReceived -= value;
+        //    }
+        //}
+
+
 
         void port_OnConnectionStateChange(bool connected)
         {
@@ -90,15 +99,19 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             if (cbPortName.InvokeRequired)
                 cbPortName.Invoke(new VoidHandler(initPortNames));
             else
-                cbPortName.Items.AddRange(SerialPort.GetPortNames());
+                cbPortName.Items.AddRange(System.IO.Ports.SerialPort.GetPortNames());
         }
 
         private void btConnect_Click(object sender, EventArgs e)
         {
-            if (port.IsOpen)
-                port.Close();
+            if (port.IsOpen || _reader != null)
+            {
+                close();
+            }
             else
+            {
                 open();
+            }
 
             updateConnectButton();
         }
@@ -112,6 +125,28 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         {
             port.PortName = cbPortName.Text;
             port.Open();
+            _reader = new StreamReaderAsync(port.BaseStream);
+            _reader.OnBytesReceive += new GenericEventHandler<StreamReaderAsync, StreamReaderAsync.BytesReceiveEventArgs>(_reader_OnBytesReceive);
+            _reader.OnReadingFinish += new GenericEventHandler<StreamReaderAsync, StreamReaderAsync.ReadingFinishedEventArgs>(_reader_OnReadingFinish);
+            _reader.start();
+        }
+
+        void close()
+        {
+            port.Close();
+            _reader.OnBytesReceive -= _reader_OnBytesReceive;
+            _reader.OnReadingFinish -= _reader_OnReadingFinish;
+            _reader = null;
+        }
+
+        void _reader_OnReadingFinish(StreamReaderAsync sender, StreamReaderAsync.ReadingFinishedEventArgs e)
+        {
+            updateConnectButton();
+        }
+
+        void _reader_OnBytesReceive(StreamReaderAsync sender, StreamReaderAsync.BytesReceiveEventArgs e)
+        {
+            EventHelper.invoke<StreamReaderAsync, StreamReaderAsync.BytesReceiveEventArgs>(OnBytesReceive, sender, e);
         }
 
         private void updateConnectButton()

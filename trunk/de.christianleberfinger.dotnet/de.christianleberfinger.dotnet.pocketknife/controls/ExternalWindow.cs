@@ -146,7 +146,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         /// <summary>
         /// Sends the keys you define. If you want to know how to create special keys or key combinations
         /// not defined in the class ExternalWindow.Keys please have a look at the microsoft msdn homepage.
-        /// <seealso cref="http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.send.aspx"/>
+        /// http://msdn2.microsoft.com/en-us/library/system.windows.forms.sendkeys.send.aspx
         /// </summary>
         /// <param name="key">The key (or combination of keys) to send to the external application.</param>
         public void sendKey(string key)

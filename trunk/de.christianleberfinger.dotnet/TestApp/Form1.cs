@@ -75,7 +75,7 @@ namespace TestApp
 
         private void serialPortControl1_OnByteReceived(byte receivedByte)
         {
-            loggingBox1.log("0x{0}", receivedByte.ToString("X"));
+            
         }
 
         private void serialPortControl1_Load(object sender, EventArgs e)
@@ -157,6 +157,12 @@ namespace TestApp
         {
             countdown.cancelAll();
             lblCountdownInfo.Text = "Countdown cancelled.";
+        }
+
+        private void serialPortControl1_OnBytesReceive(de.christianleberfinger.dotnet.pocketknife.IO.StreamReaderAsync sender, de.christianleberfinger.dotnet.pocketknife.IO.StreamReaderAsync.BytesReceiveEventArgs e)
+        {
+            loggingBox1.log(e.Bytes.Length + " bytes received.");
+            //loggingBox1.log("0x{0}",  receivedByte.ToString("X"));
         }
 
     }

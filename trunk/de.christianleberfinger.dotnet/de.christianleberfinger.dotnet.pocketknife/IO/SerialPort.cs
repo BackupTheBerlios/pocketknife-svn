@@ -34,6 +34,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
 {
     /// <summary>
     /// Adds some functionality to the SerialPort class of .NET.
+    /// Deprecated. Use standard SerialPort class in combination with StreamReaderAsync instead.
     /// </summary>
     public class SerialPort : System.IO.Ports.SerialPort
     {

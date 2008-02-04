@@ -7,19 +7,21 @@ namespace TestApp
 {
     public class Config : Configuration<Config>
     {
-        int myInteger = 5555;
-        string myString = "Test-String";
+        public Config() { }
 
-        public string MyString
-        {
-            get { return myString; }
-            set { myString = value; }
-        }
+        public int myInteger = 5555;
+        public string myString = "Test-String";
 
-        public int MyInteger
-        {
-            get { return myInteger; }
-            set { myInteger = value; }
-        }
+        //public string MyString
+        //{
+        //    get { return myString; }
+        //    set { myString = value; }
+        //}
+
+        //public int MyInteger
+        //{
+        //    get { return myInteger; }
+        //    set { myInteger = value; }
+        //}
     }
 }
