@@ -30,6 +30,7 @@ using System.Windows.Forms;
 using de.christianleberfinger.dotnet.pocketknife.controls;
 using de.christianleberfinger.dotnet.pocketknife;
 using de.christianleberfinger.dotnet.pocketknife.Threading;
+using System.Diagnostics;
 
 namespace TestApp
 {
@@ -115,12 +116,6 @@ namespace TestApp
 
         private void btCountdownStart_Click(object sender, EventArgs e)
         {
-            if(countdown == null)
-            {
-                countdown = new Countdown<int>();
-                countdown.OnCountdownElapsed +=new GenericEventHandler<Countdown<int>,Countdown<int>.CountdownElapsedArgs>(countdown_OnCountdownElapsed);
-            }
-
             int duration = 0;
             bool parsed = int.TryParse(tbCountdownTime.Text, out duration);
 
@@ -130,9 +125,19 @@ namespace TestApp
                 lblCountdownInfo.Text = "Countdown duration couldn't be parsed.";
                 return;
             }
-            
+            startCountdown(duration);
+        }
+
+        private void startCountdown(int durationMillis)
+        {
+            if (countdown == null)
+            {
+                countdown = new Countdown<int>();
+                countdown.OnCountdownElapsed += new GenericEventHandler<Countdown<int>, Countdown<int>.CountdownElapsedArgs>(countdown_OnCountdownElapsed);
+            }
+
             tbCountdownTime.ForeColor = Color.Black;
-            Countdown<int>.CountdownHandle ch = countdown.startCountdown(Environment.TickCount, duration);
+            Countdown<int>.CountdownHandle ch = countdown.startCountdown(Environment.TickCount, durationMillis);
 
             lblCountdownInfo.Text = "Countdown started.";
         }
@@ -144,6 +149,7 @@ namespace TestApp
         {
             int durationMillis = Environment.TickCount - e.UserObject;
             string msg = "Countdown time elapsed after " + durationMillis + " milliseconds.";
+            Debug.WriteLine(msg);
             this.Invoke(new StringHandler(setCountdownLabelText), msg);
         }
 
@@ -163,6 +169,21 @@ namespace TestApp
         {
             loggingBox1.log(e.Bytes.Length + " bytes received.");
             //loggingBox1.log("0x{0}",  receivedByte.ToString("X"));
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void bt500ms_Click(object sender, EventArgs e)
+        {
+            startCountdown(500);
+        }
+
+        private void bt3000ms_Click(object sender, EventArgs e)
+        {
+            startCountdown(3000);
         }
 
     }

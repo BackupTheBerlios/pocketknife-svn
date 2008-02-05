@@ -51,6 +51,8 @@ namespace TestApp
             this.tbBitValue = new System.Windows.Forms.TextBox();
             this.btMask = new System.Windows.Forms.Button();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.bt3000ms = new System.Windows.Forms.Button();
+            this.bt500ms = new System.Windows.Forms.Button();
             this.btCountdownCancel = new System.Windows.Forms.Button();
             this.lblCountdownInfo = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -307,6 +309,8 @@ namespace TestApp
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.bt3000ms);
+            this.tabPage3.Controls.Add(this.bt500ms);
             this.tabPage3.Controls.Add(this.btCountdownCancel);
             this.tabPage3.Controls.Add(this.lblCountdownInfo);
             this.tabPage3.Controls.Add(this.label3);
@@ -318,6 +322,26 @@ namespace TestApp
             this.tabPage3.Size = new System.Drawing.Size(458, 272);
             this.tabPage3.TabIndex = 5;
             this.tabPage3.Text = "tabPage3";
+            // 
+            // bt3000ms
+            // 
+            this.bt3000ms.Location = new System.Drawing.Point(225, 99);
+            this.bt3000ms.Name = "bt3000ms";
+            this.bt3000ms.Size = new System.Drawing.Size(75, 23);
+            this.bt3000ms.TabIndex = 6;
+            this.bt3000ms.Text = "3000 ms";
+            this.bt3000ms.UseVisualStyleBackColor = true;
+            this.bt3000ms.Click += new System.EventHandler(this.bt3000ms_Click);
+            // 
+            // bt500ms
+            // 
+            this.bt500ms.Location = new System.Drawing.Point(144, 99);
+            this.bt500ms.Name = "bt500ms";
+            this.bt500ms.Size = new System.Drawing.Size(75, 23);
+            this.bt500ms.TabIndex = 5;
+            this.bt500ms.Text = "500 ms";
+            this.bt500ms.UseVisualStyleBackColor = true;
+            this.bt500ms.Click += new System.EventHandler(this.bt500ms_Click);
             // 
             // btCountdownCancel
             // 
@@ -426,6 +450,8 @@ namespace TestApp
         private System.Windows.Forms.Label lblCountdownInfo;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btCountdownCancel;
+        private System.Windows.Forms.Button bt3000ms;
+        private System.Windows.Forms.Button bt500ms;
     }
 }
 

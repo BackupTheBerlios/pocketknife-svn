@@ -172,7 +172,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         {
             get
             {
-                if (_thread == null)
+                if (_thread == null || !_running)
                     return false;
 
                 bool handleSignaled = _threadHandle.WaitOne(0, true);

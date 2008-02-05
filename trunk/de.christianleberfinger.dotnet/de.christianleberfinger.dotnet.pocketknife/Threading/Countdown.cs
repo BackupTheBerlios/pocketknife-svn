@@ -103,7 +103,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// <summary>
         /// contains all pending countdowns
         /// </summary>
-        private SortedList<DateTime, CountdownHandle> _queue = new SortedList<DateTime, CountdownHandle>();
+        //private SortedList<DateTime, CountdownHandle> _queue = new SortedList<DateTime, CountdownHandle>();
+        private LinkedList<CountdownHandle> _queue = new LinkedList<CountdownHandle>();
+        //private List<CountdownHandle> _queue = new List<CountdownHandle>();
 
         /// <summary>
         /// Creates a new instance of the countdown class. You can start countdowns and will be
@@ -120,6 +122,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         {
             Dispose();
         }
+
+        DateTime _nextElapsedCountdown = DateTime.Now;
 
         /// <summary>
         /// Starts a countdown of the specified length.
@@ -138,7 +142,13 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
                 _waitingThread.Start();
             }
 
-            CountdownHandle wo = new CountdownHandle(DateTime.Now.AddMilliseconds(millis), userObject);
+            DateTime timeElapsed = DateTime.Now.AddMilliseconds(millis);
+
+            // store next elapsed datetime
+            if (timeElapsed < _nextElapsedCountdown)
+                _nextElapsedCountdown = timeElapsed;
+
+            CountdownHandle wo = new CountdownHandle(timeElapsed, userObject);
             enqueue(wo);
 
             // resume the waiting thread if it's currently blocked
@@ -151,28 +161,46 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         {
             lock (_queueLock)
             {
-                _queue.Add(wo.timeElapsed, wo);
+                _queue.AddLast(wo);
             }
         }
 
-        CountdownHandle dequeue()
+        /// <summary>
+        /// get most urgent countdown handle from queue
+        /// </summary>
+        /// <returns></returns>
+        CountdownHandle dequeue(DateTime now)
         {
-            CountdownHandle wo;
+            CountdownHandle wo = null;
             lock (_queueLock)
             {
-                wo = _queue.Values[0];
-                _queue.RemoveAt(0);
+                foreach (CountdownHandle node in _queue)
+                {
+                    // current CountdownHandle is elapsed
+                    if (now > node.timeElapsed)
+                    {
+                        wo = node;
+                        break;
+                    }
+                }
+
+                if (wo != null)
+                    _queue.Remove(wo);
             }
             return wo;
         }
 
-        CountdownHandle peek()
-        {
-            lock (_queueLock)
-            {
-                return _queue.Values[0];
-            }
-        }
+        //CountdownHandle peek()
+        //{
+        //    CountdownHandle wo = null;
+        //    lock (_queueLock)
+        //    {
+        //        LinkedListNode<CountdownHandle> firstNode = _queue.First;
+        //        if (firstNode != null)
+        //            wo = firstNode.Value;
+        //    }
+        //    return wo;
+        //}
 
         /// <summary>
         /// Gets a copy of the currently pending operations.
@@ -185,7 +213,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             lock (_queueLock)
             {
                 retVal = new CountdownHandle[_queue.Count];
-                _queue.Values.CopyTo(retVal, 0);
+                _queue.CopyTo(retVal, 0);
             }
             return retVal;
         }
@@ -197,21 +225,13 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// <param name="handle">The countdown operation you want to cancel.</param>
         public bool cancel(CountdownHandle handle)
         {
+            bool removed = false;
             lock (_queueLock)
             {
-                int index = _queue.IndexOfValue(handle);
-
-                if (index == -1) //handle not found
-                    return false;
-
-                // remove handle
-                _queue.RemoveAt(index);
-
-                // resume waiting thread
-                _waitHandle.Set();
+                removed = _queue.Remove(handle);
             }
 
-            return true;
+            return removed;
         }
 
         /// <summary>
@@ -234,23 +254,24 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             {
                 if (_queue.Count > 0)
                 {
-                    CountdownHandle wo = peek();
-
                     DateTime now = DateTime.Now;
-                    TimeSpan timeTillElapsed = wo.timeElapsed - now;
+                    TimeSpan timeTillElapsed = _nextElapsedCountdown - now;
 
                     if (timeTillElapsed.TotalMilliseconds < 0)
                     {
                         // remove element from queue
-                        dequeue();
+                        CountdownHandle wo = dequeue(now);
 
-                        // Event auslösen
-                        CountdownElapsedArgs args = new CountdownElapsedArgs(wo.UserObject);
-                        EventHelper.invoke<Countdown<T>, CountdownElapsedArgs>(OnCountdownElapsed, this, args);
+                        if (wo != null)
+                        {
+                            // Event auslösen
+                            CountdownElapsedArgs args = new CountdownElapsedArgs(wo.UserObject);
+                            EventHelper.invoke<Countdown<T>, CountdownElapsedArgs>(OnCountdownElapsed, this, args);
+                        }
                     }
                     else
                     {
-                        // die verbliebende Zeit warten
+                        // die verbliebene Zeit warten
                         _waitHandle.WaitOne(timeTillElapsed, false);
                     }
                 }

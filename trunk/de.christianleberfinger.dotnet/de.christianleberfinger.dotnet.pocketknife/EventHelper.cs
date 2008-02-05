@@ -76,17 +76,68 @@ namespace de.christianleberfinger.dotnet.pocketknife
         }
 
         /// <summary>
-        /// Unsafe means here: the given arguments aren't checked for type safety (as they are objects).
-        /// Consider using a <see cref="GenericEventHandler&lt;SENDER,ARGS&gt;"/>
+        /// Defines exceptionBehaviour for invoking an event.
         /// </summary>
-        /// <param name="delegateToInvoke"></param>
-        /// <param name="args"></param>
+        [Flags]
+        public enum ExceptionOptions : byte
+        {
+            /// <summary>
+            /// Ignores exceptions. That means, invoking will be continued and no exception will be thrown to caller.
+            /// </summary>
+            IgnoreExceptions = 0,
+
+            /// <summary>
+            /// Cancels calling pending subscribers when the first of them throws an exception.
+            /// </summary>
+            CancelInvokeAtException = 1,
+
+            /// <summary>
+            /// Throws an InvokeException if one of the subscribers throwed an exception.
+            /// </summary>
+            ThrowException = 2
+        }
+
+        /// <summary>
+        /// checks whether a given option is. for internal use
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="optionToQuery"></param>
+        /// <returns></returns>
+        private static bool optionIsSet(ExceptionOptions o, ExceptionOptions optionToQuery)
+        {
+            return (o & optionToQuery) == optionToQuery;
+        }
+
+        /// <summary>
+        /// Unsafe means here: the given arguments aren't checked for type safety (as they are objects).
+        /// Consider defining events using a <see cref="GenericEventHandler&lt;SENDER,ARGS&gt;"/>
+        /// </summary>
+        /// <param name="delegateToInvoke">The delegate that should be invoked.</param>
+        /// <param name="args">The delegate's arguments.</param>
         /// <exception cref="InvokeException">When an error occured in one or more delegates,
         /// this exception is thrown that contains all collected exceptions during invoking.
         /// </exception>
-        /// <remarks>All delegates will be invoked even if exceptions occur during ivoking.</remarks>
+        /// <remarks>All delegates will be invoked even if exceptions occur during invoking.</remarks>
         [MethodImpl(MethodImplOptions.NoInlining)]
         public static void invokeUnsafe(Delegate delegateToInvoke, params object[] args)
+        {
+            invokeUnsafe(delegateToInvoke, ExceptionOptions.IgnoreExceptions, args);
+        }
+
+        /// <summary>
+        /// Invokes an event. You further can specify the action that will be taken when an exception 
+        /// occurs in the invoked code.
+        /// Consider defining events using a <see cref="GenericEventHandler&lt;SENDER,ARGS&gt;"/>
+        /// </summary>
+        /// <param name="delegateToInvoke">The event you want to invoke.</param>
+        /// <param name="args">Event arguments.</param>
+        /// <param name="exceptionBehaviour">Defines what shall happen with catched exceptions.</param>
+        /// <remarks>No exception is thrown when using this method. If you want to be informed about exceptions in invoked code,
+        /// use overloaded method. All delegates will be invoked even if exceptions occur during ivoking.</remarks>
+        /// <exception cref="InvokeException">If you activated exception throwing and an error occured in one or more delegates, an
+        /// <see cref="InvokeException"/>Is thrown that contains all collected exceptions during invoking.</exception>
+        [MethodImpl(MethodImplOptions.NoInlining)]
+        public static void invokeUnsafe(Delegate delegateToInvoke, ExceptionOptions exceptionBehaviour, params object[] args)
         {
             if (delegateToInvoke == null)
                 return;
@@ -97,16 +148,22 @@ namespace de.christianleberfinger.dotnet.pocketknife
             {
                 try
                 {
-                    if(del!=null)
+                    if (del != null)
                         del.DynamicInvoke(args);
                 }
-                catch(Exception ex) 
+                catch (Exception ex)
                 {
-                    if (occuredExceptions == null)
+                    if (optionIsSet(exceptionBehaviour, ExceptionOptions.ThrowException))
                     {
-                        occuredExceptions = new List<Exception>();
+                        if (occuredExceptions == null)
+                        {
+                            occuredExceptions = new List<Exception>();
+                        }
+                        occuredExceptions.Add(ex);
                     }
-                    occuredExceptions.Add(ex);                    
+
+                    if(optionIsSet(exceptionBehaviour, ExceptionOptions.CancelInvokeAtException))
+                        break;
                 }
             }
             if (occuredExceptions != null)
@@ -116,25 +173,40 @@ namespace de.christianleberfinger.dotnet.pocketknife
         }
 
         /// <summary>
-        /// Type safe invoke
+        /// Type safe invoke. This is the recommended method to raise events.
         /// </summary>
         /// <typeparam name="SENDER">The type of the event source.</typeparam>
         /// <typeparam name="ARGS">The type of the event arguments.</typeparam>
         /// <param name="delegat">The event you want to invoke.</param>
         /// <param name="sender">Any object that is the source of this event. Don't send null as it might be not expected by the user code.</param>
         /// <param name="args">Event arguments.</param>
-        /// <exception cref="InvokeException">When an error occured in one or more delegates,
-        /// this exception is thrown that contains all collected exceptions during invoking.
-        /// </exception>
-        /// <remarks>All delegates will be invoked even if exceptions occur during ivoking.</remarks>
-        public static void invoke<SENDER,ARGS>(GenericEventHandler<SENDER, ARGS> delegat, SENDER sender, ARGS args) where ARGS:EventArgs
+        /// <remarks>No exception is thrown when using this method. If you want to be informed about exceptions in invoked code,
+        /// use overloaded method. All delegates will be invoked even if exceptions occur during ivoking.</remarks>
+        public static void invoke<SENDER, ARGS>(GenericEventHandler<SENDER, ARGS> delegat, SENDER sender, ARGS args) where ARGS : EventArgs
         {
-            invokeUnsafe(delegat, sender, args);
+            invokeUnsafe(delegat, ExceptionOptions.IgnoreExceptions, sender, args);
+        }
+
+        /// <summary>
+        /// Type safe invoke. This is the recommended method to raise events. You can further specify the
+        /// action that will be taken when an exception occurs in the invoked code.
+        /// </summary>
+        /// <typeparam name="SENDER">The type of the event source.</typeparam>
+        /// <typeparam name="ARGS">The type of the event arguments.</typeparam>
+        /// <param name="delegat">The event you want to invoke.</param>
+        /// <param name="sender">Any object that is the source of this event. Don't send null as it might be not expected by the user code.</param>
+        /// <param name="args">Event arguments.</param>
+        /// <param name="exceptionBehaviour">Defines what shall happen with catched exceptions.</param>
+        /// <remarks>No exception is thrown when using this method. If you want to be informed about exceptions in invoked code,
+        /// use overloaded method. All delegates will be invoked even if exceptions occur during ivoking.</remarks>
+        public static void invoke<SENDER, ARGS>(GenericEventHandler<SENDER, ARGS> delegat, ExceptionOptions exceptionBehaviour, SENDER sender, ARGS args) where ARGS : EventArgs
+        {
+            invokeUnsafe(delegat, exceptionBehaviour, sender, args);
         }
     }
 
     /// <summary>
-    /// Generic event handler.
+    /// Generic event handler. Use this delegate to declare type safe events.
     /// </summary>
     /// <typeparam name="SENDER">The type of the event source.</typeparam>
     /// <typeparam name="ARGS">The type of the event arguments.</typeparam>
