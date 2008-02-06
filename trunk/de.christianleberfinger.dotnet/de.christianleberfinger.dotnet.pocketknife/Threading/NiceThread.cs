@@ -150,7 +150,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
                 return;
 
             Running = false;
-            
+
+            _thread.Abort();
             ThreadUtils.waitForThreadToDie(_thread);
             _runningMutex.Close();
             _threadHandle.Close();
