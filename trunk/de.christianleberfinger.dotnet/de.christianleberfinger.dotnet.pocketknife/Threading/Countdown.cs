@@ -88,7 +88,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// <summary>
         /// The thread that is waiting for the current countdown to elapse.
         /// </summary>
-        private Thread _waitingThread = null;
+        private NiceThread _waitingThread = null;
 
         /// <summary>
         /// Controls the thread that is waiting for the countdowns to elapse
@@ -136,10 +136,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         {
             if (_waitingThread == null)
             {
-                _waitingThread = new Thread(new ThreadStart(runThread));
-                _waitingThread.Name = "Countdown thread";
-                _waitingThread.IsBackground = true;
-                _waitingThread.Start();
+                _waitingThread = new NiceThread(new ThreadStart(runThread), "Countdown thread");
+                _waitingThread.start();
             }
 
             DateTime timeElapsed = DateTime.Now.AddMilliseconds(millis);
@@ -246,11 +244,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             }
         }
 
-        bool _running = true;
+        //bool _running = true;
 
         void runThread()
         {
-            while (_running)
+            while (_waitingThread != null && _waitingThread.Running)
             {
                 if (_queue.Count > 0)
                 {
@@ -291,20 +289,16 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         public void Dispose()
         {
             Debug.WriteLine("Countdown wird disposed.");
-            _running = false;
-
-            if (_waitHandle != null)
-            {
-                _waitHandle.Set();
-                _waitHandle.Close();
-                _waitHandle = null;
-            }
 
             if (_waitingThread != null)
             {
-                _waitingThread.Abort();
-                ThreadUtils.waitForThreadToDie(_waitingThread);
+                _waitingThread.Kill();
                 _waitingThread = null;
+            }
+
+            if (_waitHandle != null)
+            {
+                _waitHandle.Close();
             }
         }
 
