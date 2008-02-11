@@ -45,6 +45,7 @@
     <Compile Include="Collections\INodeTree.cs" />
     <Compile Include="Collections\ISet.cs" />
     <Compile Include="Collections\NodeTree.cs" />
+    <Compile Include="Collections\PriorityQueue.cs" />
     <Compile Include="ComponentModel\FieldDescriptionProvider.cs" />
     <Compile Include="configuration\CommandLineArgs.cs" />
     <Compile Include="configuration\Configuration.cs" />

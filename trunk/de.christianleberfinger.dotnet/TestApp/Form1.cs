@@ -31,6 +31,7 @@ using de.christianleberfinger.dotnet.pocketknife.controls;
 using de.christianleberfinger.dotnet.pocketknife;
 using de.christianleberfinger.dotnet.pocketknife.Threading;
 using System.Diagnostics;
+using de.christianleberfinger.dotnet.pocketknife.Collections;
 
 namespace TestApp
 {
@@ -186,5 +187,50 @@ namespace TestApp
             startCountdown(3000);
         }
 
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        int queueCounter = 0;
+
+        enum Priorities : byte
+        {
+            High,
+            Mid,
+            Low
+        }
+
+        PriorityQueue<Priorities, string> pq = new PriorityQueue<Priorities, string>();
+
+        private void btEnqueHigh_Click(object sender, EventArgs e)
+        {
+            pq.enqueue(Priorities.High, "high" + queueCounter++);
+            updateList();
+        }
+
+        private void btEnqueueLow_Click(object sender, EventArgs e)
+        {
+            pq.enqueue(Priorities.Low, "low" + queueCounter++);
+            updateList();
+        }
+
+        void updateList()
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (string s in pq)
+            {
+                sb.Append(s);
+                sb.Append(" | ");
+            }
+
+            tbQueueEntries.Text = sb.ToString();
+        }
+
+        private void btEnqueueMid_Click(object sender, EventArgs e)
+        {
+            pq.enqueue(Priorities.Mid, "mid" + queueCounter++);
+            updateList();
+        }
     }
 }

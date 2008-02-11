@@ -58,7 +58,12 @@ namespace TestApp
             this.label3 = new System.Windows.Forms.Label();
             this.tbCountdownTime = new System.Windows.Forms.TextBox();
             this.btCountdownStart = new System.Windows.Forms.Button();
+            this.tpQueue = new System.Windows.Forms.TabPage();
+            this.tbQueueEntries = new System.Windows.Forms.TextBox();
+            this.btEnqueueLow = new System.Windows.Forms.Button();
+            this.btEnqueHigh = new System.Windows.Forms.Button();
             this.serialPort1 = new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort();
+            this.btEnqueueMid = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -68,6 +73,7 @@ namespace TestApp
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbBitIndex)).BeginInit();
             this.tabPage3.SuspendLayout();
+            this.tpQueue.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -92,12 +98,16 @@ namespace TestApp
             // 
             // tabControlMain
             // 
+            this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControlMain.Controls.Add(this.tabPageLogging);
             this.tabControlMain.Controls.Add(this.tabPageSerialPort);
             this.tabControlMain.Controls.Add(this.tabPageConfiguration);
             this.tabControlMain.Controls.Add(this.tabPage1);
             this.tabControlMain.Controls.Add(this.tabPage2);
             this.tabControlMain.Controls.Add(this.tabPage3);
+            this.tabControlMain.Controls.Add(this.tpQueue);
             this.tabControlMain.Location = new System.Drawing.Point(12, 12);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -321,7 +331,8 @@ namespace TestApp
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(458, 272);
             this.tabPage3.TabIndex = 5;
-            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.Text = "Countdown";
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // bt3000ms
             // 
@@ -389,10 +400,67 @@ namespace TestApp
             this.btCountdownStart.UseVisualStyleBackColor = true;
             this.btCountdownStart.Click += new System.EventHandler(this.btCountdownStart_Click);
             // 
+            // tpQueue
+            // 
+            this.tpQueue.BackColor = System.Drawing.SystemColors.Control;
+            this.tpQueue.Controls.Add(this.tbQueueEntries);
+            this.tpQueue.Controls.Add(this.btEnqueueMid);
+            this.tpQueue.Controls.Add(this.btEnqueueLow);
+            this.tpQueue.Controls.Add(this.btEnqueHigh);
+            this.tpQueue.Location = new System.Drawing.Point(4, 22);
+            this.tpQueue.Name = "tpQueue";
+            this.tpQueue.Padding = new System.Windows.Forms.Padding(3);
+            this.tpQueue.Size = new System.Drawing.Size(458, 272);
+            this.tpQueue.TabIndex = 6;
+            this.tpQueue.Text = "Queue";
+            // 
+            // tbQueueEntries
+            // 
+            this.tbQueueEntries.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbQueueEntries.BackColor = System.Drawing.SystemColors.Control;
+            this.tbQueueEntries.Enabled = false;
+            this.tbQueueEntries.Location = new System.Drawing.Point(6, 35);
+            this.tbQueueEntries.Multiline = true;
+            this.tbQueueEntries.Name = "tbQueueEntries";
+            this.tbQueueEntries.Size = new System.Drawing.Size(446, 231);
+            this.tbQueueEntries.TabIndex = 1;
+            // 
+            // btEnqueueLow
+            // 
+            this.btEnqueueLow.Location = new System.Drawing.Point(204, 6);
+            this.btEnqueueLow.Name = "btEnqueueLow";
+            this.btEnqueueLow.Size = new System.Drawing.Size(93, 23);
+            this.btEnqueueLow.TabIndex = 0;
+            this.btEnqueueLow.Text = "EnqueueLow";
+            this.btEnqueueLow.UseVisualStyleBackColor = true;
+            this.btEnqueueLow.Click += new System.EventHandler(this.btEnqueueLow_Click);
+            // 
+            // btEnqueHigh
+            // 
+            this.btEnqueHigh.Location = new System.Drawing.Point(6, 6);
+            this.btEnqueHigh.Name = "btEnqueHigh";
+            this.btEnqueHigh.Size = new System.Drawing.Size(93, 23);
+            this.btEnqueHigh.TabIndex = 0;
+            this.btEnqueHigh.Text = "EnqueHigh";
+            this.btEnqueHigh.UseVisualStyleBackColor = true;
+            this.btEnqueHigh.Click += new System.EventHandler(this.btEnqueHigh_Click);
+            // 
             // serialPort1
             // 
             this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
             this.serialPort1.OnConnectionStateChange += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ConnectionStateChangedHandler(this.serialPort1_OnConnectionStateChange);
+            // 
+            // btEnqueueMid
+            // 
+            this.btEnqueueMid.Location = new System.Drawing.Point(105, 6);
+            this.btEnqueueMid.Name = "btEnqueueMid";
+            this.btEnqueueMid.Size = new System.Drawing.Size(93, 23);
+            this.btEnqueueMid.TabIndex = 0;
+            this.btEnqueueMid.Text = "EnqueueMid";
+            this.btEnqueueMid.UseVisualStyleBackColor = true;
+            this.btEnqueueMid.Click += new System.EventHandler(this.btEnqueueMid_Click);
             // 
             // Form1
             // 
@@ -415,6 +483,8 @@ namespace TestApp
             ((System.ComponentModel.ISupportInitialize)(this.tbBitIndex)).EndInit();
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.tpQueue.ResumeLayout(false);
+            this.tpQueue.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -452,6 +522,11 @@ namespace TestApp
         private System.Windows.Forms.Button btCountdownCancel;
         private System.Windows.Forms.Button bt3000ms;
         private System.Windows.Forms.Button bt500ms;
+        private System.Windows.Forms.TabPage tpQueue;
+        private System.Windows.Forms.Button btEnqueueLow;
+        private System.Windows.Forms.Button btEnqueHigh;
+        private System.Windows.Forms.TextBox tbQueueEntries;
+        private System.Windows.Forms.Button btEnqueueMid;
     }
 }
 
