@@ -39,6 +39,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
     {
         SortedList<TPrio, Queue<TElement>> _list = new SortedList<TPrio, Queue<TElement>>();
         object _lockVar = new object();
+        int _count = 0;
 
         /// <summary>
         /// Enqueues an element with the given priority.
@@ -59,12 +60,21 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
                 }
 
                 q.Enqueue(element);
+                _count++;
             }
         }
 
         /// <summary>
-        /// Dequeues the 'oldest' element with the highest priority.
-        /// If the queue is empty, default(TElement) is being returned.
+        /// Returns the number of elements in the queue. O(1)
+        /// </summary>
+        public int Count
+        {
+            get { return _count; }
+        }
+
+        /// <summary>
+        /// Returns the 'oldest' element with the highest priority and removes it from the queue.
+        /// If the queue is empty, an exception is thrown.
         /// </summary>
         /// <returns></returns>
         public TElement dequeue()
@@ -77,11 +87,48 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
 
                     if (q != null && q.Count > 0)
                     {
+                        _count--;
                         return q.Dequeue();
                     }
                 }
 
-                return default(TElement);
+                throw new InvalidOperationException("The Queue is empty.");
+            }
+        }
+
+        /// <summary>
+        /// Returns the 'oldest' element with the highest priority WITHOUT removing it from the queue. 
+        /// If the queue is empty, default(TElement) is being returned.
+        /// </summary>
+        /// <returns></returns>
+        public TElement peek()
+        {
+            lock (_lockVar)
+            {
+                foreach (KeyValuePair<TPrio, Queue<TElement>> kvPair in _list)
+                {
+                    Queue<TElement> q = kvPair.Value;
+
+                    if (q != null && q.Count > 0)
+                    {
+                        _count--;
+                        return q.Peek();
+                    }
+                }
+
+                throw new InvalidOperationException("The Queue is empty.");
+            }
+        }
+
+        /// <summary>
+        /// Clears all queued entries.
+        /// </summary>
+        public void clear()
+        {
+            lock (_lockVar)
+            {
+                _list.Clear();
+                _count = 0;
             }
         }
 

@@ -123,6 +123,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             Dispose();
         }
 
+        public bool Disposed
+        {
+            get { return _disposed; }
+        }
+
         DateTime _nextElapsedCountdown = DateTime.Now;
 
         /// <summary>
@@ -132,8 +137,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// </summary>
         /// <param name="userObject">Any kind of user object that you will receive with the event.</param>
         /// <param name="millis">The countdowns duration [ms].</param>
+        /// <exception cref="ObjectDisposedException">If Countdown was disposed.</exception>
         public CountdownHandle startCountdown(T userObject, int millis)
         {
+            if(_disposed)
+                throw new ObjectDisposedException("Countdown");
+
             if (_waitingThread == null)
             {
                 _waitingThread = new NiceThread(new ThreadStart(runThread), "Countdown thread");
@@ -244,8 +253,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             }
         }
 
-        //bool _running = true;
-
         void runThread()
         {
             while (_waitingThread != null && _waitingThread.Running)
@@ -283,11 +290,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
 
         #region IDisposable Member
 
+        bool _disposed = false;
+
         /// <summary>
         /// Release ressources
         /// </summary>
         public void Dispose()
         {
+            _disposed = true;
+
             Debug.WriteLine("Countdown wird disposed.");
 
             if (_waitingThread != null)

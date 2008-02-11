@@ -182,6 +182,5 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
             /// </summary>
             public Stream Stream { get { return _stream; } }
         }
-
     }
 }
