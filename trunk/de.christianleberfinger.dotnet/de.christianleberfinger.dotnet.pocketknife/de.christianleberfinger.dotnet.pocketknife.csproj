@@ -76,7 +76,12 @@
     <Compile Include="EventHelper.cs" />
     <Compile Include="IO\GlobalKeyListener.cs" />
     <Compile Include="IO\GlobalMouseListener.cs" />
+    <Compile Include="IO\PathTool.cs" />
     <Compile Include="IO\StreamReaderAsync.cs" />
+    <Compile Include="media\MCIHelper.cs" />
+    <Compile Include="media\Media.cs" />
+    <Compile Include="media\MediaPlayer.cs" />
+    <Compile Include="media\MediaPlayerException.cs" />
     <Compile Include="Net\UdpBroadcaster.cs" />
     <Compile Include="patterns\commandhandling\CommandManager.cs" />
     <Compile Include="patterns\commandhandling\ICommand.cs" />

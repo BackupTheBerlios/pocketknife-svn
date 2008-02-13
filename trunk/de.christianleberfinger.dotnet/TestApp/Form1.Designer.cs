@@ -60,10 +60,14 @@ namespace TestApp
             this.btCountdownStart = new System.Windows.Forms.Button();
             this.tpQueue = new System.Windows.Forms.TabPage();
             this.tbQueueEntries = new System.Windows.Forms.TextBox();
+            this.btEnqueueMid = new System.Windows.Forms.Button();
             this.btEnqueueLow = new System.Windows.Forms.Button();
             this.btEnqueHigh = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tbMP3File = new System.Windows.Forms.TextBox();
+            this.btStopMP3 = new System.Windows.Forms.Button();
+            this.btPlayMP3 = new System.Windows.Forms.Button();
             this.serialPort1 = new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort();
-            this.btEnqueueMid = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
@@ -74,6 +78,7 @@ namespace TestApp
             ((System.ComponentModel.ISupportInitialize)(this.tbBitIndex)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tpQueue.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -108,6 +113,7 @@ namespace TestApp
             this.tabControlMain.Controls.Add(this.tabPage2);
             this.tabControlMain.Controls.Add(this.tabPage3);
             this.tabControlMain.Controls.Add(this.tpQueue);
+            this.tabControlMain.Controls.Add(this.tabPage4);
             this.tabControlMain.Location = new System.Drawing.Point(12, 12);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
@@ -427,6 +433,16 @@ namespace TestApp
             this.tbQueueEntries.Size = new System.Drawing.Size(446, 231);
             this.tbQueueEntries.TabIndex = 1;
             // 
+            // btEnqueueMid
+            // 
+            this.btEnqueueMid.Location = new System.Drawing.Point(105, 6);
+            this.btEnqueueMid.Name = "btEnqueueMid";
+            this.btEnqueueMid.Size = new System.Drawing.Size(93, 23);
+            this.btEnqueueMid.TabIndex = 0;
+            this.btEnqueueMid.Text = "EnqueueMid";
+            this.btEnqueueMid.UseVisualStyleBackColor = true;
+            this.btEnqueueMid.Click += new System.EventHandler(this.btEnqueueMid_Click);
+            // 
             // btEnqueueLow
             // 
             this.btEnqueueLow.Location = new System.Drawing.Point(204, 6);
@@ -447,20 +463,50 @@ namespace TestApp
             this.btEnqueHigh.UseVisualStyleBackColor = true;
             this.btEnqueHigh.Click += new System.EventHandler(this.btEnqueHigh_Click);
             // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.tbMP3File);
+            this.tabPage4.Controls.Add(this.btStopMP3);
+            this.tabPage4.Controls.Add(this.btPlayMP3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(458, 272);
+            this.tabPage4.TabIndex = 7;
+            this.tabPage4.Text = "tabPage4";
+            // 
+            // tbMP3File
+            // 
+            this.tbMP3File.Location = new System.Drawing.Point(6, 8);
+            this.tbMP3File.Name = "tbMP3File";
+            this.tbMP3File.Size = new System.Drawing.Size(133, 20);
+            this.tbMP3File.TabIndex = 1;
+            // 
+            // btStopMP3
+            // 
+            this.btStopMP3.Location = new System.Drawing.Point(145, 35);
+            this.btStopMP3.Name = "btStopMP3";
+            this.btStopMP3.Size = new System.Drawing.Size(75, 23);
+            this.btStopMP3.TabIndex = 0;
+            this.btStopMP3.Text = "Stop MP3";
+            this.btStopMP3.UseVisualStyleBackColor = true;
+            this.btStopMP3.Click += new System.EventHandler(this.btStopMP3_Click);
+            // 
+            // btPlayMP3
+            // 
+            this.btPlayMP3.Location = new System.Drawing.Point(145, 6);
+            this.btPlayMP3.Name = "btPlayMP3";
+            this.btPlayMP3.Size = new System.Drawing.Size(75, 23);
+            this.btPlayMP3.TabIndex = 0;
+            this.btPlayMP3.Text = "Play MP3";
+            this.btPlayMP3.UseVisualStyleBackColor = true;
+            this.btPlayMP3.Click += new System.EventHandler(this.btPlayMP3_Click);
+            // 
             // serialPort1
             // 
             this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
             this.serialPort1.OnConnectionStateChange += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ConnectionStateChangedHandler(this.serialPort1_OnConnectionStateChange);
-            // 
-            // btEnqueueMid
-            // 
-            this.btEnqueueMid.Location = new System.Drawing.Point(105, 6);
-            this.btEnqueueMid.Name = "btEnqueueMid";
-            this.btEnqueueMid.Size = new System.Drawing.Size(93, 23);
-            this.btEnqueueMid.TabIndex = 0;
-            this.btEnqueueMid.Text = "EnqueueMid";
-            this.btEnqueueMid.UseVisualStyleBackColor = true;
-            this.btEnqueueMid.Click += new System.EventHandler(this.btEnqueueMid_Click);
             // 
             // Form1
             // 
@@ -485,6 +531,8 @@ namespace TestApp
             this.tabPage3.PerformLayout();
             this.tpQueue.ResumeLayout(false);
             this.tpQueue.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -527,6 +575,10 @@ namespace TestApp
         private System.Windows.Forms.Button btEnqueHigh;
         private System.Windows.Forms.TextBox tbQueueEntries;
         private System.Windows.Forms.Button btEnqueueMid;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox tbMP3File;
+        private System.Windows.Forms.Button btPlayMP3;
+        private System.Windows.Forms.Button btStopMP3;
     }
 }
 

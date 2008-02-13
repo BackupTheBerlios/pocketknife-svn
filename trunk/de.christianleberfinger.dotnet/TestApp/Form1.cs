@@ -32,6 +32,7 @@ using de.christianleberfinger.dotnet.pocketknife;
 using de.christianleberfinger.dotnet.pocketknife.Threading;
 using System.Diagnostics;
 using de.christianleberfinger.dotnet.pocketknife.Collections;
+using de.christianleberfinger.dotnet.pocketknife.media;
 
 namespace TestApp
 {
@@ -231,6 +232,21 @@ namespace TestApp
         {
             pq.enqueue(Priorities.Mid, "mid" + queueCounter++);
             updateList();
+        }
+
+        Media _lastMP3 = null;
+
+        private void btPlayMP3_Click(object sender, EventArgs e)
+        {
+            _lastMP3 = MediaPlayer.play(tbMP3File.Text);
+            
+        }
+
+        private void btStopMP3_Click(object sender, EventArgs e)
+        {
+            Media lastMP3 = _lastMP3;
+            if (lastMP3 != null)
+                lastMP3.stop();
         }
     }
 }

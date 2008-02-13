@@ -123,6 +123,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
             Dispose();
         }
 
+        /// <summary>
+        /// Disposes.
+        /// </summary>
         public bool Disposed
         {
             get { return _disposed; }
