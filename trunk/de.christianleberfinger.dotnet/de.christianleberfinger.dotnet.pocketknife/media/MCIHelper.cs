@@ -24,6 +24,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace de.christianleberfinger.dotnet.pocketknife.media
 {
@@ -65,6 +66,29 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
         {
             StringBuilder buffer = new StringBuilder(255);
             int errorCode = mciSendString(command, buffer, buffer.Capacity, IntPtr.Zero);
+            if (errorCode != 0)
+            {
+                throw new MCIException(errorCode);
+            }
+            return buffer.ToString();
+        }
+
+        /// <summary>
+        /// Internal function to send an MCI command.
+        /// </summary>
+        /// <param name="command">The MCI command</param>
+        /// <param name="callbackControl">The control which should notified 
+        /// (if the 'notified flag' is set in the command)</param>
+        /// <returns>The MCI return string.</returns>
+        /// <exception cref="MCIException"></exception>
+        public static string sendMCICommand(string command, Control callbackControl)
+        {
+            IntPtr callbackHandle = IntPtr.Zero;
+            if (callbackControl != null)
+                callbackHandle = callbackControl.Handle;
+
+            StringBuilder buffer = new StringBuilder(255);
+            int errorCode = mciSendString(command, buffer, buffer.Capacity, callbackHandle);
             if (errorCode != 0)
             {
                 throw new MCIException(errorCode);

@@ -234,19 +234,26 @@ namespace TestApp
             updateList();
         }
 
-        Media _lastMP3 = null;
+        Media _lastMedia = null;
 
         private void btPlayMP3_Click(object sender, EventArgs e)
         {
-            _lastMP3 = MediaPlayer.play(tbMP3File.Text);
-            
+            _lastMedia = MediaPlayer.play(tbMP3File.Text, mediaBox);
+            propertyGrid1.SelectedObject = _lastMedia;
         }
 
         private void btStopMP3_Click(object sender, EventArgs e)
         {
-            Media lastMP3 = _lastMP3;
-            if (lastMP3 != null)
-                lastMP3.stop();
+            Media lastMedia = _lastMedia;
+            if (lastMedia != null)
+                lastMedia.stop();
+        }
+
+        private void cbMediaPaused_CheckedChanged(object sender, EventArgs e)
+        {
+             Media lastMedia = _lastMedia;
+             if (lastMedia != null)
+                 lastMedia.Paused = cbMediaPaused.Checked;
         }
     }
 }

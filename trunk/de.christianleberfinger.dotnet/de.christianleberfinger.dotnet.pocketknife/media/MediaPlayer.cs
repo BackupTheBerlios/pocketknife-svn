@@ -34,18 +34,30 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
     /// </summary>
     public class MediaPlayer
     {
-
-
         /// <summary>
-        /// Plays a given media file.
+        /// Creates and plays a given media file.
         /// </summary>
-        /// <param name="filename"></param>
-        /// <returns></returns>
+        /// <param name="filename">The file you want to play.</param>
+        /// <returns>A media object that represents the file you defined.</returns>
         /// <exception cref="MediaPlayerException"></exception>
         public static Media play(string filename)
         {
             Media media = new Media(filename);
             media.play();
+            return media;
+        }
+
+        /// <summary>
+        /// Creates and plays a given media file within a given control.
+        /// </summary>
+        /// <param name="filename">The file you want to play.</param>
+        /// <param name="parent">The control in which the media file should be rendered. (for videos)</param>
+        /// <returns>A media object that represents the file you defined.</returns>
+        /// <exception cref="MediaPlayerException"></exception>
+        public static Media play(string filename, System.Windows.Forms.Control parent)
+        {
+            Media media = new Media(filename);
+            media.play(parent);
             return media;
         }
 

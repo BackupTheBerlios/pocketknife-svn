@@ -31,6 +31,13 @@ namespace TestApp
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tabControlMain = new System.Windows.Forms.TabControl();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.propertyGrid1 = new System.Windows.Forms.PropertyGrid();
+            this.cbMediaPaused = new System.Windows.Forms.CheckBox();
+            this.mediaBox = new System.Windows.Forms.PictureBox();
+            this.tbMP3File = new System.Windows.Forms.TextBox();
+            this.btStopMP3 = new System.Windows.Forms.Button();
+            this.btPlayMP3 = new System.Windows.Forms.Button();
             this.tabPageLogging = new System.Windows.Forms.TabPage();
             this.loggingBox1 = new de.christianleberfinger.dotnet.pocketknife.controls.LogBox();
             this.tabPageSerialPort = new System.Windows.Forms.TabPage();
@@ -63,12 +70,10 @@ namespace TestApp
             this.btEnqueueMid = new System.Windows.Forms.Button();
             this.btEnqueueLow = new System.Windows.Forms.Button();
             this.btEnqueHigh = new System.Windows.Forms.Button();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tbMP3File = new System.Windows.Forms.TextBox();
-            this.btStopMP3 = new System.Windows.Forms.Button();
-            this.btPlayMP3 = new System.Windows.Forms.Button();
             this.serialPort1 = new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort();
             this.tabControlMain.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mediaBox)).BeginInit();
             this.tabPageLogging.SuspendLayout();
             this.tabPageSerialPort.SuspendLayout();
             this.tabPageConfiguration.SuspendLayout();
@@ -78,7 +83,6 @@ namespace TestApp
             ((System.ComponentModel.ISupportInitialize)(this.tbBitIndex)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.tpQueue.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
@@ -106,6 +110,7 @@ namespace TestApp
             this.tabControlMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.tabControlMain.Controls.Add(this.tabPage4);
             this.tabControlMain.Controls.Add(this.tabPageLogging);
             this.tabControlMain.Controls.Add(this.tabPageSerialPort);
             this.tabControlMain.Controls.Add(this.tabPageConfiguration);
@@ -113,12 +118,85 @@ namespace TestApp
             this.tabControlMain.Controls.Add(this.tabPage2);
             this.tabControlMain.Controls.Add(this.tabPage3);
             this.tabControlMain.Controls.Add(this.tpQueue);
-            this.tabControlMain.Controls.Add(this.tabPage4);
             this.tabControlMain.Location = new System.Drawing.Point(12, 12);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
             this.tabControlMain.Size = new System.Drawing.Size(466, 298);
             this.tabControlMain.TabIndex = 4;
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage4.Controls.Add(this.propertyGrid1);
+            this.tabPage4.Controls.Add(this.cbMediaPaused);
+            this.tabPage4.Controls.Add(this.mediaBox);
+            this.tabPage4.Controls.Add(this.tbMP3File);
+            this.tabPage4.Controls.Add(this.btStopMP3);
+            this.tabPage4.Controls.Add(this.btPlayMP3);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(458, 272);
+            this.tabPage4.TabIndex = 7;
+            this.tabPage4.Text = "Media";
+            // 
+            // propertyGrid1
+            // 
+            this.propertyGrid1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.propertyGrid1.Location = new System.Drawing.Point(6, 34);
+            this.propertyGrid1.Name = "propertyGrid1";
+            this.propertyGrid1.Size = new System.Drawing.Size(226, 231);
+            this.propertyGrid1.TabIndex = 4;
+            // 
+            // cbMediaPaused
+            // 
+            this.cbMediaPaused.AutoSize = true;
+            this.cbMediaPaused.Location = new System.Drawing.Point(307, 10);
+            this.cbMediaPaused.Name = "cbMediaPaused";
+            this.cbMediaPaused.Size = new System.Drawing.Size(62, 17);
+            this.cbMediaPaused.TabIndex = 3;
+            this.cbMediaPaused.Text = "Paused";
+            this.cbMediaPaused.UseVisualStyleBackColor = true;
+            this.cbMediaPaused.CheckedChanged += new System.EventHandler(this.cbMediaPaused_CheckedChanged);
+            // 
+            // mediaBox
+            // 
+            this.mediaBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediaBox.Location = new System.Drawing.Point(238, 35);
+            this.mediaBox.Name = "mediaBox";
+            this.mediaBox.Size = new System.Drawing.Size(214, 170);
+            this.mediaBox.TabIndex = 2;
+            this.mediaBox.TabStop = false;
+            // 
+            // tbMP3File
+            // 
+            this.tbMP3File.Location = new System.Drawing.Point(6, 8);
+            this.tbMP3File.Name = "tbMP3File";
+            this.tbMP3File.Size = new System.Drawing.Size(133, 20);
+            this.tbMP3File.TabIndex = 1;
+            this.tbMP3File.Text = "C:\\test.mp3";
+            // 
+            // btStopMP3
+            // 
+            this.btStopMP3.Location = new System.Drawing.Point(226, 6);
+            this.btStopMP3.Name = "btStopMP3";
+            this.btStopMP3.Size = new System.Drawing.Size(75, 23);
+            this.btStopMP3.TabIndex = 0;
+            this.btStopMP3.Text = "Stop Media";
+            this.btStopMP3.UseVisualStyleBackColor = true;
+            this.btStopMP3.Click += new System.EventHandler(this.btStopMP3_Click);
+            // 
+            // btPlayMP3
+            // 
+            this.btPlayMP3.Location = new System.Drawing.Point(145, 6);
+            this.btPlayMP3.Name = "btPlayMP3";
+            this.btPlayMP3.Size = new System.Drawing.Size(75, 23);
+            this.btPlayMP3.TabIndex = 0;
+            this.btPlayMP3.Text = "Play Media";
+            this.btPlayMP3.UseVisualStyleBackColor = true;
+            this.btPlayMP3.Click += new System.EventHandler(this.btPlayMP3_Click);
             // 
             // tabPageLogging
             // 
@@ -463,46 +541,6 @@ namespace TestApp
             this.btEnqueHigh.UseVisualStyleBackColor = true;
             this.btEnqueHigh.Click += new System.EventHandler(this.btEnqueHigh_Click);
             // 
-            // tabPage4
-            // 
-            this.tabPage4.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPage4.Controls.Add(this.tbMP3File);
-            this.tabPage4.Controls.Add(this.btStopMP3);
-            this.tabPage4.Controls.Add(this.btPlayMP3);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(458, 272);
-            this.tabPage4.TabIndex = 7;
-            this.tabPage4.Text = "tabPage4";
-            // 
-            // tbMP3File
-            // 
-            this.tbMP3File.Location = new System.Drawing.Point(6, 8);
-            this.tbMP3File.Name = "tbMP3File";
-            this.tbMP3File.Size = new System.Drawing.Size(133, 20);
-            this.tbMP3File.TabIndex = 1;
-            // 
-            // btStopMP3
-            // 
-            this.btStopMP3.Location = new System.Drawing.Point(145, 35);
-            this.btStopMP3.Name = "btStopMP3";
-            this.btStopMP3.Size = new System.Drawing.Size(75, 23);
-            this.btStopMP3.TabIndex = 0;
-            this.btStopMP3.Text = "Stop MP3";
-            this.btStopMP3.UseVisualStyleBackColor = true;
-            this.btStopMP3.Click += new System.EventHandler(this.btStopMP3_Click);
-            // 
-            // btPlayMP3
-            // 
-            this.btPlayMP3.Location = new System.Drawing.Point(145, 6);
-            this.btPlayMP3.Name = "btPlayMP3";
-            this.btPlayMP3.Size = new System.Drawing.Size(75, 23);
-            this.btPlayMP3.TabIndex = 0;
-            this.btPlayMP3.Text = "Play MP3";
-            this.btPlayMP3.UseVisualStyleBackColor = true;
-            this.btPlayMP3.Click += new System.EventHandler(this.btPlayMP3_Click);
-            // 
             // serialPort1
             // 
             this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
@@ -518,6 +556,9 @@ namespace TestApp
             this.Text = "pocketknife test application";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.tabControlMain.ResumeLayout(false);
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mediaBox)).EndInit();
             this.tabPageLogging.ResumeLayout(false);
             this.tabPageSerialPort.ResumeLayout(false);
             this.tabPageSerialPort.PerformLayout();
@@ -531,8 +572,6 @@ namespace TestApp
             this.tabPage3.PerformLayout();
             this.tpQueue.ResumeLayout(false);
             this.tpQueue.PerformLayout();
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -579,6 +618,9 @@ namespace TestApp
         private System.Windows.Forms.TextBox tbMP3File;
         private System.Windows.Forms.Button btPlayMP3;
         private System.Windows.Forms.Button btStopMP3;
+        private System.Windows.Forms.PictureBox mediaBox;
+        private System.Windows.Forms.CheckBox cbMediaPaused;
+        private System.Windows.Forms.PropertyGrid propertyGrid1;
     }
 }
 
