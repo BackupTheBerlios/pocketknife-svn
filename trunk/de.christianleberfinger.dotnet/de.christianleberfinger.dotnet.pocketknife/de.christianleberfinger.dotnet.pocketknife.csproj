@@ -69,11 +69,11 @@
     <Compile Include="controls\SerialPortControl.Designer.cs">
       <DependentUpon>SerialPortControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="controls\TimeProgressBar.cs">
+    <Compile Include="controls\SimpleProgressBar.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="controls\TimeProgressBar.Designer.cs">
-      <DependentUpon>TimeProgressBar.cs</DependentUpon>
+    <Compile Include="controls\SimpleProgressBar.Designer.cs">
+      <DependentUpon>SimpleProgressBar.cs</DependentUpon>
     </Compile>
     <Compile Include="drawing\CircularRegion.cs" />
     <Compile Include="drawing\HitTest.cs" />
@@ -129,9 +129,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="controls\TimeProgressBar.resx">
+    <EmbeddedResource Include="controls\SimpleProgressBar.resx">
       <SubType>Designer</SubType>
-      <DependentUpon>TimeProgressBar.cs</DependentUpon>
+      <DependentUpon>SimpleProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="images\media-floppy.png" />
   </ItemGroup>
