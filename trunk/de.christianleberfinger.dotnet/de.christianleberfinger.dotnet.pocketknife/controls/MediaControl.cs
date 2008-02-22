@@ -53,7 +53,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             if (Media != null)
             {
                 Media.stop();
-                Media.OnMediaStateChanged -= _currentMedia_OnMediaStateChanged;
+                Media.OnMediaStateChanged -= mediaStateChanged;
             }
 
             // set new media object
@@ -61,11 +61,13 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
 
             updateGUI();
 
-            Media.OnMediaStateChanged += new de.christianleberfinger.dotnet.pocketknife.GenericEventHandler<Media, Media.MediaEventArgs>(_currentMedia_OnMediaStateChanged);
+            Media.OnMediaStateChanged += new de.christianleberfinger.dotnet.pocketknife.GenericEventHandler<Media, Media.MediaEventArgs>(mediaStateChanged);
         }
 
-        void _currentMedia_OnMediaStateChanged(Media sender, Media.MediaEventArgs e)
+        void mediaStateChanged(Media sender, Media.MediaEventArgs e)
         {
+            Debug.WriteLine("New media state: " + e.NewState);
+
             updateGUI();
         }
 
@@ -88,6 +90,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
                 else
                 {
                     lblTime.Text = getPositionString();
+
+                    if (Media.PlayState == PlayStates.Stopped || Media.PlayState == PlayStates.Unknown)
+                    {
+                        rbtStop.Checked = true;
+                    }
+                    else if (Media.PlayState == PlayStates.Paused)
+                    {
+                        rbtPause.Checked = true;
+                    }
 
                     timeProgressBar1.RelativePosition = Media.RelativePosition;
                     lblStatus.Text = Media.Filename;

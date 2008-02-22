@@ -107,7 +107,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this.rbtPlay.Name = "rbtPlay";
             this.rbtPlay.Size = new System.Drawing.Size(37, 25);
             this.rbtPlay.TabIndex = 0;
-            this.rbtPlay.TabStop = true;
             this.rbtPlay.UseVisualStyleBackColor = true;
             this.rbtPlay.CheckedChanged += new System.EventHandler(this.rbtPlay_CheckedChanged);
             // 
@@ -120,13 +119,13 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this.rbtPause.Name = "rbtPause";
             this.rbtPause.Size = new System.Drawing.Size(37, 25);
             this.rbtPause.TabIndex = 1;
-            this.rbtPause.TabStop = true;
             this.rbtPause.UseVisualStyleBackColor = true;
             this.rbtPause.CheckedChanged += new System.EventHandler(this.rbtPause_CheckedChanged);
             // 
             // rbtStop
             // 
             this.rbtStop.Appearance = System.Windows.Forms.Appearance.Button;
+            this.rbtStop.Checked = true;
             this.rbtStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbtStop.Image = ((System.Drawing.Image)(resources.GetObject("rbtStop.Image")));
             this.rbtStop.Location = new System.Drawing.Point(89, 18);
