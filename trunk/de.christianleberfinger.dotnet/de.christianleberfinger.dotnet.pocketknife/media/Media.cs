@@ -68,6 +68,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
 
             _filename = filename;
             _alias = System.Guid.NewGuid().ToString();
+
+            open();
         }
 
         /// <summary>
@@ -89,14 +91,28 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
         /// <summary>
         /// Plays the media file.
         /// </summary>
+        /// <exception cref="MediaPlayerException"></exception>
         public void play()
         {
             try
             {
-                string dosFileName = PathTool.ConvertToDosPath(Filename);
-
-                MCIHelper.sendMCICommand(string.Format("open {0} type MPEGVideo alias {1}", dosFileName, Alias));
                 MCIHelper.sendMCICommand(string.Format("play {0} from 0", Alias), _callbackControl);
+
+                // set time format to milliseconds
+                MCIHelper.sendMCICommand(string.Format("set {0} time format milliseconds", Alias));
+            }
+            catch (Exception ex)
+            {
+                throw new MediaPlayerException("Error while starting to play", ex);
+            }
+        }
+
+        void open()
+        {
+            try
+            {
+                string dosFileName = PathTool.ConvertToDosPath(Filename);
+                MCIHelper.sendMCICommand(string.Format("open {0} type MPEGVideo alias {1}", dosFileName, Alias));
 
                 // set time format to milliseconds
                 MCIHelper.sendMCICommand(string.Format("set {0} time format milliseconds", Alias));
@@ -122,8 +138,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             protected override void WndProc(ref System.Windows.Forms.Message m)
             {
                 base.WndProc(ref m);
-
-                Debug.WriteLine(m);
 
                 if (m.Msg == MM_MCINOTIFY)
                 {
@@ -237,6 +251,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
 
         /// <summary>
         /// Returns the current PlayState of this media file.
+        /// When an error occured, "PlayStates.Unknown" will be returned (no exception is thrown here).
         /// </summary>
         public PlayStates PlayState
         {
@@ -261,6 +276,19 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
                 {
                     return PlayStates.Unknown;
                 }
+            }
+        }
+
+        /// <summary>
+        /// Returns the current position in a relative value between 0 and 1.
+        /// </summary>
+        public double RelativePosition
+        {
+            get
+            {
+                double duration = Duration.TotalMilliseconds;
+                double pos = Position.TotalMilliseconds;
+                return pos / duration;
             }
         }
 
@@ -303,18 +331,24 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             }
         }
 
+        TimeSpan _duration = TimeSpan.Zero;
+
         /// <summary>
         /// Returns the duration of the current media object.
-        /// If the length of the current media object can't be acquired, Timespan.Zero is being returned.
+        /// If the length of the current media object can't be acquired, Timespan.Zero is being returned (no exception is thrown).
         /// </summary>
         public TimeSpan Duration
         {
             get
             {
+                if (_duration != TimeSpan.Zero)
+                    return _duration;
+
                 try
                 {
                     string millisString = MCIHelper.sendMCICommand(string.Format("status {0} length", Alias));
-                    return TimeSpan.FromMilliseconds(double.Parse(millisString));
+                    _duration = TimeSpan.FromMilliseconds(double.Parse(millisString));
+                    return _duration;
                 }
                 catch
                 {

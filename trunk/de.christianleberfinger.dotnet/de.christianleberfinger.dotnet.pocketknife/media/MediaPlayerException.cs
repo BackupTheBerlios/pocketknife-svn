@@ -31,11 +31,20 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
     /// </summary>
     public class MediaPlayerException : Exception
     {
-        internal MediaPlayerException(string message)
+        /// <summary>
+        /// ctor.
+        /// </summary>
+        /// <param name="message"></param>
+        public MediaPlayerException(string message)
             : base(message)
         {
         }
-        internal MediaPlayerException(string messsage, Exception inner)
+        /// <summary>
+        /// ctor.
+        /// </summary>
+        /// <param name="messsage"></param>
+        /// <param name="inner"></param>
+        public MediaPlayerException(string messsage, Exception inner)
             : base(messsage, inner)
         {
         }
