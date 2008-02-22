@@ -96,10 +96,10 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
         {
             try
             {
-                MCIHelper.sendMCICommand(string.Format("play {0} from 0", Alias), _callbackControl);
-
                 // set time format to milliseconds
                 MCIHelper.sendMCICommand(string.Format("set {0} time format milliseconds", Alias));
+
+                MCIHelper.sendMCICommand(string.Format("play {0}", Alias), _callbackControl); // from 0
             }
             catch (Exception ex)
             {
@@ -201,6 +201,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             try
             {
                 MCIHelper.sendMCICommand(string.Format("stop {0}", Alias));
+                Position = TimeSpan.Zero;
             }
             catch (Exception ex)
             {
@@ -314,7 +315,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             {
                 try
                 {
-                    bool playing = PlayState == PlayStates.Playing;
+                    bool playing = (PlayState == PlayStates.Playing);
                     int millis = (int)value.TotalMilliseconds;
                     MCIHelper.sendMCICommand(string.Format("seek {0} to {1}", Alias, millis));
 

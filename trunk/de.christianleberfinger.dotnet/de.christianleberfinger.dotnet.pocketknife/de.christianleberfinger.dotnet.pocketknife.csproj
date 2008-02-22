@@ -63,6 +63,12 @@
     <Compile Include="controls\LogBox.Designer.cs">
       <DependentUpon>LogBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="controls\MediaControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="controls\MediaControl.Designer.cs">
+      <DependentUpon>MediaControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="controls\SerialPortControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -129,11 +135,24 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="controls\MediaControl.resx">
+      <DependentUpon>MediaControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="controls\SimpleProgressBar.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SimpleProgressBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="images\media-floppy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="images\media-playback-pause.png" />
+    <Content Include="images\media-playback-start.png" />
+    <Content Include="images\media-playback-stop.png" />
+    <Content Include="images\media-seek-backward.png" />
+    <Content Include="images\media-seek-forward.png" />
+    <Content Include="images\media-skip-backward.png" />
+    <Content Include="images\media-skip-forward.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="text\" />
