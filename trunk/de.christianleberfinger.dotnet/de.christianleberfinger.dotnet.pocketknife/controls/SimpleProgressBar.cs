@@ -118,9 +118,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// what should i say?
+        /// </summary>
         public class ValueUpdatedEventArgs : EventArgs
         {
         }
+        /// <summary>
+        /// Is raised when the bar's value has changed.
+        /// </summary>
         public event GenericEventHandler<SimpleProgressBar, ValueUpdatedEventArgs> OnValueChanged;
 
         /// <summary>

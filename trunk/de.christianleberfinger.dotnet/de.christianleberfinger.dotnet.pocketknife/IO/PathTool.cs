@@ -35,7 +35,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
     {
         /// <summary>
         /// The GetShortPathName function obtains the old DOS path form (8.3) of the given input path.
-        /// Yes, you're right... DOS is not dead.. :-(
+        /// Yes, you're right... DOS is not dead yet.. :-(
         /// </summary>
         /// <param name="lpLongPath">The long path.</param>
         /// <param name="lpShortPath"></param>

@@ -34,16 +34,21 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
     /// </summary>
     public class Media : IDisposable, IMediaCallback
     {
-        
+        /// <summary>
+        /// the media file's filename.
+        /// </summary>
         string _filename;
 
         /// <summary>
         /// Creates a new media object
         /// </summary>
         /// <param name="filename"></param>
+        /// <exception cref="MediaPlayerException"></exception>
+        /// <exception cref="ArgumentNullException">When the given filename is null.</exception>
         public Media(string filename)
         {
-            Debug.Assert(filename != null);
+            if (filename == null)
+                throw new ArgumentNullException(filename);
 
             _callbackControl = new CallbackControl(this);
 
@@ -99,7 +104,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             }
             catch (Exception ex)
             {
-                throw new MediaPlayerException("Error while starting to play", ex);
+                throw new MediaPlayerException("Could not open mediafile.", ex);
             }
         }
 
@@ -122,12 +127,22 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
                 if (m.Msg == MM_MCINOTIFY)
                 {
                     _callback.callback();
+                    
+                    // I wasn't able to read the ALIAS that's connected to the WndProc event.
+                    // If that has been able, a static CallbackControl could have been used
+                    // for all Media objects (which I had preferred).
+
                     //string s = (string)m.GetLParam(typeof(string));
                     //string test = System.Runtime.InteropServices.Marshal.PtrToStringAuto(m.LParam);
                 }
             }
         }
 
+        /// <summary>
+        /// The callback control is used to register a Windows Handle in
+        /// the operating system. This handle is used for MCI callbacks
+        /// and tells us whether an MCI operation succeded or not.
+        /// </summary>
         CallbackControl _callbackControl;
 
         /// <summary>
@@ -149,26 +164,47 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             }
         }
 
+        /// <summary>
+        /// Alias for MCI communication. This alias is the 'reference' to the media device.
+        /// It's value is an auto-generated GUID set by the constructor.
+        /// </summary>
+        private readonly string _alias;
 
-        private string _alias;
+        /// <summary>
+        /// Alias for MCI communication. This alias is the 'reference' to the media device.
+        /// It's value is an auto-generated GUID set by the constructor.
+        /// </summary>
         private string Alias
         {
             get { return _alias; }
         }
 
+        int _volume = 100;
+
         /// <summary>
-        /// Gets or sets the media file's volume.
+        /// Gets or sets the media file's volume. (Range 0-100)
         /// </summary>
         public int Volume
         {
             get
             {
-                string currentVolume = MCIHelper.sendMCICommand(string.Format("STATUS {0} VOLUME", Alias));
-                return int.Parse(currentVolume);
+                return _volume;
             }
             set
             {
-                MCIHelper.sendMCICommand(string.Format("SETAUDIO {0} VOLUME TO {1}", Alias, value));
+                try
+                {
+                    // cache the current volume setting. 
+                    // this is needed for unmute to be able to restore the previous volume.
+                    _volume = value;
+
+                    // sets the volume of the media device
+                    MCIHelper.sendMCICommand(string.Format("SETAUDIO {0} VOLUME TO {1}", Alias, value));
+                }
+                catch (MCIException ex)
+                {
+                    throw new MediaPlayerException("Could not set volume. Is the value in the range [0;100]?", ex);
+                }
             }
         }
 
@@ -186,6 +222,33 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             catch (Exception ex)
             {
                 throw new MediaPlayerException("Error while stopping", ex);
+            }
+        }
+
+        bool _muted = false;
+
+        /// <summary>
+        /// Gets or sets the muted state.
+        /// </summary>
+        public bool Muted
+        {
+            get
+            {
+                return _muted;
+            }
+            set
+            {
+                _muted = value;
+                if (Muted)
+                {
+                    // set volume to zero
+                    MCIHelper.sendMCICommand(string.Format("SETAUDIO {0} VOLUME TO {1}", Alias, 0));
+                }
+                else
+                {
+                    // reset volume
+                    MCIHelper.sendMCICommand(string.Format("SETAUDIO {0} VOLUME TO {1}", Alias, Volume));
+                }
             }
         }
 
@@ -457,6 +520,4 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
         /// <summary>The media file status is unknown.</summary>
         Unknown
     }
-
-
 }

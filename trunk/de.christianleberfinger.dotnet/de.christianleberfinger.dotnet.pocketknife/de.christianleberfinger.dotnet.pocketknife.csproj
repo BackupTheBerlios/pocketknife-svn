@@ -146,6 +146,9 @@
     <EmbeddedResource Include="images\media-floppy.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="images\audio-volume-high.png" />
+    <Content Include="images\audio-volume-medium.png" />
+    <Content Include="images\audio-volume-muted.png" />
     <Content Include="images\media-playback-pause.png" />
     <Content Include="images\media-playback-start.png" />
     <Content Include="images\media-playback-stop.png" />

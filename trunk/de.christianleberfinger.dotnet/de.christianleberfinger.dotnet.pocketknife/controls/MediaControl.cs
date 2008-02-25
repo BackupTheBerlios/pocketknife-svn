@@ -32,6 +32,9 @@ using System.Diagnostics;
 
 namespace de.christianleberfinger.dotnet.pocketknife.controls
 {
+    /// <summary>
+    /// A control for playing and controlling media files.
+    /// </summary>
     public partial class MediaControl : UserControl
     {
         Media _media = null;
@@ -42,26 +45,21 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         public Media Media
         {
             get { return _media; }
-        }
-
-        /// <summary>
-        /// Sets the current media object.
-        /// </summary>
-        /// <param name="media"></param>
-        public void setMedia(Media media)
-        {
-            if (Media != null)
+            set
             {
-                Media.stop();
-                Media.OnMediaStateChanged -= mediaStateChanged;
+                if (Media != null)
+                {
+                    Media.stop();
+                    Media.OnMediaStateChanged -= mediaStateChanged;
+                }
+
+                // set new media object
+                _media = value;
+                _media.Muted = Muted;
+                _media.OnMediaStateChanged += new de.christianleberfinger.dotnet.pocketknife.GenericEventHandler<Media, Media.MediaEventArgs>(mediaStateChanged);
+
+                updateGUI();
             }
-
-            // set new media object
-            _media = media;
-
-            updateGUI();
-
-            Media.OnMediaStateChanged += new de.christianleberfinger.dotnet.pocketknife.GenericEventHandler<Media, Media.MediaEventArgs>(mediaStateChanged);
         }
 
         void mediaStateChanged(Media sender, Media.MediaEventArgs e)
@@ -69,6 +67,24 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             Debug.WriteLine("New media state: " + e.NewState);
 
             updateGUI();
+        }
+
+        bool _muted = false;
+        /// <summary>
+        /// Gets or sets muted state.
+        /// </summary>
+        public bool Muted
+        {
+            get { return _muted; }
+            set {
+
+                Debug.WriteLine("Muted: " + value);
+                _muted = value;
+
+                Media m = Media;
+                if (m != null)
+                    m.Muted = value;
+            }
         }
 
         delegate void VoidHandler();
@@ -80,9 +96,18 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             }
             else
             {
+                if (Muted)
+                {
+                    cbMuted.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.audio_volume_muted;
+                }
+                else
+                {
+                    cbMuted.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.audio_volume_medium;
+                }
+
                 if (Media == null)
                 {
-                    lblTime.Text = "No media.";
+                    lblTime.Text = "";
                     lblStatus.Text = "No media.";
                     timeProgressBar1.RelativePosition = 0;
                     return;
@@ -91,13 +116,17 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
                 {
                     lblTime.Text = getPositionString();
 
-                    if (Media.PlayState == PlayStates.Stopped || Media.PlayState == PlayStates.Unknown)
+                    if (Media.PlayState == PlayStates.Playing)
                     {
-                        rbtStop.Checked = true;
+                        rbtPlay.Checked = true;
                     }
                     else if (Media.PlayState == PlayStates.Paused)
                     {
                         rbtPause.Checked = true;
+                    }
+                    else
+                    {
+                        rbtStop.Checked = true;
                     }
 
                     timeProgressBar1.RelativePosition = Media.RelativePosition;
@@ -110,7 +139,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         {
             if (Media == null)
             {
-                return "No media.";
+                return "";
             }
 
             TimeSpan pos = TimeSpan.FromMilliseconds(0);
@@ -125,6 +154,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             return string.Format("{0}:{1:d2} / {2}:{3:d2}", (int)pos.TotalMinutes, pos.Seconds, (int)duration.TotalMinutes, duration.Seconds);
         }
 
+        /// <summary>
+        /// Creates a new MediaControl.
+        /// </summary>
         public MediaControl()
         {
             InitializeComponent();
@@ -244,6 +276,19 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             {
                 setStatusbarText(ex.Message);
             }
+        }
+
+        private void cbMuted_MouseUp(object sender, MouseEventArgs e)
+        {
+            Muted = !Muted;
+            updateGUI();
+        }
+
+        private void tbVolume_Scroll(object sender, EventArgs e)
+        {
+            Media m = Media;
+            if (m != null)
+                m.Volume = tbVolume.Value;
         }
     }
 }

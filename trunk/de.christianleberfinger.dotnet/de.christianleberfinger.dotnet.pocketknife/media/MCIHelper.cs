@@ -96,34 +96,41 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             return buffer.ToString();
         }
 
-        public class MCIException : Exception
-        {
-            string _message;
-            public MCIException(int mciErrorCode)
-            {
-                _message = getMciErrorString(mciErrorCode);
-            }
-            public override string Message
-            {
-                get
-                {
-                    return _message;
-                }
-            }
-        }
-
         /// <summary>
-        /// Get textual information about a MCI error code.
+        /// Get textual information about an MCI error code.
         /// </summary>
         /// <param name="errorCode"></param>
         /// <returns>A textual representation of the given MCI error code.</returns>
-        private static string getMciErrorString(int errorCode)
+        public static string getMciErrorString(int errorCode)
         {
             StringBuilder buffer = new StringBuilder(256);
             if (mciGetErrorString(errorCode, buffer, buffer.Capacity) == 0)
                 return "unknown error.";
             return buffer.ToString();
         }
-
     }
+
+    /// <summary>
+    /// Exception that can occur when using MCI (media control interface)
+    /// </summary>
+    public class MCIException : Exception
+    {
+        string _message;
+        internal MCIException(int mciErrorCode)
+        {
+            _message = MCIHelper.getMciErrorString(mciErrorCode);
+        }
+
+        /// <summary>
+        /// Contains a textual description of the error.
+        /// </summary>
+        public override string Message
+        {
+            get
+            {
+                return _message;
+            }
+        }
+    }
+
 }
