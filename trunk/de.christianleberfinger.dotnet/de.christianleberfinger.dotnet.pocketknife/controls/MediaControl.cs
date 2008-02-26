@@ -29,6 +29,7 @@ using System.Text;
 using System.Windows.Forms;
 using de.christianleberfinger.dotnet.pocketknife.media;
 using System.Diagnostics;
+using System.IO;
 
 namespace de.christianleberfinger.dotnet.pocketknife.controls
 {
@@ -76,9 +77,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         public bool Muted
         {
             get { return _muted; }
-            set {
-
-                Debug.WriteLine("Muted: " + value);
+            set 
+            {
                 _muted = value;
 
                 Media m = Media;
@@ -130,7 +130,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
                     }
 
                     timeProgressBar1.RelativePosition = Media.RelativePosition;
-                    lblStatus.Text = Media.Filename;
+                    lblStatus.Text = Path.GetFileName( Media.Filename );
                 }
             }
         }

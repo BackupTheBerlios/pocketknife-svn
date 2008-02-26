@@ -75,6 +75,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this.statusStrip1.Location = new System.Drawing.Point(0, 51);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(298, 22);
+            this.statusStrip1.SizingGrip = false;
             this.statusStrip1.TabIndex = 4;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -101,7 +102,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             // 
             this.cbMuted.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbMuted.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.audio_volume_medium;
-            this.cbMuted.Location = new System.Drawing.Point(202, 20);
+            this.cbMuted.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.cbMuted.Location = new System.Drawing.Point(209, 20);
             this.cbMuted.Name = "cbMuted";
             this.cbMuted.Size = new System.Drawing.Size(32, 23);
             this.cbMuted.TabIndex = 6;
@@ -178,8 +180,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Controls.Add(this.tbVolume);
             this.Controls.Add(this.cbMuted);
+            this.Controls.Add(this.tbVolume);
             this.Controls.Add(this.rbtStop);
             this.Controls.Add(this.rbtPause);
             this.Controls.Add(this.rbtPlay);
