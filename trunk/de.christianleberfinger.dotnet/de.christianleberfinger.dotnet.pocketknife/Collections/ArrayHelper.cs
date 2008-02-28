@@ -33,6 +33,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
     {
         /// <summary>
         /// Creates a string that lists the elements of the given array.
+        /// If the given array is null, an empty string will be returned.
         /// </summary>
         /// <param name="list">the array</param>
         /// <param name="delimiter">the string that should be between the elements</param>
@@ -40,12 +41,16 @@ namespace de.christianleberfinger.dotnet.pocketknife.Collections
         public static string listElements(Array list, string delimiter)
         {
             StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < list.Length; i++)
-            {
-                sb.Append(list.GetValue(i).ToString());
 
-                if (i < list.Length - 1)
-                    sb.Append(delimiter);
+            if (list != null)
+            {
+                for (int i = 0; i < list.Length; i++)
+                {
+                    sb.Append(list.GetValue(i).ToString());
+
+                    if (i < list.Length - 1)
+                        sb.Append(delimiter);
+                }
             }
             return sb.ToString();
         }
