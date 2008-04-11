@@ -39,6 +39,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
     public partial class MediaControl : UserControl
     {
         Media _media = null;
+        int _volume = 100;
+        bool _muted = false;
 
         /// <summary>
         /// Gets or sets the current media object. 
@@ -57,6 +59,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
                 // set new media object
                 _media = value;
                 _media.Muted = Muted;
+                _media.Volume = _volume;
                 _media.OnMediaStateChanged += new de.christianleberfinger.dotnet.pocketknife.GenericEventHandler<Media, Media.MediaEventArgs>(mediaStateChanged);
 
                 updateGUI();
@@ -70,7 +73,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             updateGUI();
         }
 
-        bool _muted = false;
         /// <summary>
         /// Gets or sets muted state.
         /// </summary>
@@ -104,6 +106,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
                 {
                     cbMuted.Image = global::de.christianleberfinger.dotnet.pocketknife.Properties.Resources.audio_volume_medium;
                 }
+
+                tbVolume.Value = _volume;
 
                 if (Media == null)
                 {
@@ -160,6 +164,22 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
         public MediaControl()
         {
             InitializeComponent();
+        }
+
+        public int Volume
+        {
+            get { return _volume; }
+            set { setVolume(value); }
+        }
+
+        private void setVolume(int value)
+        {
+            _volume = value;
+            Media m = _media;
+            if (m != null)
+                m.Volume = value;
+
+            updateGUI();
         }
 
         delegate void StringHandler(string s);
@@ -286,9 +306,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
 
         private void tbVolume_Scroll(object sender, EventArgs e)
         {
+            _volume = tbVolume.Value;
+
             Media m = Media;
             if (m != null)
-                m.Volume = tbVolume.Value;
+                m.Volume = _volume;
         }
     }
 }

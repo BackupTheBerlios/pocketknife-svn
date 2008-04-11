@@ -88,8 +88,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
         event MessageReceivedEventHandler MessageReceived;
 
         /// <summary>
+        /// Sends the given string in the set encoding.
         /// </summary>
         void send(string message);
+
+        /// <summary>
+        /// Sends the given byte array.
+        /// </summary>
+        /// <param name="byteData"></param>
+        void send(byte[] byteData);
 
         /// <summary>
         /// Gets or sets the delimiter for delimiting the messages from each other. Default is line-break '\n'.

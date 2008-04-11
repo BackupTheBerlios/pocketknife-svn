@@ -97,7 +97,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             try
             {
                 string dosFileName = PathTool.ConvertToDosPath(Filename);
-                MCIHelper.sendMCICommand(string.Format("open {0} type MPEGVideo alias {1} wait notify", dosFileName, Alias), _callbackControl);
+                MCIHelper.sendMCICommand(string.Format("open {0} type MPEGVideo alias {1} wait", dosFileName, Alias), _callbackControl);
 
                 // set time format to milliseconds
                 MCIHelper.sendMCICommand(string.Format("set {0} time format milliseconds", Alias));
@@ -155,7 +155,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
             {
                 int handle = parent.Handle.ToInt32();
                 string dosFileName = PathTool.ConvertToDosPath(Filename);
-                MCIHelper.sendMCICommand(string.Format("open {0} type MPEGVideo alias {1} parent {2} style child wait notify", dosFileName, Alias, handle));
+                MCIHelper.sendMCICommand(string.Format("open {0} type MPEGVideo alias {1} parent {2} style child wait", dosFileName, Alias, handle));
                 MCIHelper.sendMCICommand(string.Format("play {0} from 0 notify", Alias), _callbackControl);
             }
             catch (Exception ex)
@@ -216,7 +216,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
         {
             try
             {
-                MCIHelper.sendMCICommand(string.Format("stop {0} wait notify", Alias), _callbackControl);
+                MCIHelper.sendMCICommand(string.Format("stop {0} wait", Alias), _callbackControl);
                 Position = TimeSpan.Zero;
             }
             catch (Exception ex)
@@ -271,7 +271,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
                         try
                         {
                             // PAUSE
-                            MCIHelper.sendMCICommand(string.Format("PAUSE {0} wait notify", Alias), _callbackControl);
+                            MCIHelper.sendMCICommand(string.Format("PAUSE {0} wait", Alias), _callbackControl);
+                            onMediaStateChanged();
                         }
                         catch (Exception ex)
                         {
@@ -282,7 +283,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
                     {
                         try
                         {
-                            MCIHelper.sendMCICommand(string.Format("RESUME {0} wait notify", Alias), _callbackControl);
+                            MCIHelper.sendMCICommand(string.Format("RESUME {0} wait", Alias), _callbackControl);
+                            onMediaStateChanged();
                         }
                         catch (Exception ex)
                         {
@@ -482,11 +484,17 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
         /// </summary>
         public event GenericEventHandler<Media, MediaEventArgs> OnMediaStateChanged;
 
+        /// <summary>
+        /// Is raised when the media was played to its end.
+        /// </summary>
+        public event GenericEventHandler<Media, MediaEventArgs> OnPlayFinished;
+
         #region IMediaCallback Member
 
         void IMediaCallback.callback()
         {
-            onMediaStateChanged();
+            //onMediaStateChanged();
+            onPlayFinished();
         }
 
         #endregion
@@ -498,6 +506,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.media
         {
             MediaEventArgs e = new MediaEventArgs(PlayState);
             EventHelper.invoke<Media, MediaEventArgs>(OnMediaStateChanged, this, e);
+        }
+
+        /// <summary>
+        /// raises the play finished event
+        /// </summary>
+        protected void onPlayFinished()
+        {
+            MediaEventArgs e = new MediaEventArgs(PlayState);
+            EventHelper.invoke<Media, MediaEventArgs>(OnPlayFinished, this, e);
         }
     }
 

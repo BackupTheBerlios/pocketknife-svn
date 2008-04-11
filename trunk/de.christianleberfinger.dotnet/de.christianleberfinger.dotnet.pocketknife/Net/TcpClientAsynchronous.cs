@@ -327,6 +327,15 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
             // Den String zum Senden in ein byte-Array umwandeln 
             byte[] byteData = _encoding.GetBytes(message + _msgDelimiter);
 
+            send(byteData);
+        }
+
+        /// <summary>
+        /// Sends the given byte array.
+        /// </summary>
+        /// <param name="byteData"></param>
+        public void send(byte[] byteData)
+        {
             // Den asynchronen Sendevorgang anstoﬂen.
             try
             {
