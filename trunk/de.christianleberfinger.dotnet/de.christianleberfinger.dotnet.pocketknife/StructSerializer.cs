@@ -36,16 +36,17 @@ namespace de.christianleberfinger.dotnet.pocketknife
         /// <summary>
         /// Creates a struct from an array of bytes.
         /// If the number of bytes passed to this function doesn't match the
-        /// size of the struct you want to build, a default instance of the
-        /// struct is returned.
+        /// size of the struct you want to build, an exception of type ArgumentException is thrown.
         /// </summary>
         /// <param name="bytes">The bytes that should build the struct.</param>
         /// <returns>A struct that was built using the given byte array.</returns>
+        /// <exception cref="ArgumentException">When the length of the given byte array doesnt match the 
+        /// length of the struct.</exception>
         public static T deserialize(byte[] bytes)
         {
             int structSize = Marshal.SizeOf(typeof(T));
             if (structSize != bytes.Length)
-                return default(T);
+                throw new ArgumentException("The length of the given byte[] doesn't match the struct's length.");
 
             IntPtr buffer = Marshal.AllocHGlobal(structSize);
             Marshal.Copy(bytes, 0, buffer, structSize);
