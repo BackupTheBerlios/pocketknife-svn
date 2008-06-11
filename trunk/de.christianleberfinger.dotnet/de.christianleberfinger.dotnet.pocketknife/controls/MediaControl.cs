@@ -166,6 +166,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Sets or gets the Volume (0-255)
+        /// </summary>
         public int Volume
         {
             get { return _volume; }
@@ -311,6 +314,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             Media m = Media;
             if (m != null)
                 m.Volume = _volume;
+        }
+
+        private void cbMuted_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

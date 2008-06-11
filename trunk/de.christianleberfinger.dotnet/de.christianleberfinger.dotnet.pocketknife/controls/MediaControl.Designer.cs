@@ -107,6 +107,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.controls
             this.cbMuted.Name = "cbMuted";
             this.cbMuted.Size = new System.Drawing.Size(32, 23);
             this.cbMuted.TabIndex = 6;
+            this.cbMuted.Click += new System.EventHandler(this.cbMuted_Click);
             this.cbMuted.MouseUp += new System.Windows.Forms.MouseEventHandler(this.cbMuted_MouseUp);
             // 
             // rbtStop
