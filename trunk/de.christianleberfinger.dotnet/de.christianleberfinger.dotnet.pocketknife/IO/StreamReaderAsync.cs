@@ -91,10 +91,16 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
             try
             {
                 int byteCount = _stream.EndRead(asyncResult);
+
                 if (byteCount > 0)
                 {
                     byte[] readBytes = new byte[byteCount];
                     Buffer.BlockCopy(buffer, 0, readBytes, 0, byteCount);
+
+                    foreach(byte b in readBytes)
+                    {
+                        Debug.WriteLine(">>> BYTE: " + b.ToString("X2"));
+                    }
 
                     //raise bytes read event
                     invoke(readBytes);
@@ -123,8 +129,11 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
         private void invoke(byte[] buffer)
         {
             // raise received event
-            _reusableEventArgs.Bytes = buffer;
-            EventHelper.invoke<StreamReaderAsync, BytesReceiveEventArgs>(OnBytesReceive, this, _reusableEventArgs);
+            BytesReceiveEventArgs e = new BytesReceiveEventArgs();
+            e.Bytes = buffer;
+            //_reusableEventArgs.Bytes = buffer;
+            //EventHelper.invoke<StreamReaderAsync, BytesReceiveEventArgs>(OnBytesReceive, this, _reusableEventArgs);
+            EventHelper.invoke<StreamReaderAsync, BytesReceiveEventArgs>(OnBytesReceive, this, e);
         }
 
         /// <summary>
