@@ -108,6 +108,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.drawing
             get { return _enteredRegions; }
         }
 
-
+        /// <summary>
+        /// Clears all information about entered regions.
+        /// </summary>
+        public void reset()
+        {
+            _enteredRegions.Clear();
+        }
     }
 }
