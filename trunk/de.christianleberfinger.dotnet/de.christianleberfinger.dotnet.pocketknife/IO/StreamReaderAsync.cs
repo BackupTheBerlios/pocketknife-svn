@@ -97,10 +97,10 @@ namespace de.christianleberfinger.dotnet.pocketknife.IO
                     byte[] readBytes = new byte[byteCount];
                     Buffer.BlockCopy(buffer, 0, readBytes, 0, byteCount);
 
-                    foreach(byte b in readBytes)
-                    {
-                        Debug.WriteLine(">>> BYTE: " + b.ToString("X2"));
-                    }
+                    //foreach(byte b in readBytes)
+                    //{
+                    //    Debug.WriteLine(">>> BYTE: " + b.ToString("X2"));
+                    //}
 
                     //raise bytes read event
                     invoke(readBytes);

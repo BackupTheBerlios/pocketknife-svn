@@ -120,7 +120,8 @@ namespace de.christianleberfinger.dotnet.pocketknife.Threading
         /// </summary>
         ~Countdown()
         {
-            Dispose();
+            if(!_disposed)
+                Dispose();
         }
 
         /// <summary>
