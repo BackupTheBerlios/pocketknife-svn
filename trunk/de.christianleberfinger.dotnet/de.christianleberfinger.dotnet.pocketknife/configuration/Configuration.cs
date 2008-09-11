@@ -154,7 +154,7 @@ namespace de.christianleberfinger.dotnet.pocketknife.configuration
                 }
                 settings = (T)Activator.CreateInstance(typeof(T));
 
-                throw new Exception("Could not load Configuration from " + filename + ". Using default values.", ex);
+                throw new Exception("Could not load Configuration from " + filename, ex);
             }
         }
 
