@@ -255,5 +255,11 @@ namespace TestApp
              if (lastMedia != null)
                  lastMedia.Paused = cbMediaPaused.Checked;
         }
+
+        private void btExceptionMessageBox_Click(object sender, EventArgs e)
+        {
+            Exception testEx = new Exception("A", new Exception("B", new Exception("C")));
+            ExceptionMessageBox.showException(testEx);
+        }
     }
 }

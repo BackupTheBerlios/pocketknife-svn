@@ -71,6 +71,7 @@ namespace TestApp
             this.btEnqueueLow = new System.Windows.Forms.Button();
             this.btEnqueHigh = new System.Windows.Forms.Button();
             this.serialPort1 = new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort();
+            this.btExceptionMessageBox = new System.Windows.Forms.Button();
             this.tabControlMain.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mediaBox)).BeginInit();
@@ -289,6 +290,7 @@ namespace TestApp
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.btExceptionMessageBox);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -546,6 +548,16 @@ namespace TestApp
             this.serialPort1.OnByteReceived += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ByteReceivedHandler(this.serialPort1_OnByteReceived_1);
             this.serialPort1.OnConnectionStateChange += new de.christianleberfinger.dotnet.pocketknife.IO.SerialPort.ConnectionStateChangedHandler(this.serialPort1_OnConnectionStateChange);
             // 
+            // btExceptionMessageBox
+            // 
+            this.btExceptionMessageBox.Location = new System.Drawing.Point(198, 25);
+            this.btExceptionMessageBox.Name = "btExceptionMessageBox";
+            this.btExceptionMessageBox.Size = new System.Drawing.Size(130, 23);
+            this.btExceptionMessageBox.TabIndex = 1;
+            this.btExceptionMessageBox.Text = "ExceptionMessageBox";
+            this.btExceptionMessageBox.UseVisualStyleBackColor = true;
+            this.btExceptionMessageBox.Click += new System.EventHandler(this.btExceptionMessageBox_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -621,6 +633,7 @@ namespace TestApp
         private System.Windows.Forms.PictureBox mediaBox;
         private System.Windows.Forms.CheckBox cbMediaPaused;
         private System.Windows.Forms.PropertyGrid propertyGrid1;
+        private System.Windows.Forms.Button btExceptionMessageBox;
     }
 }
 

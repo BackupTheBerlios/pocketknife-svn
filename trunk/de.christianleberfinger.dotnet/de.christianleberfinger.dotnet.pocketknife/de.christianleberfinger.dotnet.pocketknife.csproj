@@ -62,6 +62,12 @@
     <Compile Include="controls\DoubleBufferedPanel.Designer.cs">
       <DependentUpon>DoubleBufferedPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="controls\ExceptionMessageBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="controls\ExceptionMessageBox.Designer.cs">
+      <DependentUpon>ExceptionMessageBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="controls\ExternalWindow.cs" />
     <Compile Include="controls\LogBox.cs">
       <SubType>UserControl</SubType>
@@ -141,6 +147,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="controls\ExceptionMessageBox.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>ExceptionMessageBox.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="controls\MediaControl.resx">
       <DependentUpon>MediaControl.cs</DependentUpon>
       <SubType>Designer</SubType>
