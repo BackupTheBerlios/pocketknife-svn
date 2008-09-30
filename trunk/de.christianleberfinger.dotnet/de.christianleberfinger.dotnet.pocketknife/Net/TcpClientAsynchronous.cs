@@ -1,6 +1,6 @@
 /*
  * 
- * Copyright (c) 2007 Christian Leberfinger
+ * Copyright (c) 2007-2008 Christian Leberfinger
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a 
  * copy of this software and associated documentation files (the "Software"), 
@@ -153,7 +153,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
             
 
             // Das TCP/IP-Socket initialisieren.
-            _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            _socket = createTCPSocket();
+        }
+
+        private Socket createTCPSocket()
+        {
+            return new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
         }
 
         #region ITcpClient Members
@@ -179,9 +184,12 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
 
             _tryAutoReconnect = true;
 
+            if (_socket == null)
+                _socket = createTCPSocket();
+
             // Nichts zu tun, wenn bereits verbunden
             if (_socket.Connected)
-                return;
+                disconnect();
 
             IPEndPoint remoteEP = null;
             try
@@ -251,6 +259,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
         {
             get
             {
+                if (_socket == null)
+                    return false;
+
                 return _socket.Connected;
             }
         }
@@ -293,12 +304,16 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
                 // Das Socket schlieﬂen
                 _socket.Shutdown(SocketShutdown.Both);
                 _socket.Close();
+            }
+            // Eine Exception beim Socket-Schlieﬂen kann meines Erachtens vernachl‰ssigt werden
+            catch { }
+            finally 
+            {
+                _socket = null;
 
                 // OnConnectionStateChanged - Event feuern
                 EventHelper.invokeUnsafe(ConnectionStateChanged, this);
             }
-            // Eine Exception beim Socket-Schlieﬂen kann meines Erachtens vernachl‰ssigt werden
-            catch { }
         }
 
         /// <summary>
@@ -307,12 +322,6 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
         public void disconnect()
         {
             _tryAutoReconnect = false;
-
-            // Es ist nichts zu tun, wenn diese Verbindung bereits unterbrochen ist.
-            if (!Connected || _socket == null)
-            {
-                return;
-            }
 
             closeSocket();
         }
@@ -342,6 +351,9 @@ namespace de.christianleberfinger.dotnet.pocketknife.Net
                 SendStateObject state = new SendStateObject();
                 state.socket = _socket;
                 state.data = byteData;
+
+                if (_socket == null)
+                    throw new Exception("Can not send when Socket is not open");
 
                 _socket.BeginSend(byteData, 0, byteData.Length, SocketFlags.None,
                     new AsyncCallback(sendCallback), state);
